@@ -1,0 +1,54 @@
+.header {
+    position: relative;
+    display: flex;
+    /*Docasne border*/
+    border: 1px solid black;
+    background-image: image-set("../imgs/o2arena1-700x400.jpg");
+    height: 150px;
+
+}
+
+.nav-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    background: rgba(0, 0, 0, 0,5);
+
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px, 0;
+}
+
+.nav-bar a {
+    color: white;
+}
+
+.header-img {
+    position: relative;
+    min-width: 150px;
+    max-height: 50px;
+}
+
+.top-header p {
+    right: 5%;
+    left: 5%;
+    min-width: 50px;
+    max-height: 25px;
+    position: relative;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.top-header a {
+    border: none;
+    position: relative;
+    text-align: center;
+    margin: 25px;
+    text-decoration: none;
+}
+
+.top-header a:hover {
+    color: red;
+}
