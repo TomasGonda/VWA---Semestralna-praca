@@ -1,10 +1,12 @@
+body {
+    margin: 0;
+}
 .header {
     position: relative;
-    background-image: image-set("../imgs/o2arena1-700x400.jpg");
+    background-image: image-set("../imgs/o2arena1-700x400.jpg"); /*Placeholder*/
     height: 70px;
     overflow: hidden;
     margin: 0;
-    width: 100%;
 
 }
 .nav-bar {
@@ -55,20 +57,39 @@
 
 }
 
+.main-menu {
+    width: 100%;
+    margin: 0;
+    padding: 15px 0;
+    background: rgba(25, 25, 25, 0.7);
+    backdrop-filter: blur(8px);
+}
 
 .main-menu a {
-    color: black;
+    color: white;
     border: none;
-    position: relative;
-    text-align: center;
     margin: 25px;
     text-decoration: none;
-    top: 0;
+    margin: 0;
+    text-align: center;
+
+    padding: 15px 20px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    transition: all 0.3 ease; 
 }
 .main-menu nav {
-    top: calc(100%-25px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 70px;
+    max-height: 25px;
 }
 
 .main-menu a:hover {
-    color: blue;
+    color: rgb(33, 70, 113);
+    /*border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);*/
+
 }
