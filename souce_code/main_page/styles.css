@@ -1,11 +1,15 @@
 body {
     margin: 0;
 }
+
+header {
+    margin: 0;
+}
 .header {
     position: relative;
-    background-image: image-set("../imgs/o2arena1-700x400.jpg"); /*Placeholder*/
+    /* background-image: image-set("../imgs/o2arena1-700x400.jpg"); /*Placeholder*/
     height: 70px;
-    overflow: hidden;
+    overflow: visible;
     margin: 0;
 
 }
@@ -68,7 +72,7 @@ body {
 .main-menu a {
     color: white;
     border: none;
-    margin: 25px;
+    margin: 15px;
     text-decoration: none;
     margin: 0;
     text-align: center;
@@ -83,8 +87,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 15px 0;
     gap: 70px;
-    max-height: 25px;
+    max-height: 5px;
 }
 
 .main-menu a:hover {
@@ -92,4 +97,11 @@ body {
     /*border-color: rgba(255, 255, 255, 0.7);
     background: rgba(255, 255, 255, 0.1);*/
 
+}
+
+.top-section {
+    background-image: image-set("../imgs/o2arena1-700x400.jpg"); /*Placeholder*/
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
