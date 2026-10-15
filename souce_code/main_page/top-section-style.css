@@ -1,14 +1,7 @@
-body {
-    margin: 0;
-}
-
-header {
-    margin: 0;
-}
 .header {
     position: relative;
     /* background-image: image-set("../imgs/o2arena1-700x400.jpg"); /*Placeholder*/
-    height: 70px;
+    height: 80px;
     overflow: visible;
     margin: 0;
 
@@ -51,19 +44,19 @@ header {
 
     width: max-content;
     box-sizing: border-box;
-    margin: 0;
+    margin: 0px;
     padding: 12px 24px;
 
     white-space: normal;
 
-    max-width: 90%;
+    max-width: 98%;
     font-size: clamp(12px, 1.2vw, 16px);
 
 }
 
 .main-menu {
     width: 100%;
-    margin: 0;
+    margin: 15px;
     padding: 15px 0;
     background: rgba(25, 25, 25, 0.7);
     backdrop-filter: blur(8px);
@@ -79,7 +72,7 @@ header {
 
     padding: 15px 20px;
     border: 1px solid transparent;
-    border-radius: 10px;
+    border-radius: 12px;
 
     transition: all 0.3 ease; 
 }
@@ -104,4 +97,32 @@ header {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(25, 25, 25, 0.95);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 8px 0;
+    z-index: 999;
+    margin: 7px;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 12px 16px;
+    font-size: clamp(12px, 1.2vw, 16px);
+
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
 }

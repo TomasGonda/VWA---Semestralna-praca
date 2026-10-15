@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hlavná stránka</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="top-section-style.css">
     <link rel="stylesheet" href="responsivity.css">
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="main.css">
+    
 </head>
 <body>
     <div class="top-section">
@@ -19,7 +22,16 @@
         <div class="main-menu">
             <nav class="nav-bar">
                 <a href="">Domov</a>
-                <a href="">Produkty</a>
+
+                <div class="dropdown">
+                    <a href="">Produkty</a>
+                    <div class="dropdown-menu">
+                        <a href="">Výsledkové tabule</a>
+                        <a href="">Stopky</a>
+                        <a href="">Baneri</a>
+                        <a href="">Príslušenstvo</a>
+                    </div>
+                </div>
                 <a href="">O nás</a>
                 <a href="">Kontakt</a>
             </nav>
@@ -27,7 +39,17 @@
     </div>
     </div>
     <main>
-        
+        <div class="main-columns">
+
+            <section class="main-left">
+                <h2>Column ľavý</h2>
+            </section>
+
+            <section class="main-right">
+                <h2>Column pravý</h2>
+            </section>
+
+        </div>
     </main>
     <script src="scripts.js"></script>
 </body>
