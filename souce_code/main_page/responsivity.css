@@ -67,6 +67,25 @@
 
     .main-columns {
         grid-template-columns: 1fr;
+        gap: 15px;
+        width: 95%;
+        padding: 10px;
+        margin: 15px;
+
+    }
+
+    .main-left, .main-right {
+        padding: 15px;
+    }
+
+    .main-left .img-gallery {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .img-gallery img {
+        width: auto;
+        height: 120px;
     }
 }
 
@@ -130,6 +149,23 @@
 
     .main-columns {
         grid-template-columns: 1fr;
+        width: 90%;
+        padding: 10px;
+        margin: 15px;
+    }
+
+    .main-left, .main-right {
+        padding: 10px;
+    }
+
+    .main-left .img-gallery {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    .img-gallery img {
+        width: auto;
+        height: 85px;
     }
 }
 
