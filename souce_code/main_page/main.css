@@ -1,3 +1,11 @@
+.main-left h2, .main-right h2 {
+        text-align: center;
+    }
+
+    .main-left p, .main-right p {
+    text-align: center;
+}
+
 @media (min-width: 769px) {
     .main-columns {
         display: grid;
@@ -9,21 +17,16 @@
         margin: 0 auto;
         box-sizing: border-box;
         padding: 30px;
+        font-size: clamp(14px, 1vw, 12px);
+        color:  white;
+        
     }
 
     .main-left, .main-right {
         min-width: 0;
         padding: 20px;
-        border-radius: 10px;
-        border: 1px black solid;
-    }
-
-    .main-left h2, .main-right h2 {
-        text-align: center;
-    }
-
-    .main-left p, .main-right p {
-        text-align: center;
+        border-radius: 35px;
+        border: 1px white solid;
     }
 
     .main-left .img-gallery {
@@ -42,5 +45,7 @@
         object-fit: cover;
         border-radius: 10px;
         gap: 15px;
+        border: 1px white solid;
+        border-radius: 10px;
     }
 }

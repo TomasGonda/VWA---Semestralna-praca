@@ -43,7 +43,7 @@
         background: rgba(25, 25, 25, 0.7);
         backdrop-filter: blur(8px);
         font-size: clamp(12px, 1vw, 12px);
-        margin: 15px;
+        margin: 0px;
     }
 
     .main-menu a {
@@ -71,22 +71,28 @@
         width: 95%;
         padding: 10px;
         margin: 15px;
+        color: white;
 
     }
 
     .main-left, .main-right {
         padding: 15px;
+        border-radius: 20px;
+        border: 1px white solid;
     }
 
     .main-left .img-gallery {
-        grid-template-columns: repeat(1, minmax(0, 1fr));
-        gap: 12px;
+        grid-template-columns: repeat(1, minmax(1, 1fr));
+        gap: 10px;
     }
 
     .img-gallery img {
         width: auto;
-        height: 120px;
+        height: 110px;
+        border: 1px white solid;
+        border-radius: 10px;
     }
+
 }
 
 /* Mobil*/
@@ -128,7 +134,7 @@
         background: rgba(25, 25, 25, 0.7);
         backdrop-filter: blur(8px);
         font-size: clamp(12px, 1vw, 10px);
-        margin: 12px;
+        margin: 0px;
     }
     
     .main-menu a {
@@ -152,27 +158,42 @@
         width: 90%;
         padding: 10px;
         margin: 15px;
+        font-size: clamp(12px, 1vw, 12px);
+        color: white;
+        
     }
 
     .main-left, .main-right {
-        padding: 10px;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px white solid;
+        
     }
 
     .main-left .img-gallery {
         grid-template-columns: repeat(1, minmax(0, 1fr));
-        gap: 6px;
+        gap: 5px;
+        justify-self: center;
+        align-items: center;
     }
 
     .img-gallery img {
         width: auto;
-        height: 85px;
+        height: 80px;
+        border: 1px white solid;
+        border-radius: 10px;
     }
 }
 
 /*Very small devices*/
-@media (max-width: 320px) {
+@media (max-width: 360px) {
     .header p {
         display: none;
+    }
+
+    .img-gallery img {
+        width: auto;
+        height: 65px;
     }
 
     /*TODO menu do hamburgeru*/
