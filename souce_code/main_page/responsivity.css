@@ -1,0 +1,206 @@
+.header {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+}
+/*Tablet*/
+@media (max-width: 768px) {
+    .header {
+        padding: 15px;
+    }
+    .header p {
+        width: calc(100%-32px);
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-wrap: break-word;
+        text-align: center;
+        padding: 8px;
+        max-width: 90%;
+        white-space: normal;
+        transform: translateX(-50%);
+        font-size: clamp(10px, 1vw, 12px);
+        /*max-height: 30px;*/
+    }
+    .header img {
+        display: block;
+        width: 90%;
+        max-width: 200px;
+        max-height: auto;
+        margin: 0 auto;
+    }
+
+    .main-menu nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+    }
+
+    .main-menu {
+        width: 100%;
+        margin: 0;
+        padding: 12px 0;
+        background: rgba(25, 25, 25, 0.7);
+        backdrop-filter: blur(8px);
+        font-size: clamp(12px, 1vw, 12px);
+        margin: 0px;
+    }
+
+    .main-menu a {
+        padding: 12px 20px;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        max-height: 3px;
+    }
+
+    .dropdown {
+        max-height: 3px;
+    }
+
+    .dropdown .dropdown-menu {
+        margin: 16px;
+    }
+
+    .top-section {
+        background-image: image-set("../imgs/Hokejbal-Malacky-700x400.jpg");
+    }
+
+    .main-columns {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        width: 95%;
+        padding: 10px;
+        margin: 15px;
+        color: white;
+
+    }
+
+    .main-left, .main-right {
+        padding: 15px;
+        border-radius: 20px;
+        border: 1px white solid;
+    }
+
+    .main-left .img-gallery {
+        grid-template-columns: repeat(1, minmax(1, 1fr));
+        gap: 10px;
+    }
+
+    .img-gallery img {
+        width: auto;
+        height: 110px;
+        border: 1px white solid;
+        border-radius: 10px;
+    }
+
+}
+
+/* Mobil*/
+@media (max-width: 480px) {
+    .header {
+        padding: 10px;
+    }
+    .header p {
+        width: calc(100%-24px);
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-wrap: break-word;
+        text-align: center;
+        padding: 3px;
+        font-size: 12px;
+        max-width: 90%;
+        white-space: normal;
+        transform: translateX(-50%);
+        font-size: clamp(12px, 1vw, 10px);
+    }
+
+    .header img {
+        max-width: 150px;
+        max-height: auto;
+    }
+
+    .main-menu nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+
+    }
+
+    .main-menu {
+        width: 100%;
+        margin: 0;
+        padding: 10px 0;
+        background: rgba(25, 25, 25, 0.7);
+        backdrop-filter: blur(8px);
+        font-size: clamp(12px, 1vw, 10px);
+        margin: 0px;
+    }
+    
+    .main-menu a {
+        padding: 10px 15px;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        max-height: 2px;
+    }
+
+    .dropdown {
+        max-height: 2px;
+    }
+
+    .top-section {
+        background-image: image-set("../imgs/Pardubice1-1-286x163.jpg");
+        font-size: clamp(12px, 1vw, 10px);
+    }
+
+    .main-columns {
+        grid-template-columns: 1fr;
+        width: 90%;
+        padding: 10px;
+        margin: 15px;
+        font-size: clamp(12px, 1vw, 12px);
+        color: white;
+        
+    }
+
+    .main-left, .main-right {
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px white solid;
+        
+    }
+
+    .main-left .img-gallery {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 5px;
+        justify-self: center;
+        align-items: center;
+    }
+
+    .img-gallery img {
+        width: auto;
+        height: 80px;
+        border: 1px white solid;
+        border-radius: 10px;
+    }
+}
+
+/*Very small devices*/
+@media (max-width: 360px) {
+    .header p {
+        display: none;
+    }
+
+    .img-gallery img {
+        width: auto;
+        height: 65px;
+    }
+
+    /*TODO menu do hamburgeru*/
+}
+
+.page-limits {
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+}
