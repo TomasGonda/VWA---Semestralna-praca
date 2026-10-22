@@ -10,3 +10,14 @@ header {
 main {
     width: 100%;
 }
+
+:root {
+    /*Text colors*/
+    --text-color: white;
+    --text-hover-color: white;
+
+    /*Background*/
+    --background-color: #252525;
+    --background-hover-color: #1f1f1f;
+    --background-trans-color: rgba(0,0,0, 0,5);
+}
