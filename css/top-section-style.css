@@ -69,12 +69,10 @@
     text-decoration: none;
     margin: 0;
     text-align: center;
-
-    padding: 15px 20px;
     border: 1px solid transparent;
-    border-radius: 12px;
-
-    transition: all 0.3 ease; 
+    border-radius: 10px;
+    padding: 5px;
+    
 }
 .main-menu nav {
     display: flex;
@@ -86,9 +84,9 @@
 }
 
 .main-menu a:hover {
-    color: rgb(33, 70, 113);
-    /*border-color: rgba(255, 255, 255, 0.7);
-    background: rgba(255, 255, 255, 0.1);*/
+    background-color: #1f1f1f;
+    border: 1px solid white;
+    color: white;
 
 }
 

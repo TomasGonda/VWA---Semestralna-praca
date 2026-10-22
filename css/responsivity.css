@@ -47,10 +47,13 @@
     }
 
     .main-menu a {
-        padding: 12px 20px;
+        padding: 8px 15px;
         border: 1px solid transparent;
         border-radius: 10px;
         max-height: 3px;
+    }
+    .main-menu a:hover {
+        padding-bottom: 15px;
     }
 
     .dropdown {
@@ -149,10 +152,14 @@
     }
     
     .main-menu a {
-        padding: 10px 15px;
+        padding: 8px 10px;
         border: 1px solid transparent;
         border-radius: 10px;
         max-height: 2px;
+    }
+
+    .main-menu a:hover {
+        padding-bottom: 15px;
     }
 
     .dropdown {

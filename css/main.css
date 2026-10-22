@@ -60,3 +60,56 @@
         border-radius: 10px;
         box-sizing: border-box;
     }
+/*Contact form*/
+
+.main-left .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.main-left .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.main-left .form-group label {
+    font-size: clamp(14px, 1vw, 12px);
+    font-weight: bold;
+    padding: 5px 0px;
+}
+
+.main-left .form-group input:focus {
+    outline: 2px solid rgb(255, 255, 255);
+    outline-offset: 1px;
+}
+
+.main-left .contact-form button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #252525;
+    color: white;
+    font-size: clamp(12px, 1vw, 14px);
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.main-left .contact-form button:hover {
+    background-color: #1f1f1f;
+    border: 1px solid white;
+    color: white;
+}
+
+.form-group label[for="first-name"]::after, 
+.form-group label[for="last-name"]::after,
+.form-group label[for="email"]::after
+{
+    content: "*";
+    color: red;
+}
