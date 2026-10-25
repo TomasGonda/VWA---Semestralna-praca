@@ -6,10 +6,10 @@
     text-align: center;
 }
 
-@media (min-width: 769px) {
     .main-columns {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        grid-template-areas: "left right";
         gap: 50px;
 
         width: 90%;
@@ -18,34 +18,139 @@
         box-sizing: border-box;
         padding: 30px;
         font-size: clamp(14px, 1vw, 12px);
-        color:  white;
+        color:  var(--text-color);
         
     }
 
-    .main-left, .main-right {
+    .main-columns .main-left, .main-right {
         min-width: 0;
         padding: 20px;
         border-radius: 35px;
-        border: 1px white solid;
+        border: 1px var(--border-color) solid;
+    }
+
+    .main-columns .main-left {
+        grid-area: left;
+    }
+
+    .main-columns .main-right {
+        grid-area: right;
     }
 
     .main-left .img-gallery {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
         gap: 12px;
         width: 100%;
+        padding: 0 5px;
+        justify-content: center;
+        box-sizing: border-box;
     }
 
     .img-gallery img {
-        display: flex;
-        min-width: 120px;
-        min-height: auto;
+        display: block;
         width: 100%;
+        min-width: 0;
         height: 100%;
-        object-fit: cover;
+        object-fit: fill;
         border-radius: 10px;
         gap: 15px;
-        border: 1px white solid;
-        border-radius: 10px;
+        border: 1px var(--border-color) solid;
+        box-sizing: border-box;
     }
+/*Contact form*/
+
+.main-left .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.main-left .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.main-left .form-group label {
+    font-size: clamp(14px, 1vw, 12px);
+    font-weight: bold;
+    padding: 5px 0px;
+}
+
+.main-left .form-group input:focus {
+    outline: 2px solid var(--text-color);
+    outline-offset: 1px;
+}
+
+.main-left .contact-form button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #252525;
+    color: var(--text-color);
+    font-size: clamp(12px, 1vw, 14px);
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.main-left .contact-form button:hover {
+    background-color: var(--background-hover-color);
+    border: 1px solid var(--border-color);
+}
+
+.form-group label[for="first-name"]::after, 
+.form-group label[for="last-name"]::after,
+.form-group label[for="email"]::after
+{
+    content: "*";
+    color: red;
+}
+
+/*Side main menu*/
+
+.main-right .side-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main-right .side-menu > ul > li > ul {
+    margin-left: 12px;
+    padding-left: 15px;
+    border-radius: 2px solid var(--border-color);
+}
+
+.main-right .side-menu > ul > li > ul li {
+    position: relative;
+    padding-left: 12px;
+}
+
+.main-right .side-menu > ul > li > ul li::before {
+    content: "";
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    width: 15px;
+    border-top: 2px solid var(--border-color);
+}
+
+.main-right .side-menu a {
+    display: inline-block;
+    padding: 6px 6px;
+    color: var(--text-color);
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: clamp(12px, 1vw, 14px);
+    cursor: pointer;
+}
+
+.main-right .side-menu a:hover {
+    background-color: var(--background-hover-color);
+    border: 1px solid var(--border-color);
 }

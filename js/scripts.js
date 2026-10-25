@@ -13,3 +13,4 @@ function updateText() {
 }
 window.addEventListener("resize", updateText);
 updateText();
+

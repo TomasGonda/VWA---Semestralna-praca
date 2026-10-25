@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hlavná stránka</title>
+    <link rel="stylesheet" href="../css/top-section-style.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/responsivity.css">
+    
+</head>
+<body>
+    <div class="top-section">
+        <div class="page-limits">
+        <header>
+            <div class="header top-header">
+                <img class="header-img" src="../imgs/Logo_cele.png" alt="Logo"> 
+                <p>Kontaktujte nás</p>
+            </div>
+        </header>
+        <div class="main-menu">
+            <nav class="nav-bar">
+                <a href="index.html">Domov</a>
+                <a href="">Produkty</a>
+                <a href="">O nás</a>
+                <a href="Contact.html">Kontakt</a>
+            </nav>
+        </div>
+    </div>
+    </div>
+    <main>
+        <div class="main-columns">
+
+            <section class="main-left">
+                <h2>Kontaktujte nás</h2>
+                 <form class="contact-form">
+                    <div class="form-group">
+                        <label for="first-name">Meno</label>
+                        <input type="text" id="first-name" name="first-name" placeholder="Zadajte meno" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="last-name">Priezvisko</label>
+                        <input type="text" id="last-name" name="last-name" placeholder="Zadajte priezvisko" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Telefón</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+421 900 123 456" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="note">Poznámka</label>
+                        <textarea type="note" id="note" name="phone" rows="5" placeholder="Poznámka pre firmu" required></textarea>
+                    </div>
+
+                    <button type="submit">Odoslať</button>
+                 </form>
+
+            </section>
+
+            <section class="main-right">
+                <h2>Bočné menu</h2>
+            </section>
+
+        </div>
+    </main>
+    <script src="../js/scripts.js"></script>
+</body>
+</html>
