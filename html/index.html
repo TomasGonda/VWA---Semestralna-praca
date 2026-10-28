@@ -4,25 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hlavná stránka</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/top-section.css">
+    <link rel="stylesheet" href="../css/top-responsivity.css">
+
 </head>
 <body>
     <div class="top-section">
-        <header>
-            <div class="top-header">
-                <img class="header-img" src="../imgs/Logo_cele.png" alt="Logo"> 
-                <p id="welcome-text">Vitajte</p>
+            <div class="top-menu">
+                <div class="top-menu-inner">
+                    <span>Športové výsledkové tabule</span>
+
+                    <nav class="top-links">
+                        <a href="">O nás</a>
+                        <a href="">Kontakt</a>
+                        <div class="language-switch">
+                            <button class="language-button" type="button" aria-expanded="false">
+                                <img src="../imgs/Flag_of_Slovakia.png" alt="">
+                                <span>SK</span>
+                                <span class="arrow">▼</span>
+                            </button>
+
+                            <div class="language-dropdown">
+                                <a href="?lang=sk">
+                                    <img src="../imgs/Flag_of_Slovakia.png" alt=""> Slovenčina
+                                </a>
+
+                                <a href="?lang=en">
+                                    <img src="../imgs/england.png" alt=""> English
+                                </a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
             </div>
-        </header>
+
+            <header class="top-header">
+                <a href="index.html" class="logo-link">
+                    <img class="header-img" src="../imgs/Logo_cele.png" alt="LGR - domonská stránka">
+                </a>
+
+                <form class="search-form" action="" method="get">
+                    <input type="search" name="q" placeholder="Vyhľadávanie" aria-label="Vyhľadávanie produktov">
+
+                    <button type="submit" aria-label="Hľadať"> Hľadať</button>
+                </form>
+
+                <div class="header-actions">
+                    <a href="">Košík</a>
+                </div>
+            </header>
+
         <div class="main-menu">
-            <nav class="nav-bar">
-                <a href="index.html">Domov</a>
-                <a href="">Produkty</a>
-                <a href="">O nás</a>
-                <a href="Contact.html">Kontakt</a>
+            <nav class="nav-bar" aria-label="Hlavná navigácia">
+
+                <a href="">Športové tabule</a>
+                <a href="">Stopky</a>
+                <a href="">Basketball</a>
+                <a href="">Príslušenstvo</a>
             </nav>
         </div>
     </div>
+
+    <main>
+        
+    </main>
     <script src="../js/scripts.js"></script>
 </body>
 </html>
