@@ -25,8 +25,9 @@
     width: 90%;
     max-width: 250px;
     max-height: 50px;
+    box-sizing: border-box;
     margin: 0 auto;
-    padding-right: 80%;
+    padding: 0;
 }
 
 .header p {
@@ -95,4 +96,13 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.main-menu .nav-bar {
+    position: static;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    flex-wrap: wrap;
+    gap: 12px;
 }

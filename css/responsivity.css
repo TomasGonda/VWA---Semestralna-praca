@@ -56,16 +56,19 @@
     }
 
     .main-columns {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
         gap: 15px;
-        width: 95%;
-        padding: 10px;
-        margin: 15px;
-        color: white;
-        grid-template-areas: 
-        "right"
-        "left";
 
+        width: calc(100% - 30px);
+        max-width: 1440px;
+        box-sizing: border-box;
+        margin: 15px auto;
+        padding: 10px;
+
+        grid-template-areas:
+            "right"
+            "left";
     }
 
     .main-left, .main-right {
@@ -141,7 +144,7 @@
     .main-menu .nav-bar a {
         border: 1px solid transparent;
         border-radius: 10px;
-        padding: 0px 15px;
+        padding: 5px 8px;
     }
 
 
@@ -151,16 +154,19 @@
     }
 
     .main-columns {
-        grid-template-columns: 1fr;
-        width: 90%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+
+        width: calc(100% - 30px);
+        max-width: 1440px;
+        box-sizing: border-box;
+        margin: 15px auto;
         padding: 10px;
-        margin: 15px;
-        font-size: clamp(12px, 1vw, 12px);
-        color: white;
-         grid-template-areas: 
-        "right"
-        "left";
-        
+
+        grid-template-areas:
+            "right"
+            "left";
     }
 
     .main-left, .main-right {
