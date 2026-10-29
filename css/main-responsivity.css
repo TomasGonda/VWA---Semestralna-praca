@@ -11,6 +11,13 @@
         width: 100%;
         border-radius: 0px;
     }
+
+    .carousel-arrow.prev {
+        left: 45%;
+    }
+    .carousel-arrow.next {
+        left: 60%;
+    }
 }
 
 /*Telephone*/

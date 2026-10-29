@@ -1,14 +1,51 @@
 .carousel-img {
+    position: relative;
     display: flex;
     justify-content: center;
     margin: 10px auto;
+    background: linear-gradient(to left, #1f1f1f, transparent);
+    
 }
 
 .carousel-img img {
+    display: block;
     width: 700px;
     height: 350px;
     object-fit: cover;
     max-width: 100%;
     border: 1px solid var(--border-color);
     border-radius: 10px;
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: auto;
+    transform: translateX(-50%);
+    z-index: 2;
+
+    width: 45px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+
+    background: rgba(255,255,255,0.4);
+    color: var(--text-color);
+    font-size: 28px;
+
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.carousel-arrow:hover {
+    background: var(--backgroun-color);
+}
+
+.carousel-arrow.prev {
+    left: 45%;
+    bottom: 5px;
+}
+
+.carousel-arrow.next {
+    left: 55%;
+    bottom: 5px;
 }
