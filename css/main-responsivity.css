@@ -1,0 +1,24 @@
+/*4K*/
+
+@media (min-width: 1980px) {
+
+}
+
+/*Tablet*/
+
+@media (max-width: 768px) {
+    .carousel-img img {
+        width: 100%;
+        border-radius: 0px;
+    }
+}
+
+/*Telephone*/
+
+@media (max-width: 480px) {
+
+}
+
+@media (max-width: 320px) {
+    
+}
