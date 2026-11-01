@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+}
+
+header {
+    margin: 0;
+}
+
+:root {
+    --text-color: black;
+    --text-color-invert: white;
+    --text-color-hover: white;
+
+    --backgroun-color: white;
+    --background-color-hover: black;
+
+    --border-color: gray;
+
+    --logo-color: #252b32
+}

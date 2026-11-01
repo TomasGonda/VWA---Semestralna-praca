@@ -1,0 +1,144 @@
+/*4k*/
+
+@media (min-width: 1980px) {
+    .top-section a {
+        font-size: clamp(16px, 1vw, 24px);
+    }
+
+    .top-section span {
+        font-size: clamp(16px, 1vw, 24px);
+    }
+
+    .header-actions a {
+        font-size: clamp(16px, 1vw, 24px);
+    }
+
+    .main-menu .nav-bar a {
+        font-size: clamp(16px, 1vw, 24px);
+    }
+
+    .header-img {
+        width: 280px;
+    }
+
+    .search-form {
+        height: 55px;
+    }
+
+    .search-form input {
+        font-size: clamp(16px, 1vw, 24px);
+    }
+
+    .search-form button {
+        font-size: clamp(16px, 1vw, 24px);
+    }
+}
+
+
+/*Tablet*/
+
+@media (max-width: 768px) {
+    .top-header {
+        gap: 20px;
+    }
+
+    .header-img {
+        width: 160px;
+    }
+
+    .header-actions {
+        display: none;
+    }
+
+    .main-menu .nav-bar a {
+        padding: 0 16px;
+    }
+
+}
+
+/*Small tablet and Mobile*/
+
+@media (max-width: 480px) {
+    .top-menu-inner {
+        width: 90%;
+        min-width: 32px;
+        font-size: clamp(11px, 1vw, 12px);
+    }
+
+    .top-header-inner > span {
+        font-size: clamp(11px, 1vw, 12px);
+    }
+
+    .top-links {
+        gap: 12px;
+    }
+
+    .logo-link {
+        align-self: start;
+    }
+
+    .top-header {
+        width: 90%;
+        min-height: auto;
+        flex-wrap: wrap;
+        gap: 5px;
+        padding: 10px 0;
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .header-img {
+        width: 140px;
+    }
+
+    .search-form {
+        width: 100%;
+        max-width: none;
+        flex: none;
+        height: 40px;
+        box-sizing: border-box;
+    }
+
+    .main-menu .nav-bar {
+        width: 100%;
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+    .main-menu .nav-bar a {
+        flex-shrink: 0;
+        min-height: 48px;
+        padding: 0 16px;
+        font-size: clamp(11px, 1vw, 12px);
+        gap: 5px;
+    }
+
+    .search-form {
+        height: 25px;
+    }
+
+    .search-form input {
+        font-size: clamp(11px, 1vw, 12px);
+    }
+
+    .search-form button {
+        font-size: clamp(11px, 1vw, 12px);
+    }
+
+    .language-button img,
+    .language-dropdown img {
+        width: 16px;
+        height: 10px;
+    }
+}
+
+/*Mobile S*/
+ @media (max-width: 320px) {
+    .main-menu .nav-bar a {
+        flex-shrink: 0;
+        min-height: 48px;
+        padding: 0 8px;
+        font-size: clamp(10px, 1vw, 12px);
+        gap: 3px;
+    }
+ }
