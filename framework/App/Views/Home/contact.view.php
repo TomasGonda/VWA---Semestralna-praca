@@ -3,22 +3,33 @@
 /** @var \Framework\Support\LinkGenerator $link */
 ?>
 
-<div class="row">
-    <div class="col">
-        <h3>Faculty of Management Science and Informatics</h3>
-        <strong>Address</strong>: Univerzitná 8215/1, 010 26 Žilina, Slovakia<br>
-        <strong>Tel. number</strong>: +421/41 513 4121<br>
+<section>
+    <form class="contact-form">
+        <div class="form-group">
+            <label for="first-name">Meno</label>
+            <input type="text" id="first-name" name="first-name" placeholder="Zadajte meno" required>
+        </div>
 
-        <strong>GPS</strong>: 49°12'6,4"N 18°45'42,6"E
-    </div>
-</div>
-<div class="row mt-3">
-    <div class="col">
-        <iframe width="100%" height="300" src="https://www.openstreetmap.org/export/embed.html?bbox=18.747396469116214%2C49.193792384417996%2C18.776578903198246%2C49.210336337994846&amp;layer=mapnik&amp;marker=49.202065053033984%2C18.761987686157227"></iframe>
-    </div>
-</div>
-<div class="row mt-3">
-    <div class="col">
-        <a href="<?= $link->url("home.index") ?>">Back to main page</a>
-    </div>
-</div>
+        <div class="form-group">
+            <label for="last-name">Priezvisko</label>
+            <input type="text" id="last-name" name="last-name" placeholder="Zadajte priezvisko" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Telefón</label>
+            <input type="tel" id="phone" name="phone" placeholder="+421 900 123 456" required>
+        </div>
+
+        <div class="form-group">
+            <label for="note">Poznámka</label>
+            <textarea type="note" id="note" name="phone" rows="5" placeholder="Poznámka pre firmu" required></textarea>
+        </div>
+
+        <button type="submit">Odoslať</button>
+    </form>
+</section>

@@ -41,7 +41,7 @@
 
                 <nav class="top-links">
                     <a href="">O nás</a>
-                    <a href="">Kontakt</a>
+                    <a href="<?= $link->url("home.contact") ?>">Kontakt</a>
                     <div class="language-switch">
                         <button class="language-button" type="button" aria-expanded="false">
                             <img src="<?= $link->asset('../../shared/imgs/Flag_of_Slovakia.png') ?>" alt="">
