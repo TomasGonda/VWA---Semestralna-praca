@@ -121,10 +121,32 @@ Stránka sa bude deliť na dve časti a to :
     __Vzťahy:__
         ---
 
-//TODO
 ## Hlavné stránky aplikácie
-Uveďte zoznam najdôležitejších stránok (min. 5) alebo obrazoviek aplikácie a stručne popíšte ich účel. Nie je potrebné pripravovať kompletný grafický návrh, postačuje základná predstava o štruktúre používateľského rozhrania.
+    __Hlavná stránka__
+    Úvodná stránka e-spohu, ktorá predstaví firmu a jej hlavné oblasti pôsobenia. Poskytne navigáciu jednotlivými kategóriami produktov. Umožní zmenu jazyka stránky.
+    __Stránka produktových kategórií__
+    Stránka umožnujúca zobrazenie produktov podľakategórií. Produkty budú rozdelené primárne podľa športu pre ktorý je daný produkt určený.
+    __Detail produktu__
+    Stránka umožňujúca zobrazenie detailov o produkte.
+    __Košík_
+    Stránka poskytujúca prehľad vybraných produktov pred odoslaním objednávky.
+    __Objednávkový formulár__
+    Stránka určená na zadanie kontaktných údajov a potrebných dodacích údajov zákazníka a na odoslanie objednávky.
 
-//TODO
 ## Rozdelenie funkcionality
-Rozdeľte plánované funkcie na základné a rozširujúce. Základné funkcie predstavujú minimum potrebné na úspešné dokončenie projektu, zatiaľ čo rozširujúce funkcie môžu byť implementované navyše podľa Vašich časových možností.
+    __Základné funkcie__
+        - Zobrazenie produktov a kategórií
+        - Detail produktu
+        - Viacjazyčné rozhranie
+        - Košík
+        - Vytvorenie a odoslanie objednávky
+        - Evidencia objednávok
+        - Administrácia produktov
+        - Administrácia objednávok
+        - Responzívny dizajn
+    __Rozširujúce funkcie__
+        - Vyhľadávanie a filtrovanie produktov
+        - Rozšírené technické parametre produktov
+        - Rozšírená správa prekladov
+        - Emailové upozornenia
+        - Vylepšenie používateľského rozhrania

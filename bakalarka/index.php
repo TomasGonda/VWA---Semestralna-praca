@@ -1,0 +1,89 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hlavná stránka</title>
+    <link rel="stylesheet" href="../shared/css/global.css">
+    <link rel="stylesheet" href="../shared/css/top-section.css">
+    <link rel="stylesheet" href="../shared/css/top-responsivity.css">
+    <link rel="stylesheet" href="../shared/css/main-section.css">
+    <link rel="stylesheet" href="../shared/css/main-responsivity.css">
+
+    <script>
+        const BASE_URL = "../shared/";
+    </script>
+    <script src="../shared/js/script.js" defer></script>
+
+</head>
+
+<body>
+    <div class="top-section">
+        <div class="top-menu">
+            <div class="top-menu-inner">
+                <span>Športové výsledkové tabule</span>
+
+                <nav class="top-links">
+                    <a href="">O nás</a>
+                    <a href="">Kontakt</a>
+                    <div class="language-switch">
+                        <button class="language-button" type="button" aria-expanded="false">
+                            <img src="../shared/imgs/Flag_of_Slovakia.png" alt="">
+                            <span>SK</span>
+                            <span class="arrow">▼</span>
+                        </button>
+
+                        <div class="language-dropdown">
+                            <a href="?lang=sk">
+                                <img src="../shared/imgs/Flag_of_Slovakia.png" alt=""> Slovenčina
+                            </a>
+
+                            <a href="?lang=en">
+                                <img src="../shared/imgs/england.png" alt=""> English
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <header class="top-header">
+            <a href="index.php" class="logo-link">
+                <img class="header-img" src="../shared/imgs/Logo_cele.png" alt="LGR - domonská stránka">
+            </a>
+
+            <form class="search-form" action="" method="get">
+                <input type="search" name="q" placeholder="Vyhľadávanie" aria-label="Vyhľadávanie produktov">
+
+                <button type="submit" aria-label="Hľadať"> Hľadať</button>
+            </form>
+
+            <div class="header-actions">
+                <a href="">Košík</a>
+            </div>
+        </header>
+
+        <div class="main-menu">
+            <nav class="nav-bar" aria-label="Hlavná navigácia">
+
+                <a href="">Športové tabule</a>
+                <a href="">Stopky</a>
+                <a href="">Basketball</a>
+                <a href="">Príslušenstvo</a>
+            </nav>
+        </div>
+    </div>
+
+    <main>
+        <div class="carousel-img">
+            <img id="carousel-img" src="../shared/imgs/hokejbal-170T-1-700x400.jpg" alt="Hokejball">
+
+            <button class="carousel-arrow prev" id="prev-image" type="button"
+                aria-label="Predchádzajúci obrázok">&#10094
+            </button>
+
+            <button class="carousel-arrow next" id="next-image" type="button" aria-label="Nasledujúci obrázok">&#10095
+            </button>
+        </div>
+
+    </main>
+
+</body>

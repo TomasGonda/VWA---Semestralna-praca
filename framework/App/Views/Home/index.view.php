@@ -4,7 +4,7 @@
 ?>
 
 <div class="carousel-img">
-    <img id="carousel-img" src="<?= $link->asset('images/hokejbal-170T-1-700x400.jpg') ?>" alt="Hokejball">
+    <img id="carousel-img" src="<?= $link->asset('../../shared/imgs/hokejbal-170T-1-700x400.jpg') ?>" alt="Hokejball">
 
     <button class="carousel-arrow prev" id="prev-image" type="button" aria-label="Predchádzajúci obrázok">&#10094
     </button>
