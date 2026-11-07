@@ -20,15 +20,15 @@
 
 <body>
     <section>
-    <form class="contact-form">
+    <form class="contact-form" method="post" action="?c=contact&a=submit">
         <div class="form-group">
             <label for="first-name">Meno</label>
-            <input type="text" id="first-name" name="first-name" placeholder="Zadajte meno" required>
+            <input type="text" id="first_name" name="first_name" placeholder="Zadajte meno" required>
         </div>
 
         <div class="form-group">
             <label for="last-name">Priezvisko</label>
-            <input type="text" id="last-name" name="last-name" placeholder="Zadajte priezvisko" required>
+            <input type="text" id="last_name" name="last_name" placeholder="Zadajte priezvisko" required>
         </div>
 
         <div class="form-group">
@@ -43,7 +43,7 @@
 
         <div class="form-group">
             <label for="note">Poznámka</label>
-            <textarea type="note" id="note" name="phone" rows="5" placeholder="Poznámka pre firmu" required></textarea>
+            <textarea type="note" id="note" name="note" rows="5" placeholder="Poznámka pre firmu" required></textarea>
         </div>
 
         <button type="submit">Odoslať</button>

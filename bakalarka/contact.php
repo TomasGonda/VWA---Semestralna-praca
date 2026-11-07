@@ -13,17 +13,17 @@
 </head>
 
 <body>
-    <?php include 'php/top-section.php'; ?>
+    <?php require_once __DIR__ . '/php/top-section.php'; ?>
 <section>
-    <form class="contact-form">
+    <form class="contact-form" method="POST" action="php/contact-submit.php">
         <div class="form-group">
             <label for="first-name">Meno</label>
-            <input type="text" id="first-name" name="first-name" placeholder="Zadajte meno" required>
+            <input type="text" id="first_name" name="first_name" placeholder="Zadajte meno" required>
         </div>
 
         <div class="form-group">
             <label for="last-name">Priezvisko</label>
-            <input type="text" id="last-name" name="last-name" placeholder="Zadajte priezvisko" required>
+            <input type="text" id="last_name" name="last_name" placeholder="Zadajte priezvisko" required>
         </div>
 
         <div class="form-group">

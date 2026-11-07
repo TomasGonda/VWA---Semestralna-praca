@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <?php include 'php/top-section.php'; ?>
+    <?php require_once __DIR__ . '/php/top-section.php'; ?>
     <main>
         <div class="carousel-img">
             <img id="carousel-img" src="../shared/imgs/hokejbal-170T-1-700x400.jpg" alt="Hokejball">

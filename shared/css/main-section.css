@@ -97,9 +97,7 @@
     color: white;
 }
 
-.form-group label[for="first-name"]::after, 
-.form-group label[for="last-name"]::after,
-.form-group label[for="email"]::after
+.form-group label::after
 {
     content: "*";
     color: red;
