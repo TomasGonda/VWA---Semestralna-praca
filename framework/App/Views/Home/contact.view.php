@@ -3,7 +3,23 @@
 /** @var \Framework\Support\LinkGenerator $link */
 ?>
 
-<section>
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><?= $title ?? 'LGR' ?></title>
+
+    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/global.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/top-section.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/top-responsivity.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/main-section.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/main-responsivity.css') ?>">
+</head>
+
+<body>
+    <section>
     <form class="contact-form">
         <div class="form-group">
             <label for="first-name">Meno</label>
@@ -33,3 +49,4 @@
         <button type="submit">Odoslať</button>
     </form>
 </section>
+</body>
