@@ -26,6 +26,16 @@ if (
     die('Vyplňte správne všetky polia.');
 }
 
+if (
+    mb_strlen($firstName) > 100 ||
+    mb_strlen($lastName) > 100 ||
+    mb_strlen($email) > 254 ||
+    mb_strlen($phone) > 30 ||
+    mb_strlen($note) > 5000
+) {
+    die('Niektoré údaje sú príliš dlhé.');
+}
+
 $sql = "
     INSERT INTO Contact
         (first_name, last_name, email, phone, note)
