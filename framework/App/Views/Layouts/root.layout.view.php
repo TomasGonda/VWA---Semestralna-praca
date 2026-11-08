@@ -37,15 +37,25 @@
     <div class="top-section">
         <div class="top-menu">
             <div class="top-menu-inner">
-                <span>Športové výsledkové tabule</span>
+                <span><?= htmlspecialchars($translations['title'] ?? "Športové výsledkové tabule", ENT_QUOTES, "UTF-8") ?></span>
 
                 <nav class="top-links">
-                    <a href="">O nás</a>
-                    <a href="<?= $link->url("home.contact") ?>">Kontakt</a>
+                    <a href="">
+                        <?= htmlspecialchars($translations['about'] ?? "O Nás", ENT_QUOTES, "UTF-8") ?>
+                    </a>
+
+                    <a href="<?= $link->url("home.contact") ?>">
+                        <?= htmlspecialchars($translations['contact'] ?? "Kontakt", ENT_QUOTES, "UTF-8") ?>
+                    </a>
                     <div class="language-switch">
                         <button class="language-button" type="button" aria-expanded="false">
-                            <img src="<?= $link->asset('../../shared/imgs/Flag_of_Slovakia.png') ?>" alt="">
-                            <span>SK</span>
+                            <?php if ($currentLanguage === 'sk'): ?>
+                                <img src="<?= $link->asset('../../shared/imgs/Flag_of_Slovakia.png') ?>" alt="">
+                                <span>SK</span>
+                            <?php elseif ($currentLanguage === 'en'): ?>
+                                <img src="<?= $link->asset('../../shared/imgs/england.png') ?>" alt="">
+                                <span>EN</span>
+                            <?php endif; ?>
                             <span class="arrow">▼</span>
                         </button>
 
@@ -71,23 +81,23 @@
             </a>
 
             <form class="search-form" action="" method="get">
-                <input type="search" name="q" placeholder="Vyhľadávanie" aria-label="Vyhľadávanie produktov">
+                <input type="search" name="q" placeholder=<?= htmlspecialchars($translations['search_placeholder'] ?? "Vyhľadávanie", ENT_QUOTES, "UTF-8") ?> aria-label="Vyhľadávanie produktov">
 
-                <button type="submit" aria-label="Hľadať"> Hľadať</button>
+                <button type="submit" aria-label="Hľadať"> <?= htmlspecialchars($translations['search'] ?? "Hľadať", ENT_QUOTES, "UTF-8") ?></button>
             </form>
 
             <div class="header-actions">
-                <a href="">Košík</a>
+                <a href=""><?= htmlspecialchars($translations['cart'] ?? "Košík", ENT_QUOTES, "UTF-8") ?></a>
             </div>
         </header>
 
         <div class="main-menu">
             <nav class="nav-bar" aria-label="Hlavná navigácia">
 
-                <a href="">Športové tabule</a>
-                <a href="">Stopky</a>
-                <a href="">Basketball</a>
-                <a href="">Príslušenstvo</a>
+                <a href=""><?= htmlspecialchars($translations['menu_sport_tables'] ?? "Športové tabule", ENT_QUOTES, "UTF-8") ?></a>
+                <a href=""><?= htmlspecialchars($translations['menu_stop_watch'] ?? "Stopky", ENT_QUOTES, "UTF-8") ?></a>
+                <a href=""><?= htmlspecialchars($translations['menu_basketball'] ?? "Basketball", ENT_QUOTES, "UTF-8") ?></a>
+                <a href=""><?= htmlspecialchars($translations['menu_utilities'] ?? "Príslušenstvo", ENT_QUOTES, "UTF-8") ?></a>
             </nav>
         </div>
     </div>

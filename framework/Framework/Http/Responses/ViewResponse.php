@@ -88,7 +88,8 @@ class ViewResponse extends Response
         $contentHTML = ob_get_clean();
 
         if ($selectedLayout !== null) {
-            $layoutData = $viewHelpers + ['contentHTML' => $contentHTML];
+            $layoutData = $viewHelpers + $this->data + ['contentHTML' => $contentHTML];
+            error_log('LAYOUT DATA KEYS: ' . implode(', ', array_keys($layoutData)));
             $this->renderView($layoutData, $this->getLayoutFullName($selectedLayout));
         } else {
             echo $contentHTML;
@@ -108,6 +109,7 @@ class ViewResponse extends Response
      */
     private function renderView(array $data, string $viewPath): void
     {
+        error_log('RENDER VIEW DATA KEYS: ' . implode(', ', array_keys($data)));
         // Extract variables from the provided data array.
         extract($data, EXTR_SKIP);
 
