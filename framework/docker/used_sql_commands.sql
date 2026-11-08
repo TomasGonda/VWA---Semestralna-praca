@@ -61,6 +61,37 @@ VALUES
     (2, 'note_placeholder', 'Message for the company'),
     (2, 'submit_button', 'Send');
 
+INSERT INTO Translations (language_id, translation_key, translation_value)
+VALUES
+    (1, 'contact_info_title', 'Kontaktujte nás'),
+    (1, 'contact_info_address', 'Adresa:
+        Na Stráňach 6
+        971 01 PRIEVIDZA
+        Slovenská republika'),
+    (1, 'contact_info_phone', 'Telefón:
+        +421 905 627 189'),
+    (1, 'contact_info_email', 'E-Mail:
+        info@lgr.sk'),
+    (2, 'contact_info_title', 'Contact us'),
+    (2, 'contact_info_address', 'Address:
+        Na Stráňach 6
+        971 01 PRIEVIDZA
+        Slovakia'),
+    (2, 'contact_info_phone', 'Phone:
+    +421 905 627 189'),
+    (2, 'contact_info_email', 'E-mail:
+    info@lgr.sk');
+
+INSERT INTO Translations (language_id, translation_key, translation_value)
+VALUES
+    (1, 'gdpr_consent', 'Súhlasím so spracovaním osobných údajov.'),
+    (2, 'gdpr_consent', 'I agree to the processing of my personal data.');
+
 /*Debug*/
 
 SELECT * FROM languages l join translations t using (t.language_id = l.id) where l.id = 1;
+
+/*Alter*/
+
+ALTER TABLE contact
+ADD COLUMN gdpr_consent TINYINT(1) NOT NULL DEFAULT 0;

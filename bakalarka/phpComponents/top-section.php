@@ -1,6 +1,6 @@
 <?php
-var_dump($language);
-var_dump($translations);
+//var_dump($language);
+//var_dump($translations);
 ?>
 
 <div class="top-section">
@@ -11,7 +11,7 @@ var_dump($translations);
             </span>
 
             <nav class="top-links">
-                <a href="">
+                <a href="aboutUs.php">
                     <?= htmlspecialchars($translations['about'] ?? 'O nás') ?>
                 </a>
 
