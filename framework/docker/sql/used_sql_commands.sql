@@ -101,3 +101,8 @@ SELECT * FROM languages l join translations t using (t.language_id = l.id) where
 ALTER TABLE contact
 ADD COLUMN gdpr_consent TINYINT(1) NOT NULL DEFAULT 0;
 
+ALTER TABLE contact
+ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE contact
+ADD COLUMN is_resolved TINYINT(1) NOT NULL DEFAULT 0;

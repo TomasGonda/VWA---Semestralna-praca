@@ -40,7 +40,7 @@
                 <span><?= htmlspecialchars($translations['title'] ?? "Športové výsledkové tabule", ENT_QUOTES, "UTF-8") ?></span>
 
                 <nav class="top-links">
-                    <a href="">
+                    <a href="<?= $link->url("admin.adminLogin") ?>">
                         <?= htmlspecialchars($translations['about'] ?? "O Nás", ENT_QUOTES, "UTF-8") ?>
                     </a>
 

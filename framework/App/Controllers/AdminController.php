@@ -27,6 +27,9 @@ class AdminController extends BaseController
      */
     public function authorize(Request $request, string $action): bool
     {
+        if (in_array($action, ['adminLogin', 'loginProcess'], true)) {
+            return true;
+        }
         return $this->user->isLoggedIn();
     }
 
@@ -39,6 +42,33 @@ class AdminController extends BaseController
      */
     public function index(Request $request): Response
     {
+        return $this->html();
+    }
+
+    public function loginProcess(Request $request): Response
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            return $this->redirect($this->url('admin.adminLogin'));
+        }
+
+        $sessionToken = $_SESSION['csrf_token'] ?? '';
+        $submittedToken = $_POST['csrf_token'] ?? '';
+
+        if (
+            !is_string($sessionToken) ||
+            !is_string($submittedToken) ||
+            $sessionToken === '' ||
+            !hash_equals($sessionToken, $submittedToken)
+        ) {
+            return $this->redirect($this->url('admin.adminLogin'));
+        }
+        return $this->redirect($this->url('home.index'));
+    }
+
+    public function adminLogin(Request $request): Response
+    {
+        return $this->html([], 'adminLogin');
+        //die('Moj AdminController::adminLogin()');
         return $this->html();
     }
 }
