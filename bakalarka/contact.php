@@ -1,3 +1,7 @@
+<?php 
+    require_once __DIR__ . '/phpComponents/database_ini.php';
+?>
+
 <!DOCTYPE html>
 <html lang="sk">
 <head>
@@ -13,36 +17,41 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . '/php/top-section.php'; ?>
+    <?php require_once __DIR__ . '/phpComponents/top-section.php'; ?>
 <section>
-    <form class="contact-form" method="POST" action="php/contact-submit.php">
-        <div class="form-group">
-            <label for="first-name">Meno</label>
-            <input type="text" id="first_name" name="first_name" placeholder="Zadajte meno" required>
-        </div>
+        <form class="contact-form" method="post" action="?c=contact&a=submit">
+            <div class="form-group">
+                <label for="first_name"><?= htmlspecialchars($translations['first_name_label'] ?? "Meno") ?></label>
+                <input type="text" id="first_name" name="first_name"
+                    placeholder="<?= htmlspecialchars($translations['first_name_placeholder'] ?? "Meno") ?>" required>
+            </div>
 
-        <div class="form-group">
-            <label for="last-name">Priezvisko</label>
-            <input type="text" id="last_name" name="last_name" placeholder="Zadajte priezvisko" required>
-        </div>
+            <div class="form-group">
+                <label for="last_name"><?= htmlspecialchars($translations['last_name_label'] ?? "Priezvisko") ?></label>
+                <input type="text" id="last_name" name="last_name"
+                    placeholder="<?= htmlspecialchars($translations['last_name_placeholder'] ?? "Priezvisko") ?>" required>
+            </div>
 
-        <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" placeholder="Email" required>
-        </div>
+            <div class="form-group">
+                <label for="email"><?= htmlspecialchars($translations['email_label'] ?? "E-Mail") ?></label>
+                <input type="email" id="email" name="email"
+                    placeholder="<?= htmlspecialchars($translations['email_placeholder'] ?? "Email") ?>" required>
+            </div>
 
-        <div class="form-group">
-            <label for="phone">Telefón</label>
-            <input type="tel" id="phone" name="phone" placeholder="+421 900 123 456" required>
-        </div>
+            <div class="form-group">
+                <label for="phone"><?= htmlspecialchars($translations['phone_label'] ?? "Telefón") ?></label>
+                <input type="tel" id="phone" name="phone"
+                    placeholder="<?= htmlspecialchars($translations['phone_placeholder'] ?? "+421 900 123 456") ?>" required>
+            </div>
 
-        <div class="form-group">
-            <label for="note">Poznámka</label>
-            <textarea type="note" id="note" name="note" rows="5" placeholder="Poznámka pre firmu" required></textarea>
-        </div>
+            <div class="form-group">
+                <label for="note"><?= htmlspecialchars($translations['note_label'] ?? "Poznámka") ?></label>
+                <textarea id="note" name="note" rows="5"
+                    placeholder="<?= htmlspecialchars($translations['note_placeholder'] ?? "Poznámka pre firmu") ?>" required></textarea>
+            </div>
 
-        <button type="submit">Odoslať</button>
-    </form>
-
-</section>
+            <button type="submit"><?= htmlspecialchars($translations['submit_button'] ?? "Odoslať") ?></button>
+        </form>
+    </section>
+    
 </body>

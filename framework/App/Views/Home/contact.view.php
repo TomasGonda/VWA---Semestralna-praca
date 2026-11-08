@@ -22,31 +22,36 @@
     <section>
     <form class="contact-form" method="post" action="?c=contact&a=submit">
         <div class="form-group">
-            <label for="first-name">Meno</label>
-            <input type="text" id="first_name" name="first_name" placeholder="Zadajte meno" required>
+            <label for="first-name"><?= htmlspecialchars($translations['first_name_label'] ?? "Meno", ENT_QUOTES, "UTF-8") ?></label>
+            <input type="text" id="first_name" name="first_name" 
+            placeholder=<?= htmlspecialchars($translations['first_name_placeholder'] ?? "Meno", ENT_QUOTES, "UTF-8") ?> required>
         </div>
 
         <div class="form-group">
-            <label for="last-name">Priezvisko</label>
-            <input type="text" id="last_name" name="last_name" placeholder="Zadajte priezvisko" required>
+            <label for="last-name"><?= htmlspecialchars($translations['last_name_label'] ?? "Priezvisko", ENT_QUOTES, "UTF-8") ?></label>
+            <input type="text" id="last_name" name="last_name" 
+            placeholder=<?= htmlspecialchars($translations['last_name_label'] ?? "Priezvisko", ENT_QUOTES, "UTF-8") ?> required>
         </div>
 
         <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" placeholder="Email" required>
+            <label for="email"><?= htmlspecialchars($translations['email_label'] ?? "E-Mail", ENT_QUOTES, "UTF-8") ?></label>
+            <input type="email" id="email" name="email" 
+            placeholder=<?= htmlspecialchars($translations['email_placeholder'] ?? "Email", ENT_QUOTES, "UTF-8") ?> required>
         </div>
 
         <div class="form-group">
-            <label for="phone">Telefón</label>
-            <input type="tel" id="phone" name="phone" placeholder="+421 900 123 456" required>
+            <label for="phone"><?= htmlspecialchars($translations['phone_label'] ?? "Telefón", ENT_QUOTES, "UTF-8") ?></label>
+            <input type="tel" id="phone" name="phone" 
+            placeholder=<?= htmlspecialchars($translations['phone_placeholder'] ?? "+421 900 123 456", ENT_QUOTES, "UTF-8") ?> required>
         </div>
 
         <div class="form-group">
-            <label for="note">Poznámka</label>
-            <textarea type="note" id="note" name="note" rows="5" placeholder="Poznámka pre firmu" required></textarea>
+            <label for="note"><?= htmlspecialchars($translations['note_label'] ?? "Poznámka", ENT_QUOTES, "UTF-8") ?></label>
+            <textarea type="note" id="note" name="note" rows="5" 
+            placeholder=<?= htmlspecialchars($translations['note_placeholder'] ?? "Poznámka pre firmu", ENT_QUOTES, "UTF-8") ?> required></textarea>
         </div>
 
-        <button type="submit">Odoslať</button>
+        <button type="submit"><?= htmlspecialchars($translations['submit_button'] ?? "Odoslať", ENT_QUOTES, "UTF-8") ?></button>
     </form>
 </section>
 </body>

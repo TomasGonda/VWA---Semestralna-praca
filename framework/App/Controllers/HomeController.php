@@ -5,6 +5,7 @@ namespace App\Controllers;
 use Framework\Core\BaseController;
 use Framework\Http\Request;
 use Framework\Http\Responses\Response;
+use App\Models\LanguageModel;
 
 /**
  * Class HomeController
@@ -39,7 +40,7 @@ class HomeController extends BaseController
      */
     public function index(Request $request): Response
     {
-        return $this->html();
+        return $this->html($this->getLanguageData());
     }
 
     /**
@@ -52,6 +53,33 @@ class HomeController extends BaseController
      */
     public function contact(Request $request): Response
     {
-        return $this->html();
+        return $this->html($this->getLanguageData());
+    }
+
+    private function getLanguageData(): array
+    {
+        //Dostupné jazyly
+        $availableLanguages = ['sk', 'en'];
+
+        //Zmena jazyka
+        if (isset($_GET['lang']) && in_array($_GET['lang'], $availableLanguages, true)) {
+            $_SESSION['lang'] = $_GET['lang'];
+        }
+
+        $languages = $_SESSION['lang'] ?? 'sk';
+
+        $languageModel = new LanguageModel();
+
+        /* translations -> tlanslations... 2h mi to trvalo nájsť tento preklep...*/
+        return ['translations' => $languageModel->getTranslations($languages), 'currentLanguage' => $languages];
+
+        /*$data = [
+            'translations' => $languageModel->getTranslations($languages),
+            'currentLanguage' => $languages
+        ];
+
+        error_log('HOME CONTROLLER DATA: ' . print_r($data, true));
+
+        return $data; */
     }
 }

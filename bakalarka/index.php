@@ -1,3 +1,7 @@
+<?php 
+    require_once __DIR__ . '/phpComponents/database_ini.php';
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +20,7 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . '/php/top-section.php'; ?>
+    <?php require_once __DIR__ . '/phpComponents/top-section.php'; ?>
     <main>
         <div class="carousel-img">
             <img id="carousel-img" src="../shared/imgs/hokejbal-170T-1-700x400.jpg" alt="Hokejball">

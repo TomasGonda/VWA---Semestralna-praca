@@ -1,0 +1,66 @@
+/*insert (using phpmyadmin) */
+
+insert into languages (code, name) VALUES ('sk', 'Slovenčina');
+insert into languages (code, name) VALUES ('en', 'English');
+
+INSERT INTO Translations (language_id, translation_key, translation_value)
+VALUES
+    (1, 'contact', 'Kontakt'),
+    (1, 'about', 'O nás'),
+    (2, 'contact', 'Contact'),
+    (2, 'about', 'About us');
+
+INSERT INTO Translations (language_id, translation_key, translation_value)
+VALUES
+    (1, 'title', 'Športové výsledkové tabule'),
+    (1, 'cart', 'Košík'),
+    (2, 'title', 'Scoreboards for all sports'),
+    (2, 'cart', 'Cart');
+
+INSERT INTO Translations (language_id, translation_key, translation_value) 
+VALUES 
+    (1, 'search', 'Hľadať'), 
+    (1, 'menu_sport_tables', 'Športové tabule'), 
+    (1, 'search_placeholder', 'Vyhľadávanie'), 
+    (2, 'search', 'Search'), 
+    (2, 'menu_sport_tables', 'Scoreboards'), 
+    (2, 'search_placeholder', 'Search');
+
+INSERT INTO Translations (language_id, translation_key, translation_value)
+VALUES
+    (1, 'menu_stop_watch', 'Stopky'),
+    (1, 'menu_basketball', 'Basketball'),
+    (1, 'menu_utilities', 'Príslušenstvo'),
+    (2, 'menu_stop_watch', 'Stop Watch'),
+    (2, 'menu_basketball', 'Basketball'),
+    (2, 'menu_utilities', 'Utilities');
+
+INSERT INTO Translations (language_id, translation_key, translation_value)
+VALUES
+    (1, 'first_name_label', 'Meno'),
+    (1, 'first_name_placeholder', 'Zadajte meno'),
+    (1, 'last_name_label', 'Priezvisko'),
+    (1, 'last_name_placeholder', 'Zadajte priezvisko'),
+    (1, 'email_label', 'E-mail'),
+    (1, 'email_placeholder', 'Email'),
+    (1, 'phone_label', 'Telefón'),
+    (1, 'phone_placeholder', '+421 900 123 456'),
+    (1, 'note_label', 'Poznámka'),
+    (1, 'note_placeholder', 'Poznámka pre firmu'),
+    (1, 'submit_button', 'Odoslať'),
+
+    (2, 'first_name_label', 'First name'),
+    (2, 'first_name_placeholder', 'Enter your first name'),
+    (2, 'last_name_label', 'Last name'),
+    (2, 'last_name_placeholder', 'Enter your last name'),
+    (2, 'email_label', 'E-mail'),
+    (2, 'email_placeholder', 'Email'),
+    (2, 'phone_label', 'Phone'),
+    (2, 'phone_placeholder', '+421 900 123 456'),
+    (2, 'note_label', 'Note'),
+    (2, 'note_placeholder', 'Message for the company'),
+    (2, 'submit_button', 'Send');
+
+/*Debug*/
+
+SELECT * FROM languages l join translations t using (t.language_id = l.id) where l.id = 1;
