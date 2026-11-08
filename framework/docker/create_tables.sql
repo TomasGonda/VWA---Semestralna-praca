@@ -21,3 +21,19 @@ CREATE TABLE Translations (
     UNIQUE (language_id, translation_key)
 );
 
+CREATE TABLE Contact (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(254) NOT NULL,
+    phone VARCHAR(30) NOT NULL,
+    note TEXT NOT NULL,
+    gdpr_consent TINYINT(1) NOT NULL DEFAULT 0,
+);
+
+CREATE TABLE Admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

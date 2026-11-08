@@ -109,7 +109,7 @@
 }
 
 /*Contact columns*/
-.contact-columns { 
+.main-columns { 
     display: grid;
     grid-template-columns: 450px 450px;
     grid-template-areas: "form info";
@@ -124,7 +124,12 @@
 
 }
 
-.contact-info {
+.main-right {
+    min-width: 0px;
+    min-height: 300px;
+}
+
+.main-left {
     min-width: 0px;
     min-height: 300px;
 }

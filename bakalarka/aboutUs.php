@@ -19,7 +19,23 @@ require_once __DIR__ . '/phpComponents/database_ini.php';
 
 <body>
     <?php require_once __DIR__ . '/phpComponents/top-section.php'; ?>
+    <section>
+        <div class="main-columns">
+            <div class="main-left">
+                <h2>
+                    <?= htmlspecialchars($translations['about'] ?? "O nás") ?>
+                </h2>
+                <p>Placeholder text</p>
 
-    
+            </div>
+
+            <div class="main-right">
+                <h2>
+                    <?= htmlspecialchars($translations['documents'] ?? "Dokumenty") ?>
+                </h2>
+            </div>
+        </div>
+    </section>
+
 </body>
 

@@ -33,14 +33,14 @@
         max-width: 450px;
     }
 
-    .contact-info {
+    .main-right {
         order: 1;
         justify-self: center;
         max-width: 450px;
     }
 
 
-    .contact-columns {
+    .main-columns {
         display: flex;
         flex-direction: column;
         justify-content: center;

@@ -87,6 +87,11 @@ VALUES
     (1, 'gdpr_consent', 'Súhlasím so spracovaním osobných údajov.'),
     (2, 'gdpr_consent', 'I agree to the processing of my personal data.');
 
+INSERT INTO Translations (language_id, translation_key, translation_value) 
+VALUES 
+    (1, 'documents', 'Dokumenty'), 
+    (2, 'documents', 'Documents');
+
 /*Debug*/
 
 SELECT * FROM languages l join translations t using (t.language_id = l.id) where l.id = 1;
@@ -95,3 +100,4 @@ SELECT * FROM languages l join translations t using (t.language_id = l.id) where
 
 ALTER TABLE contact
 ADD COLUMN gdpr_consent TINYINT(1) NOT NULL DEFAULT 0;
+
