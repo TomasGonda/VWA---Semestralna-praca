@@ -31,7 +31,23 @@
     <link rel="stylesheet" href="<?= $link->asset('../../shared/css/top-responsivity.css') ?>">
     <link rel="stylesheet" href="<?= $link->asset('../../shared/css/main-section.css') ?>">
     <link rel="stylesheet" href="<?= $link->asset('../../shared/css/main-responsivity.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/adminInterface.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/adminLogin.css') ?>">
 </head>
+
+<?php if (isset($_SESSION['admin_id'])): ?>
+    <section class="admin-panel">
+        <h2>Administrácia</h2>
+
+        <div class="admin-controls">
+            <a href="">Správa produktov</a>
+            <a href="<?= $link->url("admin.adminFormular") ?>">Správy z formulára</a>
+            <a href="">Správa prekladov</a>
+            <a href="<?= $link->url("admin.logout") ?>">Odhlásiť sa</a>
+        </div>
+    </section>
+
+<?php endif; ?>
 
 <body>
     <div class="top-section">
@@ -40,7 +56,7 @@
                 <span><?= htmlspecialchars($translations['title'] ?? "Športové výsledkové tabule", ENT_QUOTES, "UTF-8") ?></span>
 
                 <nav class="top-links">
-                    <a href="">
+                    <a href="<?= $link->url("admin.adminLogin") ?>">
                         <?= htmlspecialchars($translations['about'] ?? "O Nás", ENT_QUOTES, "UTF-8") ?>
                     </a>
 

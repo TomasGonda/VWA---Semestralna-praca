@@ -21,7 +21,7 @@ require_once __DIR__ . '/phpComponents/database_ini.php';
     <?php require_once __DIR__ . '/phpComponents/top-section.php'; ?>
     <section class="contact-section">
         <div class="main-columns">
-            <form class="contact-form" method="post" action="?c=contact&a=submit">
+            <form class="contact-form" method="post" action="databaseConections/contact-submit.php">
                 <div class="form-group">
                     <label for="first_name">
                         <?= htmlspecialchars($translations['first_name_label'] ?? "Meno") ?>

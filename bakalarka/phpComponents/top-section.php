@@ -2,6 +2,19 @@
 //var_dump($language);
 //var_dump($translations);
 ?>
+<?php if (isset($_SESSION['admin_id'])): ?>
+    <section class="admin-panel">
+        <h2>Administrácia</h2>
+
+        <div class="admin-controls">
+            <a href="">Správa produktov</a>
+            <a href="Admin/adminFormular.php">Správy z formulára</a>
+            <a href="">Správa prekladov</a>
+            <a href="Admin/logout.php">Odhlásiť sa</a>
+        </div>
+    </section>
+
+<?php endif; ?>
 
 <div class="top-section">
     <div class="top-menu">
@@ -54,12 +67,9 @@
         </a>
 
         <form class="search-form" action="" method="get">
-            <input
-                type="search"
-                name="q"
+            <input type="search" name="q"
                 placeholder="<?= htmlspecialchars($translations['search_placeholder'] ?? 'Vyhľadávanie') ?>"
-                aria-label="Vyhľadávanie produktov"
-            >
+                aria-label="Vyhľadávanie produktov">
 
             <button type="submit" aria-label="Hľadať">
                 <?= htmlspecialchars($translations['search'] ?? 'Hľadať') ?>
