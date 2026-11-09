@@ -10,8 +10,9 @@ $view->setLayout(null);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Správy | Administrácia LGR</title>
 
-    <link rel="stylesheet" href="../../shared/css/global.css">
-    <link rel="stylesheet" href="../../shared/css/adminInterface.css">
+    <link rel="stylesheet" href="<?= $link->asset('css/global.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/adminInterface.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/adminLogin.css') ?>">
 </head>
 
 <body>

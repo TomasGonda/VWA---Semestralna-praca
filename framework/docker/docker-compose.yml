@@ -3,9 +3,12 @@ services:
   web:
     image: ghcr.io/thevajko/vaii-web-server:main
     environment:
-      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+      - APACHE_DOCUMENT_ROOT=/var/www/html/framework/public
     volumes:
-      - ./../:/var/www/html/
+    - ./../../:/var/www/html/
+    - ./../../shared/css:/var/www/html/framework/public/css
+    - ./../../shared/js:/var/www/html/framework/public/js
+    - ./../../shared/imgs:/var/www/html/framework/public/imgs
     ports:
       - "127.0.0.1:80:80"
     stdin_open: true

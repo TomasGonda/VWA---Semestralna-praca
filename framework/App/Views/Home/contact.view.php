@@ -12,11 +12,13 @@
 
     <title><?= $title ?? 'LGR' ?></title>
 
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/global.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/top-section.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/top-responsivity.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/main-section.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/main-responsivity.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/global.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/top-section.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/top-responsivity.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/main-section.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/main-responsivity.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/adminInterface.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/adminLogin.css') ?>">
 </head>
 
 <body>
