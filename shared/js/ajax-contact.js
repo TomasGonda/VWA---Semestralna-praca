@@ -1,4 +1,4 @@
-console.log('AJAX contact JS sa načítal');
+//console.log('AJAX contact JS sa načítal');
 
 const contactForm = document.getElementById('contact-form');
 const contactMessage = document.getElementById('contact-message');

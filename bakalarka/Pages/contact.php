@@ -24,10 +24,9 @@ $messageKey = $contactMessageKey[$contactStatus] ?? '';
     <title>Kontakt</title>
 
     <link rel="stylesheet" href="../../shared/css/global.css">
-    <link rel="stylesheet" href="../../shared/css/top-section.css">
-    <link rel="stylesheet" href="../../shared/css/top-responsivity.css">
     <link rel="stylesheet" href="../../shared/css/main-section.css">
     <link rel="stylesheet" href="../../shared/css/main-responsivity.css">
+
 </head>
 
 <body>

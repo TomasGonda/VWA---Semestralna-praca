@@ -2,19 +2,23 @@
 //var_dump($language);
 //var_dump($translations);
 ?>
+
 <?php if (isset($_SESSION['admin_id'])): ?>
     <section class="admin-panel">
         <h2>Administrácia</h2>
 
         <div class="admin-controls">
             <a href="">Správa produktov</a>
-            <a href="Admin/adminFormular.php">Správy z formulára</a>
+            <a href="../Admin/adminFormular.php">Správy z formulára</a>
             <a href="">Správa prekladov</a>
-            <a href="Admin/logout.php">Odhlásiť sa</a>
+            <a href="../Admin/logout.php">Odhlásiť sa</a>
         </div>
     </section>
 
 <?php endif; ?>
+<link rel="stylesheet" href="../../shared/css/top-section.css">
+<link rel="stylesheet" href="../../shared/css/top-responsivity.css">
+<link rel="stylesheet" href="../../shared/css/adminInterface.css">
 
 <div class="top-section">
     <div class="top-menu">
@@ -84,24 +88,34 @@
     </header>
 
     <div class="main-menu">
-        <nav class="nav-bar" aria-label="Hlavná navigácia">
+
+        <button class="hamburger" id="hamburger" type="button" aria-label="Otvoriť navigáciu" aria-expanded="false"
+            aria-controls="nav-bar">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="nav-bar" id="nav-bar" aria-label="Hlavná navigácia">
+
+            <a href="">
+                <?= htmlspecialchars($translations['general_informations'] ?? 'Všeobecné informácie') ?>
+            </a>
 
             <a href="">
                 <?= htmlspecialchars($translations['menu_sport_tables'] ?? 'Športové tabule') ?>
             </a>
 
             <a href="">
-                <?= htmlspecialchars($translations['menu_stop_watch'] ?? 'Stopky') ?>
+                <?= htmlspecialchars($translations['menu_utilities'] ?? 'Basketball') ?>
             </a>
 
             <a href="">
-                <?= htmlspecialchars($translations['menu_basketball'] ?? 'Basketball') ?>
-            </a>
-
-            <a href="">
-                <?= htmlspecialchars($translations['menu_utilities'] ?? 'Príslušenstvo') ?>
+                <?= htmlspecialchars($translations['documents'] ?? 'Dokumenty') ?>
             </a>
 
         </nav>
     </div>
+
+    <script src="../../shared/js/hamburger.js" defer></script>
 </div>
