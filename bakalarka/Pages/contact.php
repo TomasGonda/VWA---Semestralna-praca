@@ -1,5 +1,18 @@
 <?php
-require_once __DIR__ . '/phpComponents/database_ini.php';
+require_once __DIR__ . '/../phpComponents/database_ini.php';
+
+$contactStatus = $_GET['contact'] ?? '';
+
+$contactMessageKey = [
+    'required' => 'contact_required',
+    'invalid_email' => 'contact_invalid_email',
+    'gdpr_required' => 'contact_gdpr_required',
+    'too_long' => 'contact_too_long',
+    'error' => 'contact_error',
+    'success' => 'contact_success'
+];
+
+$messageKey = $contactMessageKey[$contactStatus] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -10,18 +23,20 @@ require_once __DIR__ . '/phpComponents/database_ini.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kontakt</title>
 
-    <link rel="stylesheet" href="../shared/css/global.css">
-    <link rel="stylesheet" href="../shared/css/top-section.css">
-    <link rel="stylesheet" href="../shared/css/top-responsivity.css">
-    <link rel="stylesheet" href="../shared/css/main-section.css">
-    <link rel="stylesheet" href="../shared/css/main-responsivity.css">
+    <link rel="stylesheet" href="../../shared/css/global.css">
+    <link rel="stylesheet" href="../../shared/css/top-section.css">
+    <link rel="stylesheet" href="../../shared/css/top-responsivity.css">
+    <link rel="stylesheet" href="../../shared/css/main-section.css">
+    <link rel="stylesheet" href="../../shared/css/main-responsivity.css">
 </head>
 
 <body>
-    <?php require_once __DIR__ . '/phpComponents/top-section.php'; ?>
+    <?php require_once __DIR__ . '/../phpComponents/top-section.php'; ?>
     <section class="contact-section">
         <div class="main-columns">
-            <form class="contact-form" method="post" action="databaseConections/contact-submit.php">
+            <form id="contact-form" class="contact-form" method="post" action="../databaseConections/contact-submit.php" novalidate>
+                <p id="contact-message" class="form-message" hidden></p>
+                <input type="hidden" name="language" value="<?= htmlspecialchars($language) ?>">
                 <div class="form-group">
                     <label for="first_name">
                         <?= htmlspecialchars($translations['first_name_label'] ?? "Meno") ?>
@@ -68,7 +83,7 @@ require_once __DIR__ . '/phpComponents/database_ini.php';
 
                 <div class="gdpr-form">
                     <input type="checkbox" id="gdpr" name="gdpr" value="1" required>
-                        <?= htmlspecialchars($translations['gdpr_consent'] ?? "Súhlasím so spracovaním osobných údajov.") ?>
+                    <?= htmlspecialchars($translations['gdpr_consent'] ?? "Súhlasím so spracovaním osobných údajov.") ?>
                     <label for="gdpr">
 
                     </label>
@@ -111,4 +126,5 @@ require_once __DIR__ . '/phpComponents/database_ini.php';
         </div>
     </section>
 
+    <script src="../../shared/js/ajax-contact.js"></script>
 </body>

@@ -3,7 +3,7 @@
 session_start();
 
 if (isset($_SESSION['admin_id'])) {
-    header('Location: ../index.php');
+    header('Location: ../Pages/index.php');
     exit;
 }
 
@@ -66,7 +66,7 @@ if (empty($_SESSION['csrf_token'])) {
 
             <button type="submit">Prihlásiť sa</button>
 
-            <a href="../index.php">Späť na hlavnú stránku</a>
+            <a href="../Pages/index.php">Späť na hlavnú stránku</a>
 
         </form>
 

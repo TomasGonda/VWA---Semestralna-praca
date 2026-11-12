@@ -46,5 +46,5 @@ $_SESSION['admin_username'] = $admin['username'];
 
 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 
-header('Location: ../index.php');
+header('Location: ../Pages/index.php');
 exit;

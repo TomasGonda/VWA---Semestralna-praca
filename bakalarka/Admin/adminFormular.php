@@ -41,7 +41,7 @@ $messages = $stmt->fetchAll(); ?>
 
         <h1>Prijaté správy</h1>
 
-        <a href="../index.php">Späť na hlavnú stránku</a>
+        <a href="../Pages/index.php">Späť na hlavnú stránku</a>
         <p>Počet prijatých správ: <?= count($messages) ?></p>
 
         <?php if (empty($messages)): ?>

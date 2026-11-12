@@ -24,21 +24,21 @@
             </span>
 
             <nav class="top-links">
-                <a href="aboutUs.php">
+                <a href="../Pages/aboutUs.php">
                     <?= htmlspecialchars($translations['about'] ?? 'O nás') ?>
                 </a>
 
-                <a href="contact.php">
+                <a href="../Pages/contact.php">
                     <?= htmlspecialchars($translations['contact'] ?? 'Kontakt') ?>
                 </a>
 
                 <div class="language-switch">
                     <button class="language-button" type="button" aria-expanded="false">
                         <?php if ($language === 'sk'): ?>
-                            <img src="../shared/imgs/Flag_of_Slovakia.png" alt="">
+                            <img src="../../shared/imgs/Flag_of_Slovakia.png" alt="">
                             <span>SK</span>
                         <?php else: ?>
-                            <img src="../shared/imgs/england.png" alt="">
+                            <img src="../../shared/imgs/england.png" alt="">
                             <span>EN</span>
                         <?php endif; ?>
 
@@ -47,12 +47,12 @@
 
                     <div class="language-dropdown">
                         <a href="?lang=sk">
-                            <img src="../shared/imgs/Flag_of_Slovakia.png" alt="">
+                            <img src="../../shared/imgs/Flag_of_Slovakia.png" alt="">
                             <?= htmlspecialchars($translations['slovak_language'] ?? 'Slovenčina') ?>
                         </a>
 
                         <a href="?lang=en">
-                            <img src="../shared/imgs/england.png" alt="">
+                            <img src="../../shared/imgs/england.png" alt="">
                             <?= htmlspecialchars($translations['english_language'] ?? 'English') ?>
                         </a>
                     </div>
@@ -62,8 +62,8 @@
     </div>
 
     <header class="top-header">
-        <a href="index.php" class="logo-link">
-            <img class="header-img" src="../shared/imgs/Logo_cele.png" alt="LGR - domovská stránka">
+        <a href="../Pages/index.php" class="logo-link">
+            <img class="header-img" src="../../shared/imgs/Logo_cele.png" alt="LGR - domovská stránka">
         </a>
 
         <form class="search-form" action="" method="get">
