@@ -25,6 +25,7 @@
     <section class="contact-section">
         <div class="main-columns">
             <form class="contact-form" method="post" action="?c=contact&a=submit">
+                <p id="contact-message" class="form-message" hidden></p>
                 <div class="form-group">
                     <label for="first_name">
                         <?= htmlspecialchars($translations['first_name_label'] ?? "Meno") ?>
@@ -113,4 +114,5 @@
             </div>
         </div>
     </section>
+    <script src="<?= $link->asset('js/ajax-contact.js') ?>" defer></script>
 </body>
