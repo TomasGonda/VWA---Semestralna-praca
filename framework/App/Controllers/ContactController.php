@@ -21,30 +21,34 @@ class ContactController extends BaseController
 
     public function submit(Request $request): Response
     {
+        $language = $_SESSION['lang'] ?? 'sk';
+
         if (!$request->isPost()) {
-            return $this->json([
-                'status' => 'error',
-                'message' => 'Neplatná požiadavka.'
-            ]);
+            header('Location: ?c=contact&a=contact&lang=' . $language . '&contact=invalid_request#contact');
+            exit;
         }
+
         $firstName = trim((string) $request->post('first_name'));
         $lastName = trim((string) $request->post('last_name'));
         $email = trim((string) $request->post('email'));
         $phone = trim((string) $request->post('phone'));
         $note = trim((string) $request->post('note'));
 
+        $gdprConsent = $request->post('gdpr') ? 1 : 0;
+
         if ($firstName === '' || $lastName === '' || $email === '') {
-            return $this->json([
-                'status' => 'error',
-                'message' => 'Vyplňte všetky povinné polia.'
-            ]);
+            header('Location: ?c=home&a=contact&lang=' . $language . '&contact=required#contact');
+            exit;
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return $this->json([
-                'status' => 'error',
-                'message' => 'Zadaná e-mailová adresa nie je platná.'
-            ]);
+            header('Location: ?c=home&a=contact&lang=' . $language . '&contact=invalid_email#contact');
+            exit;
+        }
+
+        if ($gdprConsent !== 1) {
+            header('Location: ?c=home&a=contact&lang=' . $language . '&contact=gdpr_required#contact');
+            exit;
         }
         $phone = $phone !== '' ? $phone : null;
         $note = $note !== '' ? $note : null;
@@ -56,14 +60,13 @@ class ContactController extends BaseController
             $lastName,
             $email,
             $phone,
-            $note
+            $note,
+            $gdprConsent
         );
 
-        return $this->json([
-            'status' => $success ? 'success' : 'error',
-            'message' => $success
-                ? 'Správa bola úspešne odoslaná.'
-                : 'Správu sa nepodarilo odoslať.'
-        ]);
+        $status = $success ? 'success' : 'error';
+
+        header('Location: ?c=home&a=index&lang=' . $language . '&contact=' . $status . '#contact');
+        exit;
     }
 }

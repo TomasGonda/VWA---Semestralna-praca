@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once __DIR__ . '/../databaseConections/database.php';
+use Framework\DB\Connection;
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: adminLogin.php');
@@ -12,7 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $sessionToken = $_SESSION['csrf_token'] ?? '';
 $submittedToken = $_POST['csrf_token'] ?? '';
 
-if (!is_string($sessionToken) || !is_string($submittedToken) || $sessionToken === '' || !hash_equals($sessionToken, $submittedToken)) {
+if (
+    !is_string($sessionToken) ||
+    !is_string($submittedToken) ||
+    $sessionToken === '' ||
+    !hash_equals($sessionToken, $submittedToken)
+) {
     header('Location: adminLogin.php?error=invalid_csrf_token');
     exit;
 }
@@ -25,10 +30,14 @@ if ($username === '' || $password === '') {
     exit;
 }
 
-$sql = "Select id, username, password_hash from admins where username = :username limit 1";
+$db = Connection::getInstance();
 
-$stmt = $pdo->prepare($sql); 
+$sql = "SELECT id, username, password_hash
+        FROM admins
+        WHERE username = :username
+        LIMIT 1";
 
+$stmt = $db->prepare($sql);
 $stmt->execute(['username' => $username]);
 
 $admin = $stmt->fetch();
@@ -42,7 +51,6 @@ session_regenerate_id(true);
 
 $_SESSION['admin_id'] = $admin['id'];
 $_SESSION['admin_username'] = $admin['username'];
-
 
 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 

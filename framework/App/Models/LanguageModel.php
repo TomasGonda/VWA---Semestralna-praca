@@ -23,8 +23,8 @@ class LanguageModel
         ");*/
         $stmt = $db->prepare("
             select t.translation_key, t.translation_value
-            from Languages l
-            join Translations t on t.language_id = l.id
+            from languages l
+            join translations t on t.language_id = l.id
             where l.code = :language;
         ");
 

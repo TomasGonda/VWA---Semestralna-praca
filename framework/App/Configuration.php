@@ -29,7 +29,7 @@ class Configuration
     /**
      * Database connection settings.
      */
-    public const DB_HOST = '127.0.0.1';  // Hostname for the database service (defined in docker/docker-compose.yml)
+    public const DB_HOST = 'db';  // Hostname for the database service (defined in docker/docker-compose.yml)
     public const DB_NAME = 'bakalarka'; // Database name (defined in docker/.env)
     public const DB_USER = 'root'; // Username for database access (defined in docker/.env)
     public const DB_PASS = '123'; // Password for database access (defined in docker/.env)
