@@ -1,7 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: Admin/adminLogin.php');
+if (!isset($_SESSION['admin_id']) ||
+    !in_array($_SESSION['admin_role'], ['admin', 'dev'], true)) {
+    header('Location: ../Pages/index.php');
     exit;
 }
 
@@ -11,7 +12,9 @@ require_once __DIR__ . '/../databaseConections/database.php';
 $sql = "SELECT
     t_sk.translation_key,
     t_sk.translation_value AS sk,
-    t_en.translation_value AS en
+    t_en.translation_value AS en,
+    t_sk.id AS id_sk,
+    t_en.id AS id_en
     FROM translations t_sk
     JOIN languages l_sk ON l_sk.id = t_sk.language_id
     JOIN translations t_en ON t_en.translation_key = t_sk.translation_key
@@ -32,7 +35,7 @@ $translations = $stmt->fetchAll(); ?>
     <title>Správy | Administrácia LGR</title>
 
     <link rel="stylesheet" href="../../shared/css/global.css">
-    <link rel="stylesheet" href="../../shared/css/Admin/adminInterface.css">
+    <link rel="stylesheet" href="../../shared/css/Admin/adminTranslations.css">
 
 </head>
 
@@ -42,33 +45,38 @@ $translations = $stmt->fetchAll(); ?>
             <h1>Preklady</h1>
             <a href="../Pages/index.php">Späť na hlavnú stránku</a>
             <div class="form-list">
-                 <?php foreach ($translations as $translation): ?>
+                <?php foreach ($translations as $translation): ?>
                     <article class="form-card">
-                        <h2>
-                        <?= htmlspecialchars(
-                            $translation['translation_key']
-                        ) ?>
-                    </h2>
-                    <p>
-                        <p>
-                            sk
-                        </p>
-                        <?= htmlspecialchars(
-                            $translation['sk']
-                        ) ?>
-                    </p>
+                        <form class="admin-form" method="POST">
 
-                    <p>
-                        <p>
-                            en
-                        </p>
-                        <?= htmlspecialchars(
-                            $translation['en']
-                        ) ?>
-                    </p>
-            </article>
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+                            <input type="hidden" name="id_sk" value="<?= (int) $translation['id_sk'] ?>">
+                            <input type="hidden" name="id_en" value="<?= (int) $translation['id_en'] ?>">
+
+                            <div class="translation-forms">
+                                <h2>
+                                    Tag: <?= htmlspecialchars($translation['translation_key']) ?>
+                                </h2>
+
+                                <label>SK:</label>
+                                <input type="text" name="sk" value="<?= htmlspecialchars($translation['sk']) ?>"><br>
+
+                                <label>EN:</label>
+                                <input type="text" name="en" value="<?= htmlspecialchars($translation['en']) ?>"><br>
+                                <button type="submit">Uložiť zmeny</button>
+                            </div>
+                             <p class="form-message" hidden></p>
+                        </form>
+                        <?php if (
+                            isset($_SESSION['message_id']) &&
+                            (int) $_SESSION['message_id'] === (int) $translation['id_sk']
+                        ): ?>
+                        <?php endif; ?>
+                    </article>
+
                 <?php endforeach; ?>
             </div>
         </div>
     </main>
+    <script src="../../shared/js/Admin-js/admin-translations-ajax.js"></script>
 </body>

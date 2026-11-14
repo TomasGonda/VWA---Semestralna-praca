@@ -1,16 +1,29 @@
 <?php
 //var_dump($language);
 //var_dump($translations);
+
+
+//echo '<pre>';
+//var_dump($_SESSION['admin_id']);
+//var_dump($_SESSION['admin_role']);
+//echo '</pre>'; 
 ?>
 
 <?php if (isset($_SESSION['admin_id'])): ?>
     <section class="admin-panel">
-        <h2>Administrácia</h2>
+        <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
+            <h2>Developer</h2>
+        <?php else: ?>
+            <h2>Administrátor</h2>
+        <?php endif?>
 
         <div class="admin-controls">
             <a href="">Správa produktov</a>
             <a href="../Admin/adminFormular.php">Správy z formulára</a>
             <a href="../Admin/admin-translations.php">Správa prekladov</a>
+            <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
+                <a href="../Dev-tools/devPanel.php">Developer sekcia</a>
+            <?php endif; ?>
             <a href="../Admin/logout.php">Odhlásiť sa</a>
         </div>
     </section>

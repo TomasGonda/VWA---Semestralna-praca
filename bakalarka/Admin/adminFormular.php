@@ -1,7 +1,9 @@
 <?php
+
 session_start();
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: Admin/adminLogin.php');
+if (!isset($_SESSION['admin_id']) ||
+    !in_array($_SESSION['admin_role'] ?? '', ['admin', 'dev'], true)) {
+    header('Location: ../Pages/index.php');
     exit;
 }
 
