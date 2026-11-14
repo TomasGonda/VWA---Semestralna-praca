@@ -1,7 +1,9 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin_id']) ||
-    !in_array($_SESSION['admin_role'], ['admin', 'dev'], true)) {
+if (
+    !isset($_SESSION['admin_id']) ||
+    !in_array($_SESSION['admin_role'], ['admin', 'dev'], true)
+) {
     header('Location: ../Pages/index.php');
     exit;
 }
@@ -10,7 +12,7 @@ require_once __DIR__ . '/../databaseConections/database.php';
 
 /*Vygenerovany sql*/
 $sql = "SELECT
-    t_sk.translation_key,
+    t_sk.translation_key AS tk,
     t_sk.translation_value AS sk,
     t_en.translation_value AS en,
     t_sk.id AS id_sk,
@@ -45,9 +47,34 @@ $translations = $stmt->fetchAll(); ?>
             <h1>Preklady</h1>
             <a href="../Pages/index.php">Späť na hlavnú stránku</a>
             <div class="form-list">
+                <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
+                    <h2>Vytvoriť nový</h2>
+                    <article class="form-card">
+                        <form class="admin-form create-translation" method="POST">
+
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+
+                            <div class="translation-forms">
+                                <label>Tag:</label>
+                                <input type="text" name="translation_key_form" required>
+
+                                <label>SK:</label>
+                                <input type="text" name="translation_sk" required>
+
+                                <label>EN:</label>
+                                <input type="text" name="translation_en" required>
+
+                                <button type="submit">Vytvoriť preklad</button>
+                            </div>
+
+                            <p class="form-message" hidden></p>
+                        </form>
+                    </article>
+                <?php endif ?>
+
                 <?php foreach ($translations as $translation): ?>
                     <article class="form-card">
-                        <form class="admin-form" method="POST">
+                        <form class="admin-form edit-translation" method="POST">
 
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
                             <input type="hidden" name="id_sk" value="<?= (int) $translation['id_sk'] ?>">
@@ -55,7 +82,7 @@ $translations = $stmt->fetchAll(); ?>
 
                             <div class="translation-forms">
                                 <h2>
-                                    Tag: <?= htmlspecialchars($translation['translation_key']) ?>
+                                    Tag: <?= htmlspecialchars($translation['tk']) ?>
                                 </h2>
 
                                 <label>SK:</label>
@@ -65,7 +92,7 @@ $translations = $stmt->fetchAll(); ?>
                                 <input type="text" name="en" value="<?= htmlspecialchars($translation['en']) ?>"><br>
                                 <button type="submit">Uložiť zmeny</button>
                             </div>
-                             <p class="form-message" hidden></p>
+                            <p class="form-message" hidden></p>
                         </form>
                         <?php if (
                             isset($_SESSION['message_id']) &&
