@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 if (!isset($_SESSION['admin_id'])) {
     header('Location: Admin/adminLogin.php');
     exit;
@@ -32,7 +31,7 @@ $messages = $stmt->fetchAll(); ?>
     <title>Správy | Administrácia LGR</title>
 
     <link rel="stylesheet" href="../../shared/css/global.css">
-    <link rel="stylesheet" href="../../shared/css/adminInterface.css">
+    <link rel="stylesheet" href="../../shared/css/Admin/adminInterface.css">
 </head>
 
 <body>

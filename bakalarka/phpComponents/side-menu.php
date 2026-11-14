@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="../../shared/css/side-menu.css">
+
 <div class="side-menu">
     <h2><?= htmlspecialchars($translations['categories'] ?? 'Kategórie') ?></h2>
 

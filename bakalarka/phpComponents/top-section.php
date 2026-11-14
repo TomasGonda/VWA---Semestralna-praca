@@ -10,7 +10,7 @@
         <div class="admin-controls">
             <a href="">Správa produktov</a>
             <a href="../Admin/adminFormular.php">Správy z formulára</a>
-            <a href="">Správa prekladov</a>
+            <a href="../Admin/admin-translations.php">Správa prekladov</a>
             <a href="../Admin/logout.php">Odhlásiť sa</a>
         </div>
     </section>
@@ -18,7 +18,7 @@
 <?php endif; ?>
 <link rel="stylesheet" href="../../shared/css/top-section.css">
 <link rel="stylesheet" href="../../shared/css/top-responsivity.css">
-<link rel="stylesheet" href="../../shared/css/adminInterface.css">
+<link rel="stylesheet" href="../../shared/css/Admin/adminInterface.css">
 
 <div class="top-section">
     <div class="top-menu">
@@ -99,7 +99,7 @@
         <nav class="nav-bar" id="nav-bar" aria-label="Hlavná navigácia">
 
             <a href="">
-                <?= htmlspecialchars($translations['general_informations'] ?? 'Všeobecné informácie') ?>
+                <?= htmlspecialchars($translations['general_info'] ?? 'Všeobecné informácie') ?>
             </a>
 
             <a href="">
@@ -110,7 +110,7 @@
                 <?= htmlspecialchars($translations['menu_utilities'] ?? 'Basketball') ?>
             </a>
 
-            <a href="">
+            <a href="../Pages/documents.php">
                 <?= htmlspecialchars($translations['documents'] ?? 'Dokumenty') ?>
             </a>
 

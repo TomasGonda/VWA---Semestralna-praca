@@ -19,7 +19,7 @@ if (empty($_SESSION['csrf_token'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prihlásenie administrátora | LGR</title>
-    <link rel="stylesheet" href="../../shared/css/adminLogin.css">
+    <link rel="stylesheet" href="../../shared/css/Admin//adminLogin.css">
 </head>
 
 <body>

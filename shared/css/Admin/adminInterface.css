@@ -25,7 +25,6 @@
 }
 .admin-controls a:hover {
     text-decoration: underline;
-    font-weight: bold;
 }
 
 /*Forms*/
@@ -128,3 +127,4 @@
 .delete-button:hover {
     background: red;
 }
+
