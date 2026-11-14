@@ -65,6 +65,8 @@ $translations = $stmt->fetchAll(); ?>
                                 <input type="text" name="translation_en" required>
 
                                 <button type="submit">Vytvoriť preklad</button>
+
+
                             </div>
 
                             <p class="form-message" hidden></p>
@@ -94,11 +96,20 @@ $translations = $stmt->fetchAll(); ?>
                             </div>
                             <p class="form-message" hidden></p>
                         </form>
-                        <?php if (
-                            isset($_SESSION['message_id']) &&
-                            (int) $_SESSION['message_id'] === (int) $translation['id_sk']
-                        ): ?>
-                        <?php endif; ?>
+                        <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
+                            <form method="POST" action="../Dev-tools/Dev-scripts/delete-language.php"
+                                onsubmit="return confirm('Naozaj chcete vymazať tento preklad?');">
+
+                                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+
+                                <input type="hidden" name="id" value="<?= (int) $translation['id_sk'] ?>">
+                                <input type="hidden" name="id" value="<?= (int) $translation['id_en'] ?>">
+
+                                <button type="submit" class="delete-button">
+                                    Vymazať preklad
+                                </button>
+                            </form>
+                        <?php endif ?>
                     </article>
 
                 <?php endforeach; ?>

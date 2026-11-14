@@ -13,7 +13,13 @@ document.querySelectorAll('.admin-form').forEach(form => {
             url = '../Dev-tools/Dev-scripts/create-language.php';
         } else if (form.classList.contains('edit-translation')) {
             url = 'Admin-scripts/updateLanguage.php';
-        } else {
+        } else if (form.classList.contains('edit-document')){
+            url = 'Admin-scripts/edit-document.php';
+        } else if (form.classList.contains('upload-document')) {
+            url = 'Admin-scripts/upload-document.php';
+        }
+        
+        else    {
             return;
         }
 

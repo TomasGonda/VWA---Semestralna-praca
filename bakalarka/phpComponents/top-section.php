@@ -19,6 +19,7 @@
 
         <div class="admin-controls">
             <a href="">Správa produktov</a>
+            <a href="../Admin/admin-files.php">Správa súborov</a>
             <a href="../Admin/adminFormular.php">Správy z formulára</a>
             <a href="../Admin/admin-translations.php">Správa prekladov</a>
             <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
