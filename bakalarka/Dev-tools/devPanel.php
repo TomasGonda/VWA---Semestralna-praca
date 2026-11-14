@@ -21,5 +21,14 @@ require_once __DIR__ . '/../databaseConections/database.php'; ?>
 
 <body>
     <main>
+        <div class="admin-messages">
+            <h1>Developer sekcia</h1>
+            <a href="../Pages/index.php">Späť na hlavnú stránku</a>
+            <div class="form-list">
+                <div class="form-card">
+
+                </div>
+            </div>
+        </div>
     </main>
 </body>

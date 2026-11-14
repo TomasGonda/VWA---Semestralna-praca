@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-
+//echo 'nacitalo ma';
 header('Content-Type: application/json; charset=utf-8');
 
 function respond(bool $success, string $message, int $status = 200): never
@@ -43,7 +43,7 @@ if (!isset($_FILES['document'])) {
 }
 $file = $_FILES['document'];
 
-if ($file['error' !== UPLOAD_ERR_OK]) {
+if ($file['error'] !== UPLOAD_ERR_OK) {
     respond(false, 'Pri nahravani dokumentu nastala chyba');
 }
 
@@ -58,9 +58,58 @@ if ($file['size'] <= 0) {
 }
 //TOOD Overenie či je to pdf, mine typ, pdf hlavička, poznámka, kontrola názvu súboru, úpresunutie na server a uloženie do databázy
 
+$extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
+if ($extension !== 'pdf') {
+    respond(false, 'Povolené sú iba .pdf súbory');
+}
+
+$finfo = new finfo(FILEINFO_MIME_TYPE);
+$mineType = $finfo->file($file['tmp_name']);
+
+if ($mineType !== 'application/pdf') {
+    respond(false, 'Nahratý súbor nie je platné pdf');
+}
+
+$translationSk = trim($_POST['translation_sk'] ?? '');
+
+if (mb_strlen($translationSk) > 255) {
+    respond(false, 'Poznámka môže mať max 255 znakov');
+}
 
 require_once __DIR__ . '/../../databaseConections/database.php';
 
+$uploadDirectory = dirname(__DIR__, 2). '../../shared/documents/';
 
-exit;
+$newFileName = bin2hex(random_bytes(16)) . 'pdf';
+
+$fileDest = $uploadDirectory . $newFileName;
+
+$relativePath = '../../shared/documents/' . $newFileName;
+
+if (!move_uploaded_file($file['tmp_name'], $fileDest)) {
+    respond(false, 'Nepodarilo sa nahrať dokument na server', 500);
+}
+
+try {
+    $stmt = $pdo->prepare(
+        "insert into document (file_name, file_path, note)
+        values (:file_name, :file_path, :note)"
+    );
+    
+    $stmt->execute([
+        ':file_name' => basename($file['name']),
+        ':file_path' => $relativePath,
+        ':note' => $translationSk
+    ]);
+
+    respond(true, 'Dokument sa úspečne nahral');
+} catch (PDOException $e) {
+    if (file_exists($fileDest)) {
+        unlink($fileDest);
+    }
+
+    error_log('Upload document error: ' . $e->getMessage());
+
+    respond(false, 'Nepodarilo sa uložiť dokument dodatabázy');
+}

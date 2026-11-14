@@ -35,7 +35,7 @@ require_once __DIR__ . '/../../databaseConections/database.php';
 $sql = "Delete from translations where id = :id";
 $stmt = $pdo->prepare($sql);
 $stmt -> execute ([
-    'id' => $id
+    ':id' => $id
 ]);
 
 header('Location: ../../Admin/admin-translations.php');

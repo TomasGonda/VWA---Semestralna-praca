@@ -10,7 +10,7 @@ if (
 
 require_once __DIR__ . '/../databaseConections/database.php';
 
-$sql = 'select id_document, document, note, timestamp from document';
+$sql = 'select id_document, file_path, file_name, note, timestamp from document';
 
 $stmt = $pdo->query($sql);
 $documents = $stmt->fetchAll(); ?>
@@ -60,7 +60,7 @@ $documents = $stmt->fetchAll(); ?>
 
                         </div>
 
-                        <p class="form-message" hidden></p>
+                        <p class=" form-message" hidden></p>
                     </form>
                 </article>
                 <?php foreach ($documents as $document): ?>
@@ -77,15 +77,16 @@ $documents = $stmt->fetchAll(); ?>
                                 </h2>
 
                                 <label>Dokument:</label>
-                                <input type="file" name="document">
+                                <?= htmlspecialchars($document['file_name']) ?><br>
 
                                 <label>Poznámka:</label>
-                                <input type="text" name="note" value="<?= htmlspecialchars($document['note'] ?? '') ?>">
+                                <?= htmlspecialchars($document['note']) ?><br>
+                                
+                                <label>Nahrany</label>
+                                <?= htmlspecialchars($document['timestamp']) ?><br>
 
-                                <p>
-                                    Nahraný:
-                                    <?= htmlspecialchars($document['timestamp']) ?>
-                                </p>
+                                <label>Cesta</label>
+                                <?= htmlspecialchars($document['file_path']) ?><br>
 
                                 <button type="submit">Uložiť zmeny</button>
                             </div>
@@ -93,19 +94,17 @@ $documents = $stmt->fetchAll(); ?>
                             <p class="form-message" hidden></p>
                         </form>
 
-                        <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
-                            <form method="POST" action="../Dev-tools/Dev-scripts/delete-document.php"
-                                onsubmit="return confirm('Naozaj chcete vymazať tento dokument?');">
+                        <form method="POST" action="Admin-scripts/delete-document.php"
+                            onsubmit="return confirm('Naozaj chcete vymazať tento dokument?');">
 
-                                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
-                                <input type="hidden" name="id_document" value="<?= (int) $document['id_document'] ?>">
+                            <input type="hidden" name="id_document" value="<?= (int) $document['id_document'] ?>">
 
-                                <button type="submit" class="delete-button">
-                                    Vymazať dokument
-                                </button>
-                            </form>
-                        <?php endif; ?>
+                            <button type="submit" class="delete-button">
+                                Vymazať dokument
+                            </button>
+                        </form>
                     </article>
                 <?php endforeach; ?>
 
@@ -114,4 +113,5 @@ $documents = $stmt->fetchAll(); ?>
         </div>
     </main>
     <script src="../../shared/js/Admin-js/admin-upload-file.js"></script>
+    <script src="../../shared/js/Admin-js/admin-translations-ajax.js"></script>
 </body>

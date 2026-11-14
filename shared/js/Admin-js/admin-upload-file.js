@@ -1,4 +1,4 @@
-console.log('admin-uploads sa nacital');
+//console.log('admin-uploads sa nacital');
 
 document.addEventListener('dragover', e => {
     e.preventDefault();
@@ -37,6 +37,6 @@ if (dropZone && fileInput) {
 
         fileInput.files = files;
 
-        documentName.textContent = 'Vybraný súbor' + file.name;
+        documentName.textContent = 'Vybraný súbor: ' +  file.name;
     });
 }
