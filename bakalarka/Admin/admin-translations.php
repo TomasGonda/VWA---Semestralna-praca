@@ -53,7 +53,7 @@ $translations = $stmt->fetchAll(); ?>
                 <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
                     <h2>Vytvoriť nový</h2>
                     <article class="form-card">
-                        <form class="admin-form create-translation" data-url="Dev-tools/Dev-scripts/create-language.php"
+                        <form class="admin-form create-translation" data-url="../Dev-tools/Dev-scripts/create-language.php"
                             method="POST">
 
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
@@ -80,7 +80,8 @@ $translations = $stmt->fetchAll(); ?>
 
                 <?php foreach ($translations as $translation): ?>
                     <article class="form-card">
-                        <form class="admin-form edit-translation" data-url="Admin-scripts/updateLanguage.php" method="POST">
+                        <form class="admin-form edit-translation" data-url="Admin-scripts/updateLanguage.php"
+                            method="POST">
 
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
                             <input type="hidden" name="id_sk" value="<?= (int) $translation['id_sk'] ?>">
