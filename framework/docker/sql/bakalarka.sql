@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hostiteľ: 127.0.0.1:3307
--- Čas generovania: Po 09.Nov 2026, 18:06
+-- Čas generovania: Sun 15.Nov 2026, 09:25
 -- Verzia serveru: 10.4.32-MariaDB
 -- Verzia PHP: 8.5.12
 
@@ -31,15 +31,17 @@ CREATE TABLE `admins` (
   `id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `role` varchar(35) NOT NULL DEFAULT 'admin'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Sťahujem dáta pre tabuľku `admins`
 --
 
-INSERT INTO `admins` (`id`, `username`, `password_hash`, `created_at`) VALUES
-(1, 'admin', '$2y$12$BZMOglQoB4IkFIXOWEkeFOsVe/7kxOOqiEP7CQNi31ueLXxrdSAQu', '2026-11-08 15:17:38');
+INSERT INTO `admins` (`id`, `username`, `password_hash`, `created_at`, `role`) VALUES
+(1, 'admin', '$2y$12$BZMOglQoB4IkFIXOWEkeFOsVe/7kxOOqiEP7CQNi31ueLXxrdSAQu', '2026-11-08 15:17:38', 'admin'),
+(2, 'dev', '$2y$12$nERB5U.Hx9DnQBGv2Akf7uxHsGnaQqP0dly1wZBpNPRnFPxQNHTFS', '2026-11-14 15:53:46', 'dev');
 
 -- --------------------------------------------------------
 
@@ -64,7 +66,30 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`id`, `first_name`, `last_name`, `email`, `phone`, `note`, `gdpr_consent`, `created_at`, `is_resolved`) VALUES
-(3, 'Fero', 'Mrkva', 'test@gmail.com', '+421 562 466', 'velmi dlha spravaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 1, '2026-11-08 18:53:24', 1);
+(7, 'meho', 'dawdawd', 'gmail@gmail.com', '+421907123456', 'dawd', 1, '2026-11-12 18:43:44', 0),
+(8, 'mrkva', 'zelena', 'gmail@gmail.com', '+421907123456', 'esgaw', 1, '2026-11-12 18:49:08', 0),
+(9, 'test', 'fero', 'gmaio@lfr.sk', '+987546424', 'fawfawfaw', 1, '2026-11-12 21:31:49', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Štruktúra tabuľky pre tabuľku `document`
+--
+
+CREATE TABLE `document` (
+  `id_document` int(11) NOT NULL,
+  `note` varchar(255) DEFAULT NULL,
+  `timestamp` datetime NOT NULL DEFAULT current_timestamp(),
+  `file_name` varchar(255) NOT NULL,
+  `file_path` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Sťahujem dáta pre tabuľku `document`
+--
+
+INSERT INTO `document` (`id_document`, `note`, `timestamp`, `file_name`, `file_path`) VALUES
+(3, 'Osobne udaje', '2026-11-14 21:43:41', 'personal_informations.pdf', '../../databaseConections/database.php5b07ff299f021353bb3e888419415037pdf');
 
 -- --------------------------------------------------------
 
@@ -157,7 +182,38 @@ INSERT INTO `translations` (`id`, `language_id`, `translation_key`, `translation
 (57, 1, 'gdpr_consent', 'Súhlasím so spracovaním osobných údajov.'),
 (58, 2, 'gdpr_consent', 'I agree to the processing of my personal data.'),
 (59, 1, 'documents', 'Dokumenty'),
-(60, 2, 'documents', 'Documents');
+(60, 2, 'documents', 'Documents'),
+(61, 1, 'contact_required', 'Vyplňte všetky povinné polia.'),
+(62, 2, 'contact_required', 'Please fill in all required fields.'),
+(63, 1, 'contact_invalid_email', 'Zadajte platnú e-mailovú adresu.'),
+(64, 2, 'contact_invalid_email', 'Please enter a valid email address.'),
+(65, 1, 'contact_gdpr_required', 'Musíte súhlasiť so spracovaním osobných údajov.'),
+(66, 2, 'contact_gdpr_required', 'You must consent to the processing of personal data.'),
+(67, 1, 'contact_too_long', 'Niektoré údaje sú príliš dlhé.'),
+(68, 2, 'contact_too_long', 'Some of the data is too long.'),
+(69, 1, 'contact_error', 'Správu sa nepodarilo odoslať. Skúste to znova.'),
+(70, 2, 'contact_error', 'The message could not be sent. Please try again.'),
+(71, 1, 'contact_success', 'Správa bola úspešne odoslaná.'),
+(72, 2, 'contact_success', 'Your message has been sent successfully.'),
+(73, 1, 'contact_invalid_phone', 'Zadajte telefónne číslo v tvare +421 907 123 456.'),
+(74, 2, 'contact_invalid_phone', 'Enter a phone number in the format +421 907 123 456.'),
+(75, 1, 'general_informations', 'Všeobecné informácie'),
+(76, 2, 'general_imformations', 'General info'),
+(77, 1, 'categories', 'Kategórie'),
+(78, 1, 'hockey', 'Hokej'),
+(79, 1, 'football', 'Futbal'),
+(80, 1, 'basketball', 'Basketball'),
+(81, 1, 'volleyball', 'Volejbal'),
+(82, 2, 'categories', 'Categories'),
+(83, 2, 'hockey', 'Hockey'),
+(84, 2, 'football', 'Football'),
+(85, 2, 'basketball', 'Basketball'),
+(86, 2, 'volleyball', 'Volleyball'),
+(87, 1, 'general_info', 'Všeobecné informácie'),
+(88, 2, 'general_info', 'General informations'),
+(89, 1, 'ski_web', 'Ski'),
+(90, 2, 'ski_web', 'Ski'),
+(91, 1, 'aaaa', 'aaaa');
 
 --
 -- Kľúče pre exportované tabuľky
@@ -175,6 +231,12 @@ ALTER TABLE `admins`
 --
 ALTER TABLE `contact`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexy pre tabuľku `document`
+--
+ALTER TABLE `document`
+  ADD PRIMARY KEY (`id_document`);
 
 --
 -- Indexy pre tabuľku `languages`
@@ -198,13 +260,19 @@ ALTER TABLE `translations`
 -- AUTO_INCREMENT pre tabuľku `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pre tabuľku `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT pre tabuľku `document`
+--
+ALTER TABLE `document`
+  MODIFY `id_document` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pre tabuľku `languages`
@@ -216,7 +284,7 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT pre tabuľku `translations`
 --
 ALTER TABLE `translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- Obmedzenie pre exportované tabuľky

@@ -22,7 +22,7 @@
         crossorigin="anonymous"></script>
 
     <script>
-        const BASE_URL = <?= json_encode($link->asset('/')) ?>;
+        const BASE_URL = <?= json_encode($link->asset('')) ?>;
     </script>
     <script src="<?= $link->asset('js/script.js') ?>" defer></script>
 
@@ -31,18 +31,25 @@
     <link rel="stylesheet" href="<?= $link->asset('css/top-responsivity.css') ?>">
     <link rel="stylesheet" href="<?= $link->asset('css/main-section.css') ?>">
     <link rel="stylesheet" href="<?= $link->asset('css/main-responsivity.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('css/adminInterface.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('css/adminLogin.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminInterface.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminLogin.css') ?>">
 </head>
-
 <?php if (isset($_SESSION['admin_id'])): ?>
     <section class="admin-panel">
-        <h2>Administrácia</h2>
+        <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
+            <h2>Developer</h2>
+        <?php else: ?>
+            <h2>Administrátor</h2>
+        <?php endif?>
 
         <div class="admin-controls">
             <a href="">Správa produktov</a>
+            <a href="<?= $link->url("admin.admin-files") ?>">Správa súborov</a>
             <a href="<?= $link->url("admin.adminFormular") ?>">Správy z formulára</a>
-            <a href="">Správa prekladov</a>
+            <a href="<?= $link->url("admin.adminTranslations") ?>">Správa prekladov</a>
+            <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
+                <a href="../Dev-tools/devPanel.php">Developer sekcia</a>
+            <?php endif; ?>
             <a href="<?= $link->url("admin.logout") ?>">Odhlásiť sa</a>
         </div>
     </section>

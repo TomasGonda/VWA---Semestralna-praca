@@ -1,7 +1,10 @@
-//console.log('AJAX contact JS sa načítal');
+console.log('AJAX contact JS sa načítal');
 
 const contactForm = document.getElementById('contact-form');
 const contactMessage = document.getElementById('contact-message');
+
+console.log('Form:', contactForm);
+console.log('Message:', contactMessage);
 
 contactForm.addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -24,9 +27,11 @@ contactForm.addEventListener('submit', async function (event) {
             contactForm.reset();
         }
     } catch (error) {
+        console.error('AJAX chyba:', error);
+
         contactMessage.hidden = false;
         contactMessage.textContent = 'Nastala chyba pri komunikácii so serverom';
         contactMessage.className = 'form-message error';
     }
-    
+
 });

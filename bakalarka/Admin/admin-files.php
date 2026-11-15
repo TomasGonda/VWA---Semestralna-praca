@@ -25,6 +25,9 @@ $documents = $stmt->fetchAll(); ?>
     <link rel="stylesheet" href="../../shared/css/global.css">
     <link rel="stylesheet" href="../../shared/css/Admin/adminTranslations.css">
     <link rel="stylesheet" href="../../shared/css/Admin/admin-file.css">
+    <script>
+        const BASE_URL = "../../shared/";
+    </script>
 
 </head>
 

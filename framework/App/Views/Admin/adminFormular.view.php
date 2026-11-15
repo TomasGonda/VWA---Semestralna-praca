@@ -11,8 +11,8 @@ $view->setLayout(null);
     <title>Správy | Administrácia LGR</title>
 
     <link rel="stylesheet" href="<?= $link->asset('css/global.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('css/adminInterface.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('css/adminLogin.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminInterface.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminLogin.css') ?>">
 </head>
 
 <body>

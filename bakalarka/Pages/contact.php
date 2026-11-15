@@ -27,6 +27,10 @@ $messageKey = $contactMessageKey[$contactStatus] ?? '';
     <link rel="stylesheet" href="../../shared/css/main-section.css">
     <link rel="stylesheet" href="../../shared/css/main-responsivity.css">
 
+    <script>
+        const BASE_URL = "../../shared/";
+    </script>
+
 </head>
 
 <body>

@@ -38,6 +38,9 @@ $translations = $stmt->fetchAll(); ?>
 
     <link rel="stylesheet" href="../../shared/css/global.css">
     <link rel="stylesheet" href="../../shared/css/Admin/adminTranslations.css">
+    <script>
+        const BASE_URL = "../../shared/";
+    </script>
 
 </head>
 
