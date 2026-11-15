@@ -32,7 +32,7 @@ require_once __DIR__ . '/../../databaseConections/database.php';
 $sql = "Delete from contact where id = :id";
 $stmt = $pdo->prepare($sql);
 $stmt -> execute ([
-    'id' => $id
+    ':id' => $id
 ]);
 
 header('Location: ../adminFormular.php');

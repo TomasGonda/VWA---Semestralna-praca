@@ -22,27 +22,35 @@
         crossorigin="anonymous"></script>
 
     <script>
-        const BASE_URL = <?= json_encode($link->asset('../../shared/')) ?>;
+        const BASE_URL = <?= json_encode($link->asset('')) ?>;
     </script>
-    <script src="<?= $link->asset('../../shared/js/script.js') ?>" defer></script>
+    <script src="<?= $link->asset('js/script.js') ?>" defer></script>
+    <script src="<?= $link->asset('js/hamburger.js') ?>" defer></script>
 
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/global.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/top-section.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/top-responsivity.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/main-section.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/main-responsivity.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/adminInterface.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/adminLogin.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/global.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/top-section.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/top-responsivity.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/main-section.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/main-responsivity.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminInterface.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminLogin.css') ?>">
 </head>
-
 <?php if (isset($_SESSION['admin_id'])): ?>
     <section class="admin-panel">
-        <h2>Administrácia</h2>
+        <?php if (($_SESSION['role'] ?? '') === 'dev'): ?>
+            <h2>Developer</h2>
+        <?php else: ?>
+            <h2>Administrátor</h2>
+        <?php endif?>
 
         <div class="admin-controls">
             <a href="">Správa produktov</a>
+            <a href="<?= $link->url("admin.admin-files") ?>">Správa súborov</a>
             <a href="<?= $link->url("admin.adminFormular") ?>">Správy z formulára</a>
-            <a href="">Správa prekladov</a>
+            <a href="<?= $link->url("admin.adminTranslations") ?>">Správa prekladov</a>
+            <?php if (($_SESSION['role'] ?? '') === 'dev'): ?>
+                <a href="../Dev-tools/devPanel.php">Developer sekcia</a>
+            <?php endif; ?>
             <a href="<?= $link->url("admin.logout") ?>">Odhlásiť sa</a>
         </div>
     </section>
@@ -56,7 +64,7 @@
                 <span><?= htmlspecialchars($translations['title'] ?? "Športové výsledkové tabule", ENT_QUOTES, "UTF-8") ?></span>
 
                 <nav class="top-links">
-                    <a href="<?= $link->url("admin.adminLogin") ?>">
+                    <a href="<?= $link->url("auth.login") ?>">
                         <?= htmlspecialchars($translations['about'] ?? "O Nás", ENT_QUOTES, "UTF-8") ?>
                     </a>
 
@@ -66,10 +74,10 @@
                     <div class="language-switch">
                         <button class="language-button" type="button" aria-expanded="false">
                             <?php if ($currentLanguage === 'sk'): ?>
-                                <img src="<?= $link->asset('../../shared/imgs/Flag_of_Slovakia.png') ?>" alt="">
+                                <img src="<?= $link->asset('imgs/Flag_of_Slovakia.png') ?>" alt="">
                                 <span>SK</span>
                             <?php elseif ($currentLanguage === 'en'): ?>
-                                <img src="<?= $link->asset('../../shared/imgs/england.png') ?>" alt="">
+                                <img src="<?= $link->asset('imgs/england.png') ?>" alt="">
                                 <span>EN</span>
                             <?php endif; ?>
                             <span class="arrow">▼</span>
@@ -77,12 +85,12 @@
 
                         <div class="language-dropdown">
                             <a href="?lang=sk">
-                                <img src="<?= $link->asset('../../shared/imgs/Flag_of_Slovakia.png') ?>" alt="">
+                                <img src="<?= $link->asset('imgs/Flag_of_Slovakia.png') ?>" alt="">
                                 Slovenčina
                             </a>
 
                             <a href="?lang=en">
-                                <img src="<?= $link->asset('../../shared/imgs/england.png') ?>" alt=""> English
+                                <img src="<?= $link->asset('imgs/england.png') ?>" alt=""> English
                             </a>
                         </div>
                     </div>
@@ -92,14 +100,15 @@
 
         <header class="top-header">
             <a href="<?= $link->url('home.index') ?>" class="logo-link">
-                <img class="header-img" src="<?= $link->asset('../../shared/imgs/Logo_cele.png') ?>"
+                <img class="header-img" src="<?= $link->asset('imgs/Logo_cele.png') ?>"
                     alt="LGR - domovská stránka">
             </a>
 
             <form class="search-form" action="" method="get">
                 <input type="search" name="q" placeholder=<?= htmlspecialchars($translations['search_placeholder'] ?? "Vyhľadávanie", ENT_QUOTES, "UTF-8") ?> aria-label="Vyhľadávanie produktov">
 
-                <button type="submit" aria-label="Hľadať"> <?= htmlspecialchars($translations['search'] ?? "Hľadať", ENT_QUOTES, "UTF-8") ?></button>
+                <button type="submit" aria-label="Hľadať">
+                    <?= htmlspecialchars($translations['search'] ?? "Hľadať", ENT_QUOTES, "UTF-8") ?></button>
             </form>
 
             <div class="header-actions">
@@ -110,10 +119,14 @@
         <div class="main-menu">
             <nav class="nav-bar" aria-label="Hlavná navigácia">
 
-                <a href=""><?= htmlspecialchars($translations['menu_sport_tables'] ?? "Športové tabule", ENT_QUOTES, "UTF-8") ?></a>
-                <a href=""><?= htmlspecialchars($translations['menu_stop_watch'] ?? "Stopky", ENT_QUOTES, "UTF-8") ?></a>
-                <a href=""><?= htmlspecialchars($translations['menu_basketball'] ?? "Basketball", ENT_QUOTES, "UTF-8") ?></a>
-                <a href=""><?= htmlspecialchars($translations['menu_utilities'] ?? "Príslušenstvo", ENT_QUOTES, "UTF-8") ?></a>
+                <a
+                    href=""><?= htmlspecialchars($translations['menu_sport_tables'] ?? "Športové tabule", ENT_QUOTES, "UTF-8") ?></a>
+                <a
+                    href=""><?= htmlspecialchars($translations['menu_stop_watch'] ?? "Stopky", ENT_QUOTES, "UTF-8") ?></a>
+                <a
+                    href=""><?= htmlspecialchars($translations['menu_basketball'] ?? "Basketball", ENT_QUOTES, "UTF-8") ?></a>
+                <a
+                    href=""><?= htmlspecialchars($translations['menu_utilities'] ?? "Príslušenstvo", ENT_QUOTES, "UTF-8") ?></a>
             </nav>
         </div>
     </div>

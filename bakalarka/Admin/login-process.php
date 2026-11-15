@@ -25,7 +25,7 @@ if ($username === '' || $password === '') {
     exit;
 }
 
-$sql = "Select id, username, password_hash from admins where username = :username limit 1";
+$sql = "Select id, username, password_hash, role from admins where username = :username limit 1";
 
 $stmt = $pdo->prepare($sql);
 
@@ -42,9 +42,10 @@ session_regenerate_id(true);
 
 $_SESSION['admin_id'] = $admin['id'];
 $_SESSION['admin_username'] = $admin['username'];
+$_SESSION['admin_role'] = $admin['role'];
 
 
 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 
-header('Location: ../index.php');
+header('Location: ../Pages/index.php');
 exit;

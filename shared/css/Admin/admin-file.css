@@ -1,0 +1,38 @@
+.drop-zone {
+    width: 100%;
+    min-height: 150px;
+    border: 2px dashed var(--border-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+    background: var(--background-color);
+    text-align: center;
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+    border-color: var(--text-color);
+    background: rgba(0,128,255, 0.1)
+}
+
+.drop-zone-content {
+    pointer-events: none;
+}
+
+.drop-zone-content p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.document-name {
+    font-size: 14px;
+    margin-top: 10px;
+    overflow-wrap: anywhere;
+}
+
+.document-forms {
+    justify-self: left;
+}

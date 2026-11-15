@@ -1,8 +1,9 @@
 <?php
-session_start();
 
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: Admin/adminLogin.php');
+session_start();
+if (!isset($_SESSION['admin_id']) ||
+    !in_array($_SESSION['admin_role'] ?? '', ['admin', 'dev'], true)) {
+    header('Location: ../Pages/index.php');
     exit;
 }
 
@@ -32,7 +33,7 @@ $messages = $stmt->fetchAll(); ?>
     <title>Správy | Administrácia LGR</title>
 
     <link rel="stylesheet" href="../../shared/css/global.css">
-    <link rel="stylesheet" href="../../shared/css/adminInterface.css">
+    <link rel="stylesheet" href="../../shared/css/Admin/adminInterface.css">
 </head>
 
 <body>
@@ -41,7 +42,7 @@ $messages = $stmt->fetchAll(); ?>
 
         <h1>Prijaté správy</h1>
 
-        <a href="../index.php">Späť na hlavnú stránku</a>
+        <a href="../Pages/index.php">Späť na hlavnú stránku</a>
         <p>Počet prijatých správ: <?= count($messages) ?></p>
 
         <?php if (empty($messages)): ?>

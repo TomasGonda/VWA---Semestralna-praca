@@ -11,7 +11,7 @@ class AdminModel
         $db = Connection::getInstance();
 
         $stmt = $db->prepare("
-            SELECT id, username, password_hash
+            SELECT id, username, password_hash, role
             FROM admins
             WHERE username = :username
             LIMIT 1

@@ -1,20 +1,38 @@
 <?php
 //var_dump($language);
 //var_dump($translations);
+
+
+//echo '<pre>';
+//var_dump($_SESSION['admin_id']);
+//var_dump($_SESSION['admin_role']);
+//echo '</pre>'; 
 ?>
+
 <?php if (isset($_SESSION['admin_id'])): ?>
     <section class="admin-panel">
-        <h2>Administrácia</h2>
+        <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
+            <h2>Developer</h2>
+        <?php else: ?>
+            <h2>Administrátor</h2>
+        <?php endif?>
 
         <div class="admin-controls">
             <a href="">Správa produktov</a>
-            <a href="Admin/adminFormular.php">Správy z formulára</a>
-            <a href="">Správa prekladov</a>
-            <a href="Admin/logout.php">Odhlásiť sa</a>
+            <a href="../Admin/admin-files.php">Správa súborov</a>
+            <a href="../Admin/adminFormular.php">Správy z formulára</a>
+            <a href="../Admin/admin-translations.php">Správa prekladov</a>
+            <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
+                <a href="../Dev-tools/devPanel.php">Developer sekcia</a>
+            <?php endif; ?>
+            <a href="../Admin/logout.php">Odhlásiť sa</a>
         </div>
     </section>
 
 <?php endif; ?>
+<link rel="stylesheet" href="../../shared/css/top-section.css">
+<link rel="stylesheet" href="../../shared/css/top-responsivity.css">
+<link rel="stylesheet" href="../../shared/css/Admin/adminInterface.css">
 
 <div class="top-section">
     <div class="top-menu">
@@ -24,21 +42,21 @@
             </span>
 
             <nav class="top-links">
-                <a href="aboutUs.php">
+                <a href="../Pages/aboutUs.php">
                     <?= htmlspecialchars($translations['about'] ?? 'O nás') ?>
                 </a>
 
-                <a href="contact.php">
+                <a href="../Pages/contact.php">
                     <?= htmlspecialchars($translations['contact'] ?? 'Kontakt') ?>
                 </a>
 
                 <div class="language-switch">
                     <button class="language-button" type="button" aria-expanded="false">
                         <?php if ($language === 'sk'): ?>
-                            <img src="../shared/imgs/Flag_of_Slovakia.png" alt="">
+                            <img src="../../shared/imgs/Flag_of_Slovakia.png" alt="">
                             <span>SK</span>
                         <?php else: ?>
-                            <img src="../shared/imgs/england.png" alt="">
+                            <img src="../../shared/imgs/england.png" alt="">
                             <span>EN</span>
                         <?php endif; ?>
 
@@ -47,12 +65,12 @@
 
                     <div class="language-dropdown">
                         <a href="?lang=sk">
-                            <img src="../shared/imgs/Flag_of_Slovakia.png" alt="">
+                            <img src="../../shared/imgs/Flag_of_Slovakia.png" alt="">
                             <?= htmlspecialchars($translations['slovak_language'] ?? 'Slovenčina') ?>
                         </a>
 
                         <a href="?lang=en">
-                            <img src="../shared/imgs/england.png" alt="">
+                            <img src="../../shared/imgs/england.png" alt="">
                             <?= htmlspecialchars($translations['english_language'] ?? 'English') ?>
                         </a>
                     </div>
@@ -62,8 +80,8 @@
     </div>
 
     <header class="top-header">
-        <a href="index.php" class="logo-link">
-            <img class="header-img" src="../shared/imgs/Logo_cele.png" alt="LGR - domovská stránka">
+        <a href="../Pages/index.php" class="logo-link">
+            <img class="header-img" src="../../shared/imgs/Logo_cele.png" alt="LGR - domovská stránka">
         </a>
 
         <form class="search-form" action="" method="get">
@@ -84,24 +102,34 @@
     </header>
 
     <div class="main-menu">
-        <nav class="nav-bar" aria-label="Hlavná navigácia">
+
+        <button class="hamburger" id="hamburger" type="button" aria-label="Otvoriť navigáciu" aria-expanded="false"
+            aria-controls="nav-bar">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="nav-bar" id="nav-bar" aria-label="Hlavná navigácia">
+
+            <a href="">
+                <?= htmlspecialchars($translations['general_info'] ?? 'Všeobecné informácie') ?>
+            </a>
 
             <a href="">
                 <?= htmlspecialchars($translations['menu_sport_tables'] ?? 'Športové tabule') ?>
             </a>
 
             <a href="">
-                <?= htmlspecialchars($translations['menu_stop_watch'] ?? 'Stopky') ?>
+                <?= htmlspecialchars($translations['menu_utilities'] ?? 'Basketball') ?>
             </a>
 
-            <a href="">
-                <?= htmlspecialchars($translations['menu_basketball'] ?? 'Basketball') ?>
-            </a>
-
-            <a href="">
-                <?= htmlspecialchars($translations['menu_utilities'] ?? 'Príslušenstvo') ?>
+            <a href="../Pages/documents.php">
+                <?= htmlspecialchars($translations['documents'] ?? 'Dokumenty') ?>
             </a>
 
         </nav>
     </div>
+
+    <script src="../../shared/js/hamburger.js" defer></script>
 </div>

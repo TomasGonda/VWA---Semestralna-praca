@@ -1,6 +1,21 @@
 <?php
+use Framework\DB\Connection;
+use App\Models\LanguageModel;
 
-/** @var \Framework\Support\LinkGenerator $link */
+$db = Connection::getInstance();
+
+$contactStatus = $_GET['contact'] ?? '';
+
+$contactMessageKey = [
+    'required' => 'contact_required',
+    'invalid_email' => 'contact_invalid_email',
+    'gdpr_required' => 'contact_gdpr_required',
+    'too_long' => 'contact_too_long',
+    'error' => 'contact_error',
+    'success' => 'contact_success'
+];
+
+$messageKey = $contactMessageKey[$contactStatus] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -12,17 +27,21 @@
 
     <title><?= $title ?? 'LGR' ?></title>
 
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/global.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/top-section.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/top-responsivity.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/main-section.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('../../shared/css/main-responsivity.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/global.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/top-section.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/top-responsivity.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/main-section.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/main-responsivity.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminInterface.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminLogin.css') ?>">
 </head>
 
 <body>
     <section class="contact-section">
         <div class="main-columns">
-            <form class="contact-form" method="post" action="?c=contact&a=submit">
+            <form id="contact-form"  class="contact-form" method="post" action="?c=contact&a=submit">
+                <p id="contact-message" class="form-message" hidden></p>
+                <input type="hidden" name="language" value="<?= htmlspecialchars($currentLanguage, ENT_QUOTES, 'UTF-8') ?>">
                 <div class="form-group">
                     <label for="first_name">
                         <?= htmlspecialchars($translations['first_name_label'] ?? "Meno") ?>
@@ -111,4 +130,5 @@
             </div>
         </div>
     </section>
+    <script src="<?= $link->asset('js/ajax-contact.js') ?>" defer></script>
 </body>

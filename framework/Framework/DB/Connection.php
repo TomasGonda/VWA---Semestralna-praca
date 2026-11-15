@@ -48,7 +48,7 @@ class Connection
         try {
             if (self::$instance == null) {
                 $db = new PDO(
-                    'mysql:dbname=' . Configuration::DB_NAME . ';host=' . Configuration::DB_HOST . ';port=3307;charset=utf8mb4',
+                    'mysql:dbname=' . Configuration::DB_NAME . ';host=' . Configuration::DB_HOST . ';port=3306;charset=utf8mb4',
                     Configuration::DB_USER,
                     Configuration::DB_PASS
                 );

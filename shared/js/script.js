@@ -1,32 +1,58 @@
 
-if (window.innerWidth >= 320) {
-     const images = [
-        BASE_URL + "imgs/hokejbal-170T-1-700x400.jpg",
-        BASE_URL + "imgs/o2arena1-700x400.jpg",
-        BASE_URL + "imgs/sparta-kralovka-700x400.jpg"
-    ];
+const carouselImage = document.getElementById('carousel-img');
+const previousButton = document.getElementById('prev-image');
+const nextButton = document.getElementById('next-image');
 
-    let currentImage = 0;
+const images = [
+    {
+    src: BASE_URL + 'imgs/hokejbal-170T-1-700x400.jpg',
+    alt: 'Hokejbal'
+},
+{
+    src: BASE_URL + 'imgs/o2arena1-700x400.jpg',
+    alt: 'O2 Arena'
+},
+{
+    src: BASE_URL + 'imgs/sparta-kralovka-700x400.jpg',
+    alt: 'Športová hala Královka'
+},
+{
+    src: BASE_URL + 'imgs/kokej220-Pezinok-700x400.jpg',
+    alt: 'Hokej Pezinok'
+},
+{
+    src: BASE_URL + 'imgs/Hokejbal-Malacky-700x400.jpg',
+    alt: 'Športová hala Královka'
+}
+];
 
-    const carouselImage = document.getElementById("carousel-img");
+let currentImage = 0;
 
-    setInterval(() => {
-        currentImage = (currentImage + 1) % images.length;
-        carouselImage.src = images[currentImage];
-    }, 5000);
-    
-} else if (window.innerWidth < 320) {
-    /*Sem stačí pridať odkazy na iné foto a už je to pripravené aby sa rotovali*/ 
-    const images = [
-    BASE_URL + "imgs/Pardubice1-1-286x163.jpg"
-    ];
+function showImage(index) {
+    carouselImage.src = images[index].src;
+    carouselImage.alt = images[index].alt;
+}
 
-    let currentImage = 0;
+if (nextButton) {
+    nextButton.addEventListener('click', function () {
+    currentImage++;
 
-    const carouselImage = document.getElementById("carousel-img");
+    if (currentImage >= images.length) {
+        currentImage = 0;
+    }
 
-    setInterval(() => {
-        currentImage = (currentImage + 1) % images.length;
-        carouselImage.src = images[currentImage];
-    }, 5000);
+    showImage(currentImage);
+});
+}
+
+if (previousButton) {
+    previousButton.addEventListener('click', function () {
+    currentImage--;
+
+    if (currentImage < 0) {
+        currentImage = images.length - 1;
+    }
+
+    showImage(currentImage);
+});
 }

@@ -1,17 +1,19 @@
 <?php
 
-/** @var \Framework\Support\LinkGenerator $link */
-/** @var \Framework\Support\View $view */
+$_SESSION = [];
 
-$view->setLayout('auth');
-?>
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '',
+     time() - 42000,
+        $params["path"], 
+        $params["domain"],
+        $params["secure"], 
+        $params["httponly"]
+    );
+}
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5">
-            You have logged out. <br>
-            Again <a href="<?= App\Configuration::LOGIN_URL ?>">log in</a> or return <a
-                    href="<?= $link->url("home.index") ?>">back</a> to the home page?
-        </div>
-    </div>
-</div>
+session_destroy();
+
+header('Location: ' . $link->url("Home.index"));
+exit;
