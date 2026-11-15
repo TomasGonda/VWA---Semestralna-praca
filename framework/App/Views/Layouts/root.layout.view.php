@@ -25,6 +25,7 @@
         const BASE_URL = <?= json_encode($link->asset('')) ?>;
     </script>
     <script src="<?= $link->asset('js/script.js') ?>" defer></script>
+    <script src="<?= $link->asset('js/hamburger.js') ?>" defer></script>
 
     <link rel="stylesheet" href="<?= $link->asset('css/global.css') ?>">
     <link rel="stylesheet" href="<?= $link->asset('css/top-section.css') ?>">
@@ -36,7 +37,7 @@
 </head>
 <?php if (isset($_SESSION['admin_id'])): ?>
     <section class="admin-panel">
-        <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
+        <?php if (($_SESSION['role'] ?? '') === 'dev'): ?>
             <h2>Developer</h2>
         <?php else: ?>
             <h2>Administrátor</h2>
@@ -47,7 +48,7 @@
             <a href="<?= $link->url("admin.admin-files") ?>">Správa súborov</a>
             <a href="<?= $link->url("admin.adminFormular") ?>">Správy z formulára</a>
             <a href="<?= $link->url("admin.adminTranslations") ?>">Správa prekladov</a>
-            <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
+            <?php if (($_SESSION['role'] ?? '') === 'dev'): ?>
                 <a href="../Dev-tools/devPanel.php">Developer sekcia</a>
             <?php endif; ?>
             <a href="<?= $link->url("admin.logout") ?>">Odhlásiť sa</a>
@@ -63,7 +64,7 @@
                 <span><?= htmlspecialchars($translations['title'] ?? "Športové výsledkové tabule", ENT_QUOTES, "UTF-8") ?></span>
 
                 <nav class="top-links">
-                    <a href="<?= $link->url("admin.adminLogin") ?>">
+                    <a href="<?= $link->url("auth.login") ?>">
                         <?= htmlspecialchars($translations['about'] ?? "O Nás", ENT_QUOTES, "UTF-8") ?>
                     </a>
 

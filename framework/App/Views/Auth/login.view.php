@@ -1,40 +1,74 @@
 <?php
+$view->setLayout(null);
 
-/** @var string|null $message */
-/** @var \Framework\Support\LinkGenerator $link */
-/** @var \Framework\Support\View $view */
 
-$view->setLayout('auth');
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <div class="card card-signin my-5">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Username</h5>
-                    <div class="text-center text-danger mb-3">
-                        <?= e($message ?? null) ?>
-                    </div>
-                    <form class="form-signin" method="post" action="<?= $link->url("login") ?>">
-                        <div class="form-label-group mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input name="username" type="text" id="username" class="form-control" placeholder="Username"
-                                   required autofocus>
-                        </div>
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prihlásenie administrátora | LGR</title>
+    <link rel="stylesheet" href="<?= $link->asset('css/global.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminInterface.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminLogin.css') ?>">
+</head>
 
-                        <div class="form-label-group mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input name="password" type="password" id="password" class="form-control"
-                                   placeholder="Password" required>
-                        </div>
-                        <div class="text-center">
-                            <button class="btn btn-primary" type="submit" name="submit">Log in
-                            </button>
-                        </div>
-                    </form>
-                </div>
+<body>
+    <main class="admin-login-container">
+
+        <form class="admin-login-form" method="POST" action="<?= $link->url("admin.loginProcess") ?>">
+
+            <h1>Prihlásenie administrátora</h1>
+
+            <?php if (isset($_GET['error'])): ?>
+                <p class="login-error">
+                    Nesprávne používateľské meno alebo heslo.
+                </p>
+            <?php endif; ?>
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>"
+            >
+
+            <div class="form-group">
+                <label for="username">Používateľské meno</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Zadajte používateľské meno"
+                    required
+                    autofocus
+                >
             </div>
-        </div>
-    </div>
-</div>
+
+            <div class="form-group">
+                <label for="password">Heslo</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Zadajte heslo"
+                    required
+                >
+            </div>
+
+            <button type="submit">Prihlásiť sa</button>
+
+            <a href="<?= $link->url("home.index") ?>">Späť na hlavnú stránku</a>
+
+        </form>
+
+    </main>
+
+</body>
+</html>

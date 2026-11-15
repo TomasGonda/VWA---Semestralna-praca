@@ -9,17 +9,16 @@ document.querySelectorAll('.admin-form').forEach(form => {
 
         let url;
 
-        if (form.classList.contains('create-translation')) {
-            url = '../Dev-tools/Dev-scripts/create-language.php';
-        } else if (form.classList.contains('edit-translation')) {
-            url = 'Admin-scripts/updateLanguage.php';
-        } else if (form.classList.contains('edit-document')){
-            url = 'Admin-scripts/edit-document.php';
-        } else if (form.classList.contains('upload-document')) {
-            url = 'Admin-scripts/upload-document.php';
+        if (
+            form.classList.contains('create-translation') ||
+            form.classList.contains('edit-translation') ||
+            form.classList.contains('edit-document') ||
+            form.classList.contains('upload-document')
+        ) {
+            url = form.dataset.url;
         }
-        
-        else    {
+
+        else {
             return;
         }
 

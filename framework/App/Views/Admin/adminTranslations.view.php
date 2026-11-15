@@ -1,32 +1,6 @@
 <?php
-session_start();
-if (
-    !isset($_SESSION['admin_id']) ||
-    !in_array($_SESSION['admin_role'], ['admin', 'dev'], true)
-) {
-    header('Location: home.index');
-    exit;
-}
-
-$db = Connection::getInstance();
-/*Vygenerovany sql*/
-$stmt = $dp->prepare("SELECT
-    t_sk.translation_key AS tk,
-    t_sk.translation_value AS sk,
-    t_en.translation_value AS en,
-    t_sk.id AS id_sk,
-    t_en.id AS id_en
-    FROM translations t_sk
-    JOIN languages l_sk ON l_sk.id = t_sk.language_id
-    JOIN translations t_en ON t_en.translation_key = t_sk.translation_key
-    JOIN languages l_en ON l_en.id = t_en.language_id
-    WHERE l_sk.code = 'sk'
-    AND l_en.code = 'en'
-    ORDER BY t_sk.translation_key");
-
-$stmt = $db->query($sql);
-$translations = $stmt->fetchAll(); ?>
-
+$view->setLayout(null);
+?>
 <!DOCTYPE html>
 <html lang="sk">
 
@@ -36,7 +10,7 @@ $translations = $stmt->fetchAll(); ?>
     <title>Správy | Administrácia LGR</title>
 
     <link rel="stylesheet" href="<?= $link->asset('css/global.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('css/Admin/admin-translations.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminTranslations.css') ?>">
     <script>
         const BASE_URL = "";
     </script>
@@ -47,12 +21,13 @@ $translations = $stmt->fetchAll(); ?>
     <main>
         <div class="admin-messages">
             <h1>Preklady</h1>
-            <a href="home.index">Späť na hlavnú stránku</a>
+            <a href="<?= $link->url("home.index") ?>">Späť na hlavnú stránku</a>
             <div class="form-list">
-                <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
+                <?php if (($_SESSION['role'] ?? '') === 'dev'): ?>
                     <h2>Vytvoriť nový</h2>
                     <article class="form-card">
-                        <form class="admin-form create-translation" method="POST">
+                        <form class="admin-form create-translation" data-url="<?= $link->url('admin.createLanguage') ?>"
+                            method="POST">
 
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
@@ -78,7 +53,8 @@ $translations = $stmt->fetchAll(); ?>
 
                 <?php foreach ($translations as $translation): ?>
                     <article class="form-card">
-                        <form class="admin-form edit-translation" method="POST">
+                        <form class="admin-form edit-translation" data-url="<?= $link->url('admin.updateLanguage') ?>"
+                            method="POST">
 
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
                             <input type="hidden" name="id_sk" value="<?= (int) $translation['id_sk'] ?>">
@@ -98,8 +74,8 @@ $translations = $stmt->fetchAll(); ?>
                             </div>
                             <p class="form-message" hidden></p>
                         </form>
-                        <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
-                            <form method="POST" action="../Dev-tools/Dev-scripts/delete-language.php"
+                        <?php if (($_SESSION['role'] ?? '') === 'dev'): ?>
+                            <form method="POST" action="<?= $link->url('admin.deleteLanguage') ?>"
                                 onsubmit="return confirm('Naozaj chcete vymazať tento preklad?');">
 
                                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
@@ -118,5 +94,5 @@ $translations = $stmt->fetchAll(); ?>
             </div>
         </div>
     </main>
-    <script src="../../shared/js/Admin-js/admin-translations-ajax.js"></script>
+    <script src="<?= $link->asset('js/Admin-js/admin-translations-ajax.js') ?>" defer></script>
 </body>

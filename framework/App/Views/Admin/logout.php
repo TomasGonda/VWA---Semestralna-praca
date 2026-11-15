@@ -15,5 +15,5 @@ if (ini_get("session.use_cookies")) {
 
 session_destroy();
 
-header('Location: ' . $link->url("Home.index"));
+header('Location: ' . $link->url("home.index"));
 exit;
