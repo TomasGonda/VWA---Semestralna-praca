@@ -11,6 +11,51 @@ contactForm.addEventListener('submit', async function (event) {
 
     const formData = new FormData(contactForm);
 
+    const language = formData.get('language') || 'sk';
+
+    const messages = {
+        sk: {
+            required: 'Vyplňte všetky povinné polia.',
+            invalidEmail: 'Zadajte platnú e-mailovú adresu.',
+            gdpr: 'Musíte súhlasiť so spracovaním osobných údajov.'
+        },
+        en: {
+            required: 'Please fill in all required fields.',
+            invalidEmail: 'Please enter a valid email address.',
+            gdpr: 'You must agree to the processing of personal data.'
+        }
+    };
+
+    const text = messages[language] || messages.sk;
+
+    const firstName = formData.get('first_name').trim();
+    const lastName = formData.get('last_name').trim();
+    const email = formData.get('email').trim();
+    const phone = formData.get('phone').trim();
+    const note = formData.get('note').trim();
+    const gdpr = formData.get('gdpr');
+
+    if (!firstName || !lastName || !email || !phone || !note) {
+        contactMessage.hidden = false;
+        contactMessage.textContent = text.required;
+        contactMessage.className = 'form-message error';
+        return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        contactMessage.hidden = false;
+        contactMessage.textContent = text.invalidEmail;
+        contactMessage.className = 'form-message error';
+        return;
+    }
+
+    if (!gdpr) {
+        contactMessage.hidden = false;
+        contactMessage.textContent = text.gdpr;
+        contactMessage.className = 'form-message error';
+        return;
+    }
+
     try {
         const response = await fetch(contactForm.action, {
             method: 'POST',

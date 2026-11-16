@@ -13,7 +13,7 @@ use PDO;
 use Exception;
 use Throwable;
 
-/**
+/** 
  * Class AdminController
  *
  * This controller manages admin-related actions within the application.It extends the base controller functionality
