@@ -86,6 +86,7 @@ class LinkGenerator
             $destination = "{$this->router->getControllerName()}.{$destination}";
         }
 
+        //error_log('DESTINATION: ' . $destination);
         // Split the destination into controller and action
         list($controller, $action) = explode(".", $destination);
 

@@ -38,14 +38,13 @@ class ResultSet
      * @return mixed Loaded entity of $modelClass type
      */
     public function getOneRelated(
-        string   $modelClass,
-        string   $fk,
+        string $modelClass,
+        string $fk,
         callable $fkPropertyAccessor,
         callable $idPropertyAccessor,
-        string   $pk,
-        mixed    $id
-    ): mixed
-    {
+        string $pk,
+        mixed $id
+    ): mixed {
         $relationKey = $modelClass . '<|' . $fk;
         if (!isset($this->relatedEntities[$relationKey])) {
             $this->relatedEntities[$relationKey] = [];
@@ -74,15 +73,14 @@ class ResultSet
      * @return array of $modelClass
      */
     public function getAllRelated(
-        string   $modelClass,
-        string   $fk,
-        ?string  $where,
-        array    $whereParams,
+        string $modelClass,
+        string $fk,
+        ?string $where,
+        array $whereParams,
         callable $idPropertyAccessor,
         callable $referencedPropertyAccessor,
-        mixed    $id
-    ): array
-    {
+        mixed $id
+    ): array {
         $relationKey = $modelClass . '|>' . $fk;
         if (!isset($this->relatedEntities[$relationKey])) {
             $this->relatedEntities[$relationKey] = [];
@@ -92,11 +90,17 @@ class ResultSet
                     "`$fk` IN ({$this->generatePlaceholders(count($ids))}) " . ($where != null ? " AND ($where)" : ""),
                     array_merge($ids, $whereParams)
                 );
+                //var_dump($data);
                 foreach ($data as $row) {
+                    /*$key = $referencedPropertyAccessor($row);
+                    if ($key === null) {
+                        throw new \RuntimeException('TranslationModel has null languageId');
+                    }*/
                     if (!isset($this->relatedEntities[$relationKey][$referencedPropertyAccessor($row)])) {
                         $this->relatedEntities[$relationKey][$referencedPropertyAccessor($row)] = [];
                     }
                     $this->relatedEntities[$relationKey][$referencedPropertyAccessor($row)][] = $row;
+
                 }
             }
         }

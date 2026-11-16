@@ -98,7 +98,8 @@ abstract class Model implements \JsonSerializable
     public function setFromRequest(Request $request, ?array $fields = null): void
     {
         $allowed = $fields ?? static::$fillable;
-        if ($allowed === null
+        if (
+            $allowed === null
             && defined(Configuration::class . '::MODEL_REQUIRE_FILLABLE')
             && Configuration::MODEL_REQUIRE_FILLABLE
         ) {
@@ -144,12 +145,11 @@ abstract class Model implements \JsonSerializable
      */
     public static function getAll(
         ?string $whereClause = null,
-        array   $whereParams = [],
+        array $whereParams = [],
         ?string $orderBy = null,
-        ?int    $limit = null,
-        ?int    $offset = null
-    ): array
-    {
+        ?int $limit = null,
+        ?int $offset = null
+    ): array {
         try {
             $sql = "SELECT " . static::getDBColumnNamesList() . " FROM `" . static::getTableName() . "`";
             if ($whereClause != null) {
@@ -228,7 +228,7 @@ abstract class Model implements \JsonSerializable
 
             $stmt = Connection::getInstance()->prepare($sql);
             $stmt->execute($whereParams);
-            return (int)$stmt->fetchColumn();
+            return (int) $stmt->fetchColumn();
         } catch (PDOException $exception) {
             throw new Exception('Query failed: ' . $exception->getMessage(), 0, $exception);
         }
@@ -369,9 +369,12 @@ abstract class Model implements \JsonSerializable
      * @return array
      * @throws Exception
      */
-    public function getAllRelated(string $modelClass, ?string $refColumn = null, ?string $where = null, array $whereParams = []
-    ): array
-    {
+    public function getAllRelated(
+        string $modelClass,
+        ?string $refColumn = null,
+        ?string $where = null,
+        array $whereParams = []
+    ): array {
         if ($modelClass !== static::class && !is_subclass_of($modelClass, self::class)) {
             throw new Exception("Parameter modelClass must be a subclass of " . self::class);
         }
@@ -389,7 +392,12 @@ abstract class Model implements \JsonSerializable
             $where,
             $whereParams,
             fn($e) => $e->getIdValue(),
-            fn($e) => (isset($e->{self::toPropertyName($refColumn)}) ? $e->{self::toPropertyName($refColumn)} : null),
+            /*Generovane start*/ 
+            function ($e) use ($modelClass, $refColumn) {
+                $property = $modelClass::toPropertyName($refColumn);
+                return isset($e->$property) ? $e->$property : null;
+            },
+            /*Generovane end*/ 
             $this->getIdValue()
         );
     }
@@ -455,7 +463,7 @@ abstract class Model implements \JsonSerializable
         if (isset(self::$modelProperties[static::class])) {
             return self::$modelProperties[static::class];
         }
-        
+
         $reflection = new \ReflectionClass(static::class);
         $properties = [];
         foreach ($reflection->getProperties() as $property) {
@@ -470,7 +478,7 @@ abstract class Model implements \JsonSerializable
             }
             $properties[$propertyName] = true;
         }
-        
+
         self::$modelProperties[static::class] = $properties;
         return $properties;
     }
@@ -487,23 +495,23 @@ abstract class Model implements \JsonSerializable
         $dbColumns = [];
         $modelProperties = static::getModelProperties();
         $extraColumns = [];
-        
+
         foreach (static::getDbColumns() as $columnName) {
             $propertyName = static::toPropertyName($columnName);
-            
+
             // Check if the property exists in the model
             if (!isset($modelProperties[$propertyName])) {
                 $extraColumns[] = $columnName;
                 continue;
             }
-            
+
             if ($propertyName != $columnName) {
                 $dbColumns[] = "`$columnName` AS {$propertyName}";
             } else {
                 $dbColumns[] = $columnName;
             }
         }
-        
+
         // Throw a descriptive error if there are extra columns in the database
         if (!empty($extraColumns)) {
             $columnList = implode(', ', array_map(fn($col) => "`$col`", $extraColumns));
@@ -515,7 +523,7 @@ abstract class Model implements \JsonSerializable
                 $columnList
             ));
         }
-        
+
         return implode(', ', $dbColumns);
     }
 

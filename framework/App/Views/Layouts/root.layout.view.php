@@ -35,28 +35,30 @@
     <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminInterface.css') ?>">
     <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminLogin.css') ?>">
 </head>
-<?php if (isset($_SESSION['admin_id'])): ?>
+<?php if ($user->isLoggedIn()): ?>
+    <?php $role = $user->getRole(); ?>
+
     <section class="admin-panel">
-        <?php if (($_SESSION['role'] ?? '') === 'dev'): ?>
+        <?php if ($role === 'dev'): ?>
             <h2>Developer</h2>
         <?php else: ?>
             <h2>Administrátor</h2>
-        <?php endif?>
+        <?php endif; ?>
 
         <div class="admin-controls">
             <a href="">Správa produktov</a>
             <a href="<?= $link->url("admin.admin-files") ?>">Správa súborov</a>
             <a href="<?= $link->url("admin.adminFormular") ?>">Správy z formulára</a>
             <a href="<?= $link->url("admin.adminTranslations") ?>">Správa prekladov</a>
-            <?php if (($_SESSION['role'] ?? '') === 'dev'): ?>
+
+            <?php if ($role === 'dev'): ?>
                 <a href="../Dev-tools/devPanel.php">Developer sekcia</a>
             <?php endif; ?>
-            <a href="<?= $link->url("admin.logout") ?>">Odhlásiť sa</a>
+
+            <a href="<?= $link->url("auth.logout") ?>">Odhlásiť sa</a>
         </div>
     </section>
-
 <?php endif; ?>
-
 <body>
     <div class="top-section">
         <div class="top-menu">
@@ -73,10 +75,10 @@
                     </a>
                     <div class="language-switch">
                         <button class="language-button" type="button" aria-expanded="false">
-                            <?php if ($currentLanguage === 'sk'): ?>
+                            <?php if (($currentLanguage ?? 'sk' )=== 'sk'): ?>
                                 <img src="<?= $link->asset('imgs/Flag_of_Slovakia.png') ?>" alt="">
                                 <span>SK</span>
-                            <?php elseif ($currentLanguage === 'en'): ?>
+                            <?php elseif (($currentLanguage ?? 'sk')=== 'en'): ?>
                                 <img src="<?= $link->asset('imgs/england.png') ?>" alt="">
                                 <span>EN</span>
                             <?php endif; ?>
