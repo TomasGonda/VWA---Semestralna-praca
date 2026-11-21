@@ -11,6 +11,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 <!DOCTYPE html>
 <html lang="sk">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,46 +24,28 @@ if (empty($_SESSION['csrf_token'])) {
 <body>
     <main class="admin-login-container">
 
-        <form class="admin-login-form" method="POST" action="<?= $link->url("admin.loginProcess") ?>">
+        <form class="admin-login-form" method="POST" action="<?= $link->url("auth.login") ?>">
 
             <h1>Prihlásenie administrátora</h1>
 
-            <?php if (isset($_GET['error'])): ?>
+            <?php if (!empty($message)): ?>
                 <p class="login-error">
-                    Nesprávne používateľské meno alebo heslo.
+                    <?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?>
                 </p>
             <?php endif; ?>
 
-            <input
-                type="hidden"
-                name="csrf_token"
-                value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>"
-            >
-
             <div class="form-group">
                 <label for="username">Používateľské meno</label>
-                <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    placeholder="Zadajte používateľské meno"
-                    required
-                    autofocus
-                >
+                <input type="text" id="username" name="username" placeholder="Zadajte používateľské meno" required
+                    autofocus>
             </div>
 
             <div class="form-group">
                 <label for="password">Heslo</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Zadajte heslo"
-                    required
-                >
+                <input type="password" id="password" name="password" placeholder="Zadajte heslo" required>
             </div>
 
-            <button type="submit">Prihlásiť sa</button>
+            <button type="submit" name="submit" value="1">Prihlásiť sa</button>
 
             <a href="<?= $link->url("home.index") ?>">Späť na hlavnú stránku</a>
 
@@ -71,4 +54,5 @@ if (empty($_SESSION['csrf_token'])) {
     </main>
 
 </body>
+
 </html>

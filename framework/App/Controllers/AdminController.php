@@ -7,12 +7,13 @@ use Framework\Http\Request;
 use Framework\Http\Responses\Response;
 use App\Models\AdminModel;
 use Framework\DB\Connection;
+use App\Models\ContactModel;
 
 use PDO;
 use Exception;
 use Throwable;
 
-/**
+/** 
  * Class AdminController
  *
  * This controller manages admin-related actions within the application.It extends the base controller functionality
@@ -33,15 +34,13 @@ class AdminController extends BaseController
      */
     public function authorize(Request $request, string $action): bool
     {
-        error_log('ACTION: ' . $action);
-        error_log('ADMIN ID: ' . var_export($_SESSION['admin_id'] ?? null, true));
-        error_log('ROLE: ' . var_export($_SESSION['role'] ?? null, true));
-        if (in_array($action, ['adminLogin', 'loginProcess'], true)) {
-            return true;
+        $user = $this->app->getAppUser();
+
+        if (!$user->isLoggedIn()) {
+            return false;
         }
 
-        return isset($_SESSION['admin_id'])
-            && in_array($_SESSION['role'] ?? '', ['admin', 'dev'], true);
+        return in_array($user->getRole(), ['admin', 'dev'], true);
     }
 
     /**
@@ -112,8 +111,7 @@ class AdminController extends BaseController
 
     public function adminFormular(Request $request): Response
     {
-        $adminModel = new AdminModel();
-        $messages = $adminModel->getContactMessages();
+        $messages = ContactModel::getMessages();
 
         return $this->html([
             'messages' => $messages
@@ -148,8 +146,7 @@ class AdminController extends BaseController
             return $this->redirect($this->url('admin.adminFormular'));
         }
 
-        $adminModel = new AdminModel();
-        $adminModel->updateMessageStatus($id, $isResolved);
+        ContactModel::updateMessageStatus($id, $isResolved);
 
         return $this->redirect($this->url('admin.adminFormular'));
     }
@@ -178,8 +175,7 @@ class AdminController extends BaseController
             return $this->redirect($this->url('admin.adminFormular'));
         }
 
-        $adminModel = new AdminModel();
-        $adminModel->deleteMessage($id);
+        ContactModel::deleteMessage($id);
 
         return $this->redirect($this->url('admin.adminFormular'));
     }
@@ -450,8 +446,8 @@ class AdminController extends BaseController
         ]);
 
         return $this->redirect(
-                $this->url('admin.adminTranslations') . '&success'
-            );
+            $this->url('admin.adminTranslations') . '&success'
+        );
     }
 }
 

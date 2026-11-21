@@ -37,40 +37,39 @@ $view->setLayout(null);
                     <article class="form-card">
 
                         <h2>
-                            <?= htmlspecialchars($message['first_name']) ?>
-                            <?= htmlspecialchars($message['last_name']) ?>
+                            <?= htmlspecialchars($message->firstName) ?>
+                            <?= htmlspecialchars($message->lastName) ?>
                         </h2>
 
                         <p>
                             <strong>E-mail:</strong>
-                            <?= htmlspecialchars($message['email']) ?>
+                            <?= htmlspecialchars($message->email) ?>
                         </p>
 
                         <p>
                             <strong>Telefón:</strong>
-                            <?= htmlspecialchars($message['phone']) ?>
+                            <?= htmlspecialchars($message->phone ?? '') ?>
                         </p>
 
                         <div class="form-content">
                             <strong>Správa:</strong>
-                            <p><?= nl2br(htmlspecialchars($message['note'])) ?></p>
+                            <p><?= nl2br(htmlspecialchars($message->note ?? '')) ?></p>
                         </div>
 
                         <p>
                             <strong>Dátum:</strong>
-                            <?= htmlspecialchars($message['created_at']) ?>
+                            <?= htmlspecialchars($message->createdAt ?? '') ?>
                         </p>
 
                         <p>
                             <strong>GDPR súhlas:</strong>
-
-                            <?= $message['gdpr_consent'] ? 'Áno' : 'Nie' ?>
+                            <?= $message->gdprConsent ? 'Áno' : 'Nie' ?>
                         </p>
 
                         <p>
                             <strong>Stav:</strong>
 
-                            <?php if ($message['is_resolved']): ?>
+                            <?php if ($message->isResolved): ?>
                                 <span class="resolved">Vybavené</span>
                             <?php else: ?>
                                 <span class="unresolved">Nevybavené</span>
@@ -80,12 +79,12 @@ $view->setLayout(null);
                         <form method="POST" action="<?= $link->url('admin.updateMessage') ?>">
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
-                            <input type="hidden" name="id" value="<?= (int) $message['id'] ?>">
+                            <input type="hidden" name="id" value="<?= (int) $message->id ?>">
 
-                            <input type="hidden" name="is_resolved" value="<?= $message['is_resolved'] ? 0 : 1 ?>">
+                            <input type="hidden" name="is_resolved" value="<?= $message->isResolved ? 0 : 1 ?>">
 
                             <button type="submit">
-                                <?= $message['is_resolved']
+                                <?= $message->isResolved
                                     ? 'Vrátiť medzi nevybavené'
                                     : 'Označiť ako vybavené' ?>
                             </button>
@@ -96,7 +95,7 @@ $view->setLayout(null);
 
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
-                            <input type="hidden" name="id" value="<?= (int) $message['id'] ?>">
+                            <input type="hidden" name="id" value="<?= (int) $message->id ?>">
 
                             <button type="submit" class="delete-button">
                                 Vymazať správu

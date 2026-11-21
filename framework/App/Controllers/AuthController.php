@@ -49,12 +49,13 @@ class AuthController extends BaseController
         if ($request->hasValue('submit')) {
             $logged = $this->app->getAuthenticator()->login($request->value('username'), $request->value('password'));
             if ($logged) {
-                return $this->redirect($this->url("admin.index"));
+                return $this->redirect($this->url("home.index"));
             }
         }
 
         $message = $logged === false ? 'Bad username or password' : null;
         return $this->html(compact("message"));
+
     }
 
     /**
@@ -68,6 +69,7 @@ class AuthController extends BaseController
     public function logout(Request $request): Response
     {
         $this->app->getAuthenticator()->logout();
-        return $this->html();
+
+        return $this->redirect($this->url("auth.login"));
     }
 }

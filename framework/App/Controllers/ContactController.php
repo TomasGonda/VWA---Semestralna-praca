@@ -8,6 +8,7 @@ use Framework\Http\Request;
 use Framework\Http\Responses\Response;
 use App\Models\ContactModel;
 use App\Models\LanguageModel;
+use Framework\Http\Responses\JsonResponse;
 
 class ContactController extends BaseController
 {
@@ -32,9 +33,7 @@ class ContactController extends BaseController
 
         $respond = function (string $key, bool $success = false) use ($language): Response {
 
-            $languageModel = new LanguageModel();
-
-            $translations = $languageModel->getTranslations($language);
+            $translations = (new LanguageModel())->getTranslations($language);
 
             /*return $this->json({
                 'debug_language' => $language,
@@ -52,7 +51,7 @@ class ContactController extends BaseController
                 : 'Nastala chyba. Skúste to znova.'
             );
 
-            return $this->json([
+            return new JsonResponse([
                 'success' => $success,
                 'message' => $message,
                 /*'debug_translation' => $translations['contact_success'] ?? 'PREKLAD NENAJDENY',
@@ -114,7 +113,7 @@ class ContactController extends BaseController
         try {
             $model = new ContactModel();
 
-            $success = $model->create(
+            $model->create(
                 $firstName,
                 $lastName,
                 $email,
@@ -122,10 +121,6 @@ class ContactController extends BaseController
                 $note,
                 $gdprConsent
             );
-
-            if (!$success) {
-                return $respond('contact_error');
-            }
 
             return $respond('contact_success', true);
 
