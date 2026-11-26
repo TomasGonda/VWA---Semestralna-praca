@@ -1,58 +1,67 @@
+class Carousel {
+    constructor() {
+        this.carouselImage = document.getElementById('carousel-img');
+        this.previousButton = document.getElementById('prev-image');
+        this.nextButton = document.getElementById('next-image');
 
-const carouselImage = document.getElementById('carousel-img');
-const previousButton = document.getElementById('prev-image');
-const nextButton = document.getElementById('next-image');
+        this.images = [
+            {
+                src: BASE_URL + 'imgs/hokejbal-170T-1-700x400.jpg',
+                alt: 'Hokejbal'
+            },
+            {
+                src: BASE_URL + 'imgs/o2arena1-700x400.jpg',
+                alt: 'O2 Arena'
+            },
+            {
+                src: BASE_URL + 'imgs/sparta-kralovka-700x400.jpg',
+                alt: 'Športová hala Královka'
+            },
+            {
+                src: BASE_URL + 'imgs/kokej220-Pezinok-700x400.jpg',
+                alt: 'Hokej Pezinok'
+            },
+            {
+                src: BASE_URL + 'imgs/Hokejbal-Malacky-700x400.jpg',
+                alt: 'Hokejbal Malacky'
+            }
+        ];
 
-const images = [
-    {
-    src: BASE_URL + 'imgs/hokejbal-170T-1-700x400.jpg',
-    alt: 'Hokejbal'
-},
-{
-    src: BASE_URL + 'imgs/o2arena1-700x400.jpg',
-    alt: 'O2 Arena'
-},
-{
-    src: BASE_URL + 'imgs/sparta-kralovka-700x400.jpg',
-    alt: 'Športová hala Královka'
-},
-{
-    src: BASE_URL + 'imgs/kokej220-Pezinok-700x400.jpg',
-    alt: 'Hokej Pezinok'
-},
-{
-    src: BASE_URL + 'imgs/Hokejbal-Malacky-700x400.jpg',
-    alt: 'Športová hala Královka'
-}
-];
+        this.currentImage = 0;
 
-let currentImage = 0;
-
-function showImage(index) {
-    carouselImage.src = images[index].src;
-    carouselImage.alt = images[index].alt;
-}
-
-if (nextButton) {
-    nextButton.addEventListener('click', function () {
-    currentImage++;
-
-    if (currentImage >= images.length) {
-        currentImage = 0;
+        this.init();
     }
 
-    showImage(currentImage);
-});
-}
+    init() {
+        if (!this.carouselImage) {
+            return;
+        }
 
-if (previousButton) {
-    previousButton.addEventListener('click', function () {
-    currentImage--;
+        if (this.nextButton) {
+            this.nextButton.addEventListener('click', () => {
+                this.nextImage();
+            });
+        }
 
-    if (currentImage < 0) {
-        currentImage = images.length - 1;
+        if (this.previousButton) {
+            this.previousButton.addEventListener('click', () => {
+                this.previousImage();
+            });
+        }
     }
 
-    showImage(currentImage);
-});
+    showImage(index) {
+        this.carouselImage.src = this.images[index].src;
+        this.carouselImage.alt = this.images[index].alt;
+    }
+
+    nextImage() {
+        this.currentImage++;
+
+        if (this.currentImage >= this.images.length) {
+            this.currentImage = 0;
+        }
+
+        this.showImage(this.currentImage);
+    }
 }
