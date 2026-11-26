@@ -42,7 +42,7 @@
         max-width: 800px;
     }
 
-    
+
 }
 
 /*Tablet*/
@@ -78,15 +78,16 @@
 
     .main-right {
         order: 1;
-        justify-self: center;
+        justify-content: flex-start;
+        width: 100%;
         max-width: 450px;
+        margin: 0;
     }
-
 
     .main-columns {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: left;
         align-items: center;
         gap: 20px;
     }
@@ -145,22 +146,22 @@
     }
 
     .main-left-home {
-    min-width: 150px;
-    min-height: 100px;
-}
+        min-width: 150px;
+        min-height: 100px;
+    }
 
-.main-right-home {
-    min-width: 150px;
-    min-height: 100px;
-    transform: translateX(-40%);
-}
+    .main-right-home {
+        min-width: 150px;
+        min-height: 100px;
+        transform: translateX(-40%);
+    }
 }
 
 @media (max-width: 319px) {
     .main-right-home {
-    min-width: 150px;
-    min-height: 100px;
-    justify-self: center;
-    transform: translateX(0%);
-}
+        min-width: 150px;
+        min-height: 100px;
+        justify-self: center;
+        transform: translateX(0%);
+    }
 }

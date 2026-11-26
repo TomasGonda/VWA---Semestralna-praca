@@ -51,8 +51,8 @@ $translations = $stmt->fetchAll(); ?>
             <a href="../Pages/index.php">Späť na hlavnú stránku</a>
             <div class="form-list">
                 <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
-                    <h2>Vytvoriť nový</h2>
                     <article class="form-card">
+                        <h2>Vytvoriť nový</h2>
                         <form class="admin-form create-translation" data-url="../Dev-tools/Dev-scripts/create-language.php"
                             method="POST">
 
@@ -78,10 +78,19 @@ $translations = $stmt->fetchAll(); ?>
                     </article>
                 <?php endif ?>
 
+                <article class="form-card">
+                    <h2>Hľadať</h2>
+                    <form id="translation-search">
+                        <input type="search" id="search-input" placeholder="Zadaj tag prekladu...">
+                        <button type="submit">Hľadať</button>
+                    </form>
+                    <p id="search-message" hidden></p>
+                </article>
+
                 <?php foreach ($translations as $translation): ?>
-                    <article class="form-card">
-                        <form class="admin-form edit-translation" data-url="Admin-scripts/updateLanguage.php"
-                            method="POST">
+                    <article class="form-card translation-card" id="translation-<?= htmlspecialchars($translation['tk']) ?>"
+                        data-tag="<?= htmlspecialchars($translation['tk']) ?>">
+                        <form class="admin-form edit-translation" data-url="Admin-scripts/updateLanguage.php" method="POST">
 
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
                             <input type="hidden" name="id_sk" value="<?= (int) $translation['id_sk'] ?>">
@@ -122,4 +131,5 @@ $translations = $stmt->fetchAll(); ?>
         </div>
     </main>
     <script src="../../shared/js/Admin-js/admin-translations-ajax.js"></script>
+    <script src="../../shared/js/Admin-js/translation-search.js"></script>
 </body>

@@ -24,7 +24,9 @@ require_once __DIR__ . '/../phpComponents/database_ini.php';
         <div class="main-columns">
 
             <div class="main-left">
-
+                <h2><?=htmlspecialchars($translations['personal_info'] ?? "Osobné údaje")?></h2>
+                <p><?=htmlspecialchars($translations['personal_info_label'] ?? "Informácie o uchovávaní osobných údajov")?></p>
+                <a class="personal-pdf"><?=htmlspecialchars($translations['personal_info'] ?? "Stiahnuť PDF")?></a>
             </div>
 
             <div class="main-right">
