@@ -1,30 +1,45 @@
+
 console.log('AJAX admin JS sa načítal');
 
 document.querySelectorAll('.admin-form').forEach(form => {
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
+        /*console.log('Zachytený submit:', form.className);
+        console.log('URL:', form.dataset.url);
+        console.log('Action:', new FormData(form).get('action'));
+        console.log('ID SK:', new FormData(form).get('id_sk'));
+        console.log('ID EN:', new FormData(form).get('id_en'));*/
+
         const message = form.querySelector('.form-message');
         const button = form.querySelector('button[type="submit"]');
 
-        let url;
+        const supportedForms = [
+            'create-translation',
+            'edit-translation',
+            'delete-translation',
+            'edit-document',
+            'upload-document'
+        ];
 
-        if (
-            form.classList.contains('create-translation') ||
-            form.classList.contains('edit-translation') ||
-            form.classList.contains('edit-document') ||
-            form.classList.contains('upload-document')
-        ) {
-            url = form.dataset.url;
+        const isSupported = supportedForms.some(className =>
+            form.classList.contains(className)
+        );
+
+        if (!isSupported) {
+            return;
         }
 
-        else {
+        const url = form.dataset.url;
+
+        if (!url || !button || !message) {
+            console.error('Formuláru chýba URL, tlačidlo alebo message element.');
             return;
         }
 
         button.disabled = true;
         message.hidden = false;
-        message.textContent = 'Ukladanie';
+        message.textContent = 'Spracovávanie...';
         message.className = 'form-message';
 
         try {
@@ -33,9 +48,10 @@ document.querySelectorAll('.admin-form').forEach(form => {
             for (const [key, value] of formData.entries()) {
                 console.log(key, value);
             }
+
             const response = await fetch(url, {
                 method: 'POST',
-                body: new FormData(form)
+                body: formData
             });
 
             const responseText = await response.text();
@@ -48,10 +64,28 @@ document.querySelectorAll('.admin-form').forEach(form => {
 
             message.textContent = result.message;
             message.classList.add(result.success ? 'success' : 'error');
+
+            if (!response.ok || !result.success) {
+                return;
+            }
+
+            if (form.classList.contains('create-translation')) {
+                form.reset();
+            }
+
+            if (form.classList.contains('delete-translation')) {
+                const translationCard = form.closest('.translation-card');
+
+                if (translationCard) {
+                    translationCard.remove();
+                }
+            }
+
         } catch (error) {
-            console.log('Ajax error: ', error);
-            message.textContent = 'Ajax: Nepodarilo sa spojiť so serverom';
+            console.error('Ajax error:', error);
+            message.textContent = 'Ajax: Nepodarilo sa spracovať požiadavku.';
             message.classList.add('error');
+
         } finally {
             button.disabled = false;
         }

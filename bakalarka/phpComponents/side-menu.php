@@ -18,4 +18,4 @@
     </div>
 </div>
 
-<script src="../../shared/js/side-menu.js" defer></script>
+<script src="../../shared/js/client-scripts.js" defer></script>

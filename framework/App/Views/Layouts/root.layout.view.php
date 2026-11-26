@@ -24,8 +24,7 @@
     <script>
         const BASE_URL = <?= json_encode($link->asset('')) ?>;
     </script>
-    <script src="<?= $link->asset('js/script.js') ?>" defer></script>
-    <script src="<?= $link->asset('js/hamburger.js') ?>" defer></script>
+    <script src="<?= $link->asset('js/client-scripts.js') ?>" defer></script>
 
     <link rel="stylesheet" href="<?= $link->asset('css/global.css') ?>">
     <link rel="stylesheet" href="<?= $link->asset('css/top-section.css') ?>">
@@ -59,6 +58,7 @@
         </div>
     </section>
 <?php endif; ?>
+
 <body>
     <div class="top-section">
         <div class="top-menu">
@@ -75,10 +75,10 @@
                     </a>
                     <div class="language-switch">
                         <button class="language-button" type="button" aria-expanded="false">
-                            <?php if (($currentLanguage ?? 'sk' )=== 'sk'): ?>
+                            <?php if (($currentLanguage ?? 'sk') === 'sk'): ?>
                                 <img src="<?= $link->asset('imgs/Flag_of_Slovakia.png') ?>" alt="">
                                 <span>SK</span>
-                            <?php elseif (($currentLanguage ?? 'sk')=== 'en'): ?>
+                            <?php elseif (($currentLanguage ?? 'sk') === 'en'): ?>
                                 <img src="<?= $link->asset('imgs/england.png') ?>" alt="">
                                 <span>EN</span>
                             <?php endif; ?>
@@ -102,8 +102,7 @@
 
         <header class="top-header">
             <a href="<?= $link->url('home.index') ?>" class="logo-link">
-                <img class="header-img" src="<?= $link->asset('imgs/Logo_cele.png') ?>"
-                    alt="LGR - domovská stránka">
+                <img class="header-img" src="<?= $link->asset('imgs/Logo_cele.png') ?>" alt="LGR - domovská stránka">
             </a>
 
             <form class="search-form" action="" method="get">
@@ -119,7 +118,13 @@
         </header>
 
         <div class="main-menu">
-            <nav class="nav-bar" aria-label="Hlavná navigácia">
+            <button class="hamburger" id="hamburger" type="button" aria-label="Otvoriť navigáciu" aria-expanded="false"
+                aria-controls="nav-bar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav-bar" id="nav-bar" aria-label="Hlavná navigácia">
 
                 <a
                     href=""><?= htmlspecialchars($translations['menu_sport_tables'] ?? "Športové tabule", ENT_QUOTES, "UTF-8") ?></a>

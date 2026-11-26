@@ -131,5 +131,5 @@
         </nav>
     </div>
 
-    <script src="../../shared/js/hamburger.js" defer></script>
+    <script src="../../shared/js/client-scripts.js" defer></script>
 </div>

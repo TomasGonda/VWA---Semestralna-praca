@@ -68,6 +68,5 @@
 
         </div>
     </main>
-    <script src="<?= $link->asset('js/script.js') ?>" defer></script>
-    <script src="<?= $link->asset('js/side-menu.js') ?>" defer></script>
+    <script src="<?= $link->asset('js/client-scripts.js') ?>" defer></script>
 </body>

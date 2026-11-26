@@ -130,5 +130,5 @@ $messageKey = $contactMessageKey[$contactStatus] ?? '';
             </div>
         </div>
     </section>
-    <script src="<?= $link->asset('js/ajax-contact.js') ?>" defer></script>
+    <script src="<?= $link->asset('js/client-scripts.js') ?>" defer></script>
 </body>
