@@ -129,5 +129,5 @@ $messageKey = $contactMessageKey[$contactStatus] ?? '';
         </div>
     </section>
 
-    <script src="../../shared/js/ajax-contact.js"></script>
+    <script src="../../shared/js/client-scripts.js"></script>
 </body>

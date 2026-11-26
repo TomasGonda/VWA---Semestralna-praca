@@ -14,7 +14,7 @@ require_once __DIR__ . '/../phpComponents/database_ini.php';
     <script>
         const BASE_URL = "../../shared/";
     </script>
-    <script src="../../shared/js/script.js" defer></script>
+    <script src="../../shared/js/client-scripts.js" defer></script>
 
 </head>
 

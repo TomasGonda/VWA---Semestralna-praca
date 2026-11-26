@@ -53,8 +53,11 @@ $translations = $stmt->fetchAll(); ?>
                 <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
                     <article class="form-card">
                         <h2>Vytvoriť nový</h2>
-                        <form class="admin-form create-translation" data-url="../Dev-tools/Dev-scripts/create-language.php"
+
+                        <form class="admin-form create-translation" data-url="../Dev-tools/Dev-scripts/manage-language.php"
                             method="POST">
+
+                            <input type="hidden" name="action" value="create">
 
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
@@ -69,8 +72,6 @@ $translations = $stmt->fetchAll(); ?>
                                 <input type="text" name="translation_en" required>
 
                                 <button type="submit">Vytvoriť preklad</button>
-
-
                             </div>
 
                             <p class="form-message" hidden></p>
@@ -111,17 +112,21 @@ $translations = $stmt->fetchAll(); ?>
                             <p class="form-message" hidden></p>
                         </form>
                         <?php if (($_SESSION['admin_role'] ?? '') === 'dev'): ?>
-                            <form method="POST" action="../Dev-tools/Dev-scripts/delete-language.php"
-                                onsubmit="return confirm('Naozaj chcete vymazať tento preklad?');">
+                            <form class="admin-form delete-translation" data-url="../Dev-tools/Dev-scripts/manage-language.php"
+                                method="POST" onsubmit="return confirm('Naozaj chcete vymazať tento preklad?');">
+
+                                <input type="hidden" name="action" value="delete">
 
                                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
-                                <input type="hidden" name="id" value="<?= (int) $translation['id_sk'] ?>">
-                                <input type="hidden" name="id" value="<?= (int) $translation['id_en'] ?>">
+                                <input type="hidden" name="id_sk" value="<?= (int) $translation['id_sk'] ?>">
+                                <input type="hidden" name="id_en" value="<?= (int) $translation['id_en'] ?>">
 
                                 <button type="submit" class="delete-button">
                                     Vymazať preklad
                                 </button>
+
+                                <p class="form-message" hidden></p>
                             </form>
                         <?php endif ?>
                     </article>
@@ -131,5 +136,5 @@ $translations = $stmt->fetchAll(); ?>
         </div>
     </main>
     <script src="../../shared/js/Admin-js/admin-translations-ajax.js"></script>
-    <script src="../../shared/js/Admin-js/translation-search.js"></script>
+    <script src="../../shared/js/Admin-js/admin-scripts.js"></script>
 </body>
