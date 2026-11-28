@@ -32,13 +32,20 @@ class AdminController extends BaseController
      * @param string $action The name of the action to authorize.
      * @return bool Returns true if the user is logged in; false otherwise.
      */
+
     public function authorize(Request $request, string $action): bool
     {
         $user = $this->app->getAppUser();
 
+        error_log('IS LOGGED IN: ' . ($user->isLoggedIn() ? 'YES' : 'NO'));
+        error_log('IDENTITY: ' . get_class($user->getIdentity() ?? new \stdClass()));
+
         if (!$user->isLoggedIn()) {
             return false;
         }
+
+        error_log('USER ID: ' . $user->getId());
+        error_log('USER ROLE: ' . $user->getRole());
 
         return in_array($user->getRole(), ['admin', 'dev'], true);
     }
@@ -84,21 +91,15 @@ class AdminController extends BaseController
             );
         }
 
-        $adminModel = new AdminModel();
-        $admin = $adminModel->getAdminByUsername($username);
+        $logged = $this->app->getAuthenticator()->login($username, $password);
 
-        if (!$admin || !password_verify($password, $admin['password_hash'])) {
+        if (!$logged) {
             return $this->redirect(
                 $this->url('auth.adminLogin') . '&error=invalid_credentials'
             );
         }
 
         session_regenerate_id(true);
-
-        $_SESSION['admin_id'] = $admin['id'];
-        $_SESSION['admin_username'] = $admin['username'];
-        $_SESSION['role'] = $admin['role'];
-
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 
         return $this->redirect($this->url('home.index'));
@@ -222,10 +223,16 @@ class AdminController extends BaseController
 
         $stmt = $db->query($sql);
         $translations = $stmt->fetchAll();
+
         $currentLanguage = $_SESSION['language'] ?? 'sk';
+
+        $user = $this->app->getAppUser();
+        $isDev = $user->isLoggedIn() && $user->getRole() === 'dev';
+
         return $this->html([
             'translations' => $translations,
-            'currentLanguage' => $currentLanguage
+            'currentLanguage' => $currentLanguage,
+            'isDev' => $isDev
         ]);
 
     }
@@ -235,20 +242,14 @@ class AdminController extends BaseController
 
         header('Content-Type: application/json; charset=utf-8');
 
-        function respond(bool $success, string $message, int $status = 200): never
-        {
-            http_response_code($status);
+        $user = $this->app->getAppUser();
 
-            echo json_encode([
-                'success' => $success,
-                'message' => $message
-            ]);
-
-            exit;
+        if (!$user->isLoggedIn()) {
+            return $this->jsonResponse(false, 'Nie ste prihlásený.', 401);
         }
 
-        if (!isset($_SESSION['admin_id'])) {
-            respond(false, 'Nie ste prihlásený.', 401);
+        if (!in_array($user->getRole(), ['admin', 'dev'], true)) {
+            return $this->jsonResponse(false, 'Nemáte oprávnenie vykonať túto akciu.', 403);
         }
 
         $pdo = Connection::getInstance();
@@ -264,7 +265,7 @@ class AdminController extends BaseController
             $sessionToken === '' ||
             !hash_equals($sessionToken, $submittedToken)
         ) {
-            respond(false, 'Neplatná požiadavka.', 403);
+            return $this->jsonResponse(false, 'Neplatná požiadavka.', 403);
         }
 
         $id_sk = filter_input(INPUT_POST, 'id_sk', FILTER_VALIDATE_INT);
@@ -274,7 +275,7 @@ class AdminController extends BaseController
         $en = trim($_POST['en'] ?? '');
 
         if (!$id_sk || !$id_en || $sk === '' || $en === '') {
-            respond(false, 'Neplatné údaje.', 400);
+            return $this->jsonResponse(false, 'Neplatné údaje.', 400);
         }
 
         try {
@@ -296,11 +297,11 @@ class AdminController extends BaseController
             ]);
 
             $pdo->commit();
-        } catch (PDOException $e) {
+        } catch (Throwable $e) {
             $pdo->rollBack();
-            respond(false, 'Preklad sa nepodarilo uložiť.', 500);
+            return $this->jsonResponse(false, 'Preklad sa nepodarilo uložiť.', 500);
         }
-        respond(true, 'Preklad sa úspešne uložil.');
+        return $this->jsonResponse(true, 'Preklad sa úspešne uložil.');
         exit;
     }
     public function uploadDocument(Request $request): Response
@@ -314,23 +315,14 @@ class AdminController extends BaseController
 
         header('Content-Type: application/json; charset=utf-8');
 
-        function respond(bool $success, string $message, int $status = 200): never
-        {
-            http_response_code($status);
+        $user = $this->app->getAppUser();
 
-            echo json_encode([
-                'success' => $success,
-                'message' => $message
-            ]);
-
-            exit;
+        if (!$user->isLoggedIn()) {
+            return $this->jsonResponse(false, 'Nie ste prihlásený.', 401);
         }
 
-        if (
-            !isset($_SESSION['admin_id']) ||
-            ($_SESSION['role'] ?? '') !== 'dev'
-        ) {
-            respond(false, 'Nemáte oprávnenie vykonať túto akciu.', 403);
+        if ($user->getRole() !== 'dev') {
+            return $this->jsonResponse(false, 'Nemáte oprávnenie vykonať túto akciu.', 403);
         }
 
         $db = Connection::getInstance();
@@ -346,7 +338,7 @@ class AdminController extends BaseController
             $sessionToken === '' ||
             !hash_equals($sessionToken, $submittedToken)
         ) {
-            respond(false, 'Neplatná požiadavka.', 403);
+            return $this->jsonResponse(false, 'Neplatná požiadavka.', 403);
         }
 
         $translation_key = trim($_POST['translation_key_form'] ?? '');
@@ -359,7 +351,7 @@ class AdminController extends BaseController
         error_log('EN: ' . $en);
 
         if ($translation_key === '' || $sk === '' || $en === '') {
-            respond(false, 'Vyplňte všetky polia.', 400);
+            return $this->jsonResponse(false, 'Vyplňte všetky polia.', 400);
         }
 
         try {
@@ -379,7 +371,7 @@ class AdminController extends BaseController
 
             if ((int) $checkStmt->fetchColumn() > 0) {
                 $db->rollBack();
-                respond(false, 'Tento tag už existuje.', 409);
+                return $this->jsonResponse(false, 'Tento tag už existuje.', 409);
             }
             $insertSql = 'insert into translations(language_id, translation_key, translation_value) 
                     values (:language_id, :key, :value)';
@@ -404,28 +396,26 @@ class AdminController extends BaseController
             }
 
             error_log($e->getMessage());
-            respond(false, 'Preklad sa nepodarilo vytvoriť.', 500);
+            return $this->jsonResponse(false, 'Preklad sa nepodarilo vytvoriť.', 500);
         }
-        respond(true, 'Preklad sa úspešne vytvoril.');
+        return $this->jsonResponse(true, 'Preklad sa úspešne vytvoril.');
         exit;
     }
 
     public function deleteLanguage(Request $request): Response
     {
+        $user = $this->app->getAppUser();
 
-        if (
-            !isset($_SESSION['admin_id']) ||
-            !in_array($_SESSION['role'], ['admin', 'dev'], true)
-        ) {
-            return $this->redirect(
-                $this->url('admin.adminTranslations') . '&error=invalid_role'
-            );
+        if (!$user->isLoggedIn()) {
+            return $this->jsonResponse(false, 'Nie ste prihlásený.', 401);
+        }
+
+        if (!in_array($user->getRole(), ['admin', 'dev'], true)) {
+            return $this->jsonResponse(false, 'Nemáte oprávnenie vykonať túto akciu.', 403);
         }
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            return $this->redirect(
-                $this->url('admin.adminTranslations') . '&error=invalid_operation'
-            );
+            return $this->jsonResponse(false, 'Nepovolená metóda požiadavky.', 405);
         }
 
         $sessionToken = $_SESSION['csrf_token'] ?? '';
@@ -437,32 +427,91 @@ class AdminController extends BaseController
             $sessionToken === '' ||
             !hash_equals($sessionToken, $submittedToken)
         ) {
-            return $this->redirect(
-                $this->url('admin.adminTranslations') . '&error=invalid_request'
-            );
+            return $this->jsonResponse(false, 'Neplatný CSRF token.', 403);
         }
-        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 
-        if (!$id || $id < 1) {
-            return $this->redirect(
-                $this->url('admin.adminTranslations') . '&error=idvalid_message_id'
-            );
+        $idSk = filter_var($_POST['id_sk'] ?? null, FILTER_VALIDATE_INT);
+        $idEn = filter_var($_POST['id_en'] ?? null, FILTER_VALIDATE_INT);
+
+        if (
+            $idSk === false || $idSk === null || $idSk < 1 ||
+            $idEn === false || $idEn === null || $idEn < 1 ||
+            $idSk === $idEn
+        ) {
+            return $this->jsonResponse(false, 'Neplatné ID prekladu.', 400);
         }
 
         $pdo = Connection::getInstance();
 
-        $sql = "Delete from translations where id = :id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':id' => $id
-        ]);
+        try {
+            $pdo->beginTransaction();
 
-        return $this->redirect(
-            $this->url('admin.adminTranslations') . '&success'
-        );
+            // Overíme, či oba záznamy patria k rovnakému prekladu.
+            $sql = '
+            SELECT COUNT(*)
+            FROM translations sk
+            JOIN languages lang_sk ON lang_sk.id = sk.language_id
+            JOIN translations en ON en.translation_key = sk.translation_key
+            JOIN languages lang_en ON lang_en.id = en.language_id
+            WHERE sk.id = :id_sk
+            AND lang_sk.code = "sk"
+            AND en.id = :id_en
+            AND lang_en.code = "en"
+        ';
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ':id_sk' => $idSk,
+                ':id_en' => $idEn
+            ]);
+
+            if ((int) $stmt->fetchColumn() !== 1) {
+                $pdo->rollBack();
+
+                return $this->jsonResponse(
+                    false,
+                    'Preklad sa nenašiel alebo jeho záznamy nepatria k sebe.',
+                    404
+                );
+            }
+
+            // Vymažeme oba jazykové záznamy.
+            $sql = 'DELETE FROM translations WHERE id IN (:id_sk, :id_en)';
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ':id_sk' => $idSk,
+                ':id_en' => $idEn
+            ]);
+
+            if ($stmt->rowCount() !== 2) {
+                throw new Exception('Nepodarilo sa vymazať oba jazykové záznamy.');
+            }
+
+            $pdo->commit();
+
+            return $this->jsonResponse(
+                true,
+                'Preklad bol úspešne vymazaný.'
+            );
+
+        } catch (Throwable $e) {
+
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+
+            error_log($e->getMessage());
+
+            return $this->jsonResponse(
+                false,
+                'Preklad sa nepodarilo vymazať.',
+                500
+            );
+        }
     }
 
-    private function jsonResponse(
+    public function jsonResponse(
         bool $success,
         string $message,
         int $status = 200

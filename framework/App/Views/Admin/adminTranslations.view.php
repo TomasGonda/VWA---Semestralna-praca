@@ -25,7 +25,8 @@ $view->setLayout(null);
             <h1>Preklady</h1>
             <a href="<?= $link->url("home.index") ?>">Späť na hlavnú stránku</a>
             <div class="form-list">
-                <?php if (($_SESSION['role'] ?? '') === 'dev'): ?>
+                <?php if ($isDev): ?>
+                    <p id="contact-message" class="form-message" hidden></p>
                     <h2>Vytvoriť nový</h2>
                     <article class="form-card">
                         <form class="admin-form create-translation" data-url="<?= $link->url('admin.createLanguage') ?>"
@@ -55,8 +56,8 @@ $view->setLayout(null);
 
                 <?php foreach ($translations as $translation): ?>
                     <article class="form-card">
-                        <form class="admin-form edit-translation" data-url="<?= $link->url('admin.updateLanguage') ?>"
-                            method="POST">
+                        <form class="admin-form delete-translation" method="POST"
+                            data-url="<?= $link->url('admin.updateLanguage') ?>">
 
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
                             <input type="hidden" name="id_sk" value="<?= (int) $translation['id_sk'] ?>">
@@ -76,14 +77,14 @@ $view->setLayout(null);
                             </div>
                             <p class="form-message" hidden></p>
                         </form>
-                        <?php if (($_SESSION['role'] ?? '') === 'dev'): ?>
-                            <form method="POST" action="<?= $link->url('admin.deleteLanguage') ?>"
-                                onsubmit="return confirm('Naozaj chcete vymazať tento preklad?');">
+                        <?php if ($isDev): ?>
+                            <form class="admin-form delete-translation" method="POST"
+                                data-url="<?= $link->url('admin.deleteLanguage') ?>">
 
                                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
-                                <input type="hidden" name="id" value="<?= (int) $translation['id_sk'] ?>">
-                                <input type="hidden" name="id" value="<?= (int) $translation['id_en'] ?>">
+                                <input type="hidden" name="id_sk" value="<?= (int) $translation['id_sk'] ?>">
+                                <input type="hidden" name="id_en" value="<?= (int) $translation['id_en'] ?>">
 
                                 <button type="submit" class="delete-button">
                                     Vymazať preklad

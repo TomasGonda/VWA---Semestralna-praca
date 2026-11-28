@@ -46,16 +46,21 @@ class AuthController extends BaseController
     public function login(Request $request): Response
     {
         $logged = null;
+
         if ($request->hasValue('submit')) {
-            $logged = $this->app->getAuthenticator()->login($request->value('username'), $request->value('password'));
+            $logged = $this->app->getAuthenticator()->login(
+                $request->value('username'),
+                $request->value('password')
+            );
+
             if ($logged) {
-                return $this->redirect($this->url("home.index"));
+                return $this->redirect($this->url('home.index'));
             }
         }
 
-        $message = $logged === false ? 'Bad username or password' : null;
-        return $this->html(compact("message"));
+        $message = $logged === false ? 'Nesprávne meno alebo heslo.' : null;
 
+        return $this->html(compact('message'));
     }
 
     /**

@@ -1,4 +1,4 @@
-class AdminTranslationAjax {
+/*class AdminTranslationAjax {
     constructor() {
         this.supportedForms = [
             'create-translation',
@@ -105,7 +105,7 @@ class AdminTranslationAjax {
             }
         }
     }
-}
+}*/
 
 class AdminUploadFile {
 
@@ -417,7 +417,7 @@ class AdminFormsResponds {
 
 document.addEventListener('DOMContentLoaded', () => {
     new TranslationSearch();
-    new AdminTranslationAjax();
+    //new AdminTranslationAjax();
     new AdminUploadFile();
     new AdminFormsResponds();
 });
