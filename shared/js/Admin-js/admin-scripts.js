@@ -236,6 +236,13 @@ class AdminFormsResponds {
             '.delete-document'
         ];
 
+        console.log('Všetky formuláre na stránke:',
+            document.querySelectorAll('form')
+        );
+
+        console.log('Formuláre s triedami:',
+            [...document.querySelectorAll('form')].map(form => form.className)
+        );
         this.forms = document.querySelectorAll(
             this.formSelectors.join(', ')
         );
@@ -265,9 +272,32 @@ class AdminFormsResponds {
     async handleSubmit(event, form) {
         event.preventDefault();
 
-        const action = form.querySelector('[name="action"]')?.value;
         const button = form.querySelector('button[type="submit"]');
         const url = form.dataset.url || form.action;
+
+        //XAMPP.
+        let action = form.querySelector('[name="action"]')?.value;
+
+        //Docker.
+        if (!action) {
+            const urlObject = new URL(url, window.location.href);
+            const routeAction = urlObject.searchParams.get('a');
+
+            const routeActions = {
+                updateMessage: 'update-message',
+                deleteMessage: 'delete-message',
+                updateLanguage: 'update-language',
+                deleteLanguage: 'delete-language',
+                createLanguage: 'create-language',
+                updateDocument: 'update-document',
+                deleteDocument: 'delete-document'
+            };
+
+            action = routeActions[routeAction] || routeAction;
+        }
+
+        console.log('Akcia:', action);
+        console.log('URL:', url);
 
         if (!button || !url) {
             console.error('Chýba tlačidlo alebo URL.');

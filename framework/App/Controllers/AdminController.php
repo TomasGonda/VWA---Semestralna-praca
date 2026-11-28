@@ -121,7 +121,7 @@ class AdminController extends BaseController
     public function updateMessage(Request $request): Response
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            return $this->redirect($this->url('admin.adminFormular'));
+            return $this->jsonResponse(false, 'Nepovolená metóda požiadavky.', 405);
         }
 
         $sessionToken = $_SESSION['csrf_token'] ?? '';
@@ -133,7 +133,7 @@ class AdminController extends BaseController
             $sessionToken === '' ||
             !hash_equals($sessionToken, $submittedToken)
         ) {
-            return $this->redirect($this->url('admin.adminFormular'));
+            return $this->jsonResponse(false, 'Neplatný CSRF token.', 403);
         }
 
         $id = filter_var($_POST['id'] ?? null, FILTER_VALIDATE_INT);
@@ -143,18 +143,24 @@ class AdminController extends BaseController
             $id === false || $id === null || $id <= 0 ||
             !in_array($isResolved, [0, 1], true)
         ) {
-            return $this->redirect($this->url('admin.adminFormular'));
+            return $this->jsonResponse(false, 'Neplatné údaje.', 400);
         }
 
-        ContactModel::updateMessageStatus($id, $isResolved);
+        try {
+            ContactModel::updateMessageStatus($id, $isResolved);
 
-        return $this->redirect($this->url('admin.adminFormular'));
+            return $this->jsonResponse(true, 'Stav správy bol úspešne aktualizovaný.');
+        } catch (Throwable $e) {
+            error_log($e->getMessage());
+
+            return $this->jsonResponse(false, 'Stav správy sa nepodarilo aktualizovať.', 500);
+        }
     }
 
     public function deleteMessage(Request $request): Response
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            return $this->redirect($this->url('admin.adminFormular'));
+            return $this->jsonResponse(false, 'Nepovolená metóda požiadavky.', 405);
         }
 
         $sessionToken = $_SESSION['csrf_token'] ?? '';
@@ -166,18 +172,24 @@ class AdminController extends BaseController
             $sessionToken === '' ||
             !hash_equals($sessionToken, $submittedToken)
         ) {
-            return $this->redirect($this->url('admin.adminFormular'));
+            return $this->jsonResponse(false, 'Neplatný CSRF token.', 403);
         }
 
         $id = filter_var($_POST['id'] ?? null, FILTER_VALIDATE_INT);
 
         if ($id === false || $id === null || $id < 1) {
-            return $this->redirect($this->url('admin.adminFormular'));
+            return $this->jsonResponse(false, 'Neplatné ID správy.', 400);
         }
 
-        ContactModel::deleteMessage($id);
+        try {
+            ContactModel::deleteMessage($id);
 
-        return $this->redirect($this->url('admin.adminFormular'));
+            return $this->jsonResponse(true, 'Správa bola úspešne vymazaná.');
+        } catch (Throwable $e) {
+            error_log($e->getMessage());
+
+            return $this->jsonResponse(false, 'Správu sa nepodarilo vymazať.', 500);
+        }
     }
 
     public function logout(Request $request): Response
@@ -448,6 +460,20 @@ class AdminController extends BaseController
         return $this->redirect(
             $this->url('admin.adminTranslations') . '&success'
         );
+    }
+
+    private function jsonResponse(
+        bool $success,
+        string $message,
+        int $status = 200
+    ): Response {
+        http_response_code($status);
+        header('Content-Type: application/json; charset=utf-8');
+
+        return $this->json([
+            'success' => $success,
+            'message' => $message
+        ]);
     }
 }
 

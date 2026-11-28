@@ -10,6 +10,8 @@ $view->setLayout(null);
     <title>Správy | Administrácia LGR</title>
 
     <link rel="stylesheet" href="<?= $link->asset('css/global.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminInterface.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminTranslations.css') ?>">
     <link rel="stylesheet" href="<?= $link->asset('css/Admin/admin-scripts.css') ?>">
     <script>
         const BASE_URL = "";
@@ -94,5 +96,5 @@ $view->setLayout(null);
             </div>
         </div>
     </main>
-    <script src="<?= $link->asset('js/Admin-js/admin-translations-ajax.js') ?>" defer></script>
+    <script src="<?= $link->asset('js/Admin-js/admin-scripts.js') ?>" defer></script>
 </body>

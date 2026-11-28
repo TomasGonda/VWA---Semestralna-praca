@@ -13,6 +13,11 @@ $view->setLayout(null);
     <link rel="stylesheet" href="<?= $link->asset('css/global.css') ?>">
     <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminInterface.css') ?>">
     <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminLogin.css') ?>">
+
+    <script>
+        const BASE_URL = "";
+    </script>
+
 </head>
 
 <body>
@@ -23,7 +28,7 @@ $view->setLayout(null);
 
         <a href="<?= $link->url("home.index") ?>">Späť na hlavnú stránku</a>
         <p>Počet prijatých správ: <?= count($messages) ?></p>
-
+        <p id="contact-message" class="form-message" hidden></p>
         <?php if (empty($messages)): ?>
 
             <p>Zatiaľ neboli prijaté žiadne správy.</p>
@@ -66,17 +71,15 @@ $view->setLayout(null);
                             <?= $message->gdprConsent ? 'Áno' : 'Nie' ?>
                         </p>
 
-                        <p>
+                        <p class="message-status">
                             <strong>Stav:</strong>
 
-                            <?php if ($message->isResolved): ?>
-                                <span class="resolved">Vybavené</span>
-                            <?php else: ?>
-                                <span class="unresolved">Nevybavené</span>
-                            <?php endif; ?>
+                            <span class="<?= $message->isResolved ? 'resolved' : 'unresolved' ?>">
+                                <?= $message->isResolved ? 'Vybavené' : 'Nevybavené' ?>
+                            </span>
                         </p>
 
-                        <form method="POST" action="<?= $link->url('admin.updateMessage') ?>">
+                        <form class="update-message" method="POST" action="<?= $link->url('admin.updateMessage') ?>">
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
                             <input type="hidden" name="id" value="<?= (int) $message->id ?>">
@@ -90,8 +93,7 @@ $view->setLayout(null);
                             </button>
                         </form>
 
-                        <form method="POST" action="<?= $link->url('admin.deleteMessage') ?>"
-                            onsubmit="return confirm('Naozaj chcete vymazať túto správu?');">
+                        <form class="delete-message" method="POST" action="<?= $link->url('admin.deleteMessage') ?>">
 
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
@@ -111,7 +113,7 @@ $view->setLayout(null);
         <?php endif; ?>
 
     </main>
-
+    <script src="<?= $link->asset('js/Admin-js/admin-scripts.js') ?>" defer></script>
 </body>
 
 </html>
