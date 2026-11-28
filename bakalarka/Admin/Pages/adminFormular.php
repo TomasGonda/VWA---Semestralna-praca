@@ -1,13 +1,15 @@
 <?php
 
 session_start();
-if (!isset($_SESSION['admin_id']) ||
-    !in_array($_SESSION['admin_role'] ?? '', ['admin', 'dev'], true)) {
+if (
+    !isset($_SESSION['admin_id']) ||
+    !in_array($_SESSION['admin_role'] ?? '', ['admin', 'dev'], true)
+) {
     header('Location: ../Pages/index.php');
     exit;
 }
 
-require_once __DIR__ . '/../databaseConections/database.php';
+require_once __DIR__ . '/../../databaseConections/database.php';
 
 $sql = "select 
     id,
@@ -32,8 +34,12 @@ $messages = $stmt->fetchAll(); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Správy | Administrácia LGR</title>
 
-    <link rel="stylesheet" href="../../shared/css/global.css">
-    <link rel="stylesheet" href="../../shared/css/Admin/adminInterface.css">
+    <link rel="stylesheet" href="../../../shared/css/global.css">
+    <link rel="stylesheet" href="../../../shared/css/Admin/adminInterface.css">
+
+    <script>
+        const BASE_URL = "../../../shared/";
+    </script>
 </head>
 
 <body>
@@ -42,8 +48,9 @@ $messages = $stmt->fetchAll(); ?>
 
         <h1>Prijaté správy</h1>
 
-        <a href="../Pages/index.php">Späť na hlavnú stránku</a>
+        <a href="../../Pages/index.php">Späť na hlavnú stránku</a>
         <p>Počet prijatých správ: <?= count($messages) ?></p>
+        <p id="contact-message" class="form-message" hidden></p>
 
         <?php if (empty($messages)): ?>
 
@@ -88,17 +95,17 @@ $messages = $stmt->fetchAll(); ?>
                             <?= $message['gdpr_consent'] ? 'Áno' : 'Nie' ?>
                         </p>
 
-                        <p>
+                        <p class="message-status">
                             <strong>Stav:</strong>
 
-                            <?php if ($message['is_resolved']): ?>
-                                <span class="resolved">Vybavené</span>
-                            <?php else: ?>
-                                <span class="unresolved">Nevybavené</span>
-                            <?php endif; ?>
+                            <span class="<?= $message['is_resolved'] ? 'resolved' : 'unresolved' ?>">
+                                <?= $message['is_resolved'] ? 'Vybavené' : 'Nevybavené' ?>
+                            </span>
                         </p>
 
-                        <form method="POST" action="Admin-scripts/updateMessage.php">
+                        <form class="update-message" method="POST" action="../Admin-scripts/admin-scripts.php"
+                            data-url="../Admin-scripts/admin-scripts.php">
+                            <input type="hidden" name="action" value="update-message">
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
                             <input type="hidden" name="id" value="<?= (int) $message['id'] ?>">
@@ -112,9 +119,10 @@ $messages = $stmt->fetchAll(); ?>
                             </button>
                         </form>
 
-                        <form method="POST" action="Admin-scripts/deleteMessage.php"
-                            onsubmit="return confirm('Naozaj chcete vymazať túto správu?');">
+                        <form class="delete-message" method="POST" action="../Admin-scripts/admin-scripts.php"
+                            data-url="../Admin-scripts/admin-scripts.php">
 
+                            <input type="hidden" name="action" value="delete-message">
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
                             <input type="hidden" name="id" value="<?= (int) $message['id'] ?>">
@@ -133,7 +141,7 @@ $messages = $stmt->fetchAll(); ?>
         <?php endif; ?>
 
     </main>
-
+    <script src="../../../shared/js/Admin-js/admin-scripts.js"></script>
 </body>
 
 </html>

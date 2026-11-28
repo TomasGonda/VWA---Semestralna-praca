@@ -234,9 +234,6 @@ class ContactForm {
     }
 }
 
-const contactForm = new ContactForm();
-
-
 document.addEventListener('DOMContentLoaded', () => {
     new Carousel();
     new SideMenu();

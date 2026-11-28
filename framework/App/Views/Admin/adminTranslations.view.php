@@ -10,7 +10,7 @@ $view->setLayout(null);
     <title>Správy | Administrácia LGR</title>
 
     <link rel="stylesheet" href="<?= $link->asset('css/global.css') ?>">
-    <link rel="stylesheet" href="<?= $link->asset('css/Admin/adminTranslations.css') ?>">
+    <link rel="stylesheet" href="<?= $link->asset('css/Admin/admin-scripts.css') ?>">
     <script>
         const BASE_URL = "";
     </script>

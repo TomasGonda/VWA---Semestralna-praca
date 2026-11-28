@@ -135,6 +135,5 @@ $translations = $stmt->fetchAll(); ?>
             </div>
         </div>
     </main>
-    <script src="../../shared/js/Admin-js/admin-translations-ajax.js"></script>
     <script src="../../shared/js/Admin-js/admin-scripts.js"></script>
 </body>

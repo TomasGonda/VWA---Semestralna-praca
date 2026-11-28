@@ -42,6 +42,7 @@ $documents = $stmt->fetchAll(); ?>
                     <form class="admin-form upload-document" method="POST" enctype="multipart/form-data">
 
                         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+                        <input type="hidden" name="action" value="upload-document">
 
                         <div class="translation-forms">
                             <div class="drop-zone" id="document-drop-zone">
@@ -69,6 +70,7 @@ $documents = $stmt->fetchAll(); ?>
                 <?php foreach ($documents as $document): ?>
                     <article class="form-card">
                         <form class="admin-form edit-document" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="action" value="update-document">
 
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
@@ -104,6 +106,8 @@ $documents = $stmt->fetchAll(); ?>
 
                             <input type="hidden" name="id_document" value="<?= (int) $document['id_document'] ?>">
 
+                            <input type="hidden" name="action" value="delete-document">
+
                             <button type="submit" class="delete-button">
                                 Vymazať dokument
                             </button>
@@ -115,6 +119,5 @@ $documents = $stmt->fetchAll(); ?>
 
         </div>
     </main>
-    <script src="../../shared/js/Admin-js/admin-upload-file.js"></script>
-    <script src="../../shared/js/Admin-js/admin-translations-ajax.js"></script>
+    <script src="../../shared/js/Admin-js/admin-scripts.js"></script>
 </body>
