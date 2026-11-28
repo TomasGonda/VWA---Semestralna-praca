@@ -164,7 +164,7 @@ class AdminUploadFile {
 
         this.fileInput.files = files;
 
-        this.documentName.textContent = 'Vybraný súbor: ' + this.file.name;
+        this.documentName.textContent = 'Vybraný súbor: ' + file.name;
     }
 }
 
@@ -233,7 +233,8 @@ class AdminFormsResponds {
             '.edit-translation',
             '.create-translation',
             '.edit-document',
-            '.delete-document'
+            '.delete-document',
+            '.upload-document'
         ];
 
         console.log('Všetky formuláre na stránke:',
